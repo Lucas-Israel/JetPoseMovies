@@ -1,7 +1,6 @@
 package br.com.lucasisrael.jetposemovies.common.di
 
 import br.com.lucasisrael.jetposemovies.BuildConfig.BASE_URL
-import br.com.lucasisrael.jetposemovies.genres.data.api.GenresApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
