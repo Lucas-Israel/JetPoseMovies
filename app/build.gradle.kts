@@ -1,6 +1,11 @@
+import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -18,6 +23,10 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField ("String","TOKEN_BEARER","\"${properties.getProperty("TOKEN_BEARER")}\"")
     }
 
     buildTypes {
@@ -49,6 +58,8 @@ android {
     }
 }
 
+android.buildFeatures.buildConfig = true
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -71,4 +82,15 @@ dependencies {
     implementation(libs.retrofit)
     // Retrofit with Scalar Converter
     implementation(libs.converter.scalars)
+
+    // Dagger hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 }
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
+}
+
+
