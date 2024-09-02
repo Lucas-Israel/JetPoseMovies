@@ -10,4 +10,3 @@ class GenresDataSourceImpl @Inject constructor(private val api: GenresApi): Genr
         return api.getGenres()
     }
 }
-
