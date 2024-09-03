@@ -80,12 +80,15 @@ dependencies {
 
     // Retrofit
     implementation(libs.retrofit)
-    // Retrofit with Scalar Converter
-    implementation(libs.converter.scalars)
+    // Retrofit Gson converter
+    implementation(libs.converter.gson)
 
     // Dagger hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    // okhttp
+    implementation(libs.okhttp)
 }
 
 // Allow references to generated code
