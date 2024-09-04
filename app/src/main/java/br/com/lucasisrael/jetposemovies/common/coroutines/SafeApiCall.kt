@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.common.corroutines
+package br.com.lucasisrael.jetposemovies.common.coroutines
 
 import android.net.http.HttpException
 import android.os.Build
