@@ -2,7 +2,7 @@ package br.com.lucasisrael.jetposemovies.genres.data.repository
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
-import br.com.lucasisrael.jetposemovies.common.corroutines.safeApiCall
+import br.com.lucasisrael.jetposemovies.common.coroutines.safeApiCall
 import br.com.lucasisrael.jetposemovies.common.models.ClientResult
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.GenresDataSource
 import br.com.lucasisrael.jetposemovies.genres.data.response.GenresResponse
