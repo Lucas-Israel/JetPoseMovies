@@ -15,9 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class GenresViewModel @Inject constructor(private val repository: GenresRepository): ViewModel() {
 
+    private val _isLoading = MutableStateFlow(false)
     private val _genres = MutableStateFlow(GenresResponse(listOf()))
-    val genres: MutableStateFlow<GenresResponse>
-        get() = _genres
 
     fun getFromRepository() {
         viewModelScope.launch {
@@ -25,7 +24,7 @@ class GenresViewModel @Inject constructor(private val repository: GenresReposito
                 when(val response = repository.getGenres()) {
                     is ClientResult.ClientSuccess -> {
                         _genres.value = response.data
-                        Log.d("GenresViewModel Success", genres.toString())
+                        Log.d("GenresViewModel Success", _genres.toString())
                     }
                     is ClientResult.ClientError -> {
                         Log.d("GenresViewModel Error", response.toString())
