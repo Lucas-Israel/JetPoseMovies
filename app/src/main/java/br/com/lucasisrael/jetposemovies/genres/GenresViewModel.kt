@@ -1,33 +1,39 @@
 package br.com.lucasisrael.jetposemovies.genres
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.lucasisrael.jetposemovies.common.models.ClientResult
+import br.com.lucasisrael.jetposemovies.common.models.Resource
 import br.com.lucasisrael.jetposemovies.genres.data.repository.GenresRepository
 import br.com.lucasisrael.jetposemovies.genres.data.response.GenresResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GenresViewModel @Inject constructor(private val repository: GenresRepository): ViewModel() {
+class GenresViewModel @Inject constructor(private val repository: GenresRepository) : ViewModel() {
 
-    private val _isLoading = MutableStateFlow(false)
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+
     private val _genres = MutableStateFlow(GenresResponse(listOf()))
+    val genres: StateFlow<GenresResponse> = _genres.asStateFlow()
 
     fun getFromRepository() {
         viewModelScope.launch {
             try {
-                when(val response = repository.getGenres()) {
-                    is ClientResult.ClientSuccess -> {
-                        _genres.value = response.data
-                        Log.d("GenresViewModel Success", _genres.toString())
+                _isLoading.value = true
+                when (val response = repository.getGenres()) {
+                    is Resource.Success -> {
+                        _genres.value = response.data!!
+                        _isLoading.value = false
                     }
-                    is ClientResult.ClientError -> {
-                        Log.d("GenresViewModel Error", response.toString())
+
+                    is Resource.Error -> {
+                        _isLoading.value = false
                     }
                 }
             } catch (e: CancellationException) {
