@@ -87,6 +87,7 @@ dependencies {
     // Dagger hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // okhttp
     implementation(libs.okhttp)
