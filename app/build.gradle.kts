@@ -95,6 +95,9 @@ dependencies {
     // navigation
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.7.0")
 }
 
 // Allow references to generated code
