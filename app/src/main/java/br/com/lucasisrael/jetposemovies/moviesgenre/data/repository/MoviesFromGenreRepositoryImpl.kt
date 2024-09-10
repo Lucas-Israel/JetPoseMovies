@@ -11,9 +11,9 @@ import javax.inject.Inject
 class MoviesFromGenreRepositoryImpl @Inject constructor(private val dataSource: MoviesFromGenreDataSource) :
     MoviesFromGenreRepository {
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    override suspend fun getMoviesFromGenre(): Resource<MoviesFromGenreResponse?> {
+    override suspend fun getMoviesFromGenre(id: String): Resource<MoviesFromGenreResponse?> {
         return safeApiCall {
-            dataSource.getMoviesFromGenre()
+            dataSource.getMoviesFromGenre(id)
         }
     }
 }

@@ -4,5 +4,5 @@ import br.com.lucasisrael.jetposemovies.common.models.Resource
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.respose.MoviesFromGenreResponse
 
 interface MoviesFromGenreRepository {
-    suspend fun getMoviesFromGenre(): Resource<MoviesFromGenreResponse?>
+    suspend fun getMoviesFromGenre(id: String): Resource<MoviesFromGenreResponse?>
 }
