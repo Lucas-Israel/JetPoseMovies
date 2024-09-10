@@ -6,5 +6,8 @@ import retrofit2.http.Query
 
 interface MoviesGenreApi {
     @GET("discover/movie")
-    suspend fun getMoviesFromGenre(@Query("with_genre") id: String): MoviesFromGenreResponse
+    suspend fun getMoviesFromGenre(
+        @Query("with_genres") id: String,
+        @Query("sort_by") sortBy: String = "revenue.desc",
+    ): MoviesFromGenreResponse
 }
