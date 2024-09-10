@@ -1,13 +1,9 @@
 package br.com.lucasisrael.jetposemovies.moviesgenre.data.respose
 
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.JsonNames
 
-data class MoviesFromGenreResponse @OptIn(ExperimentalSerializationApi::class) constructor(
+data class MoviesFromGenreResponse(
     val page: Int,
-    val results: MoviesFromGenreResult,
-    @JsonNames("total_pages")
-    val totalPages: Int,
-    @JsonNames("total_results")
-    val totalResults: Int
+    val results: List<MoviesFromGenreResult>,
+    val total_pages: Int,
+    val total_results: Int
 )
