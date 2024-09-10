@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class MoviesFromGenreDataSourceImpl @Inject constructor(private val api: MoviesGenreApi) :
     MoviesFromGenreDataSource {
-    override suspend fun getMoviesFromGenre(): MoviesFromGenreResponse {
-        return api.getMoviesFromGenre()
+    override suspend fun getMoviesFromGenre(id: String): MoviesFromGenreResponse {
+        return api.getMoviesFromGenre(id)
     }
 }
