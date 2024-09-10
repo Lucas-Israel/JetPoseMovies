@@ -2,9 +2,9 @@ package br.com.lucasisrael.jetposemovies.genres
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.lucasisrael.jetposemovies.common.models.GenresWithImgUrl
 import br.com.lucasisrael.jetposemovies.common.models.Resource
 import br.com.lucasisrael.jetposemovies.genres.data.repository.GenresRepository
-import br.com.lucasisrael.jetposemovies.genres.data.response.GenresResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +19,9 @@ class GenresViewModel @Inject constructor(private val repository: GenresReposito
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _genres = MutableStateFlow(GenresResponse(listOf()))
-    val genres: StateFlow<GenresResponse> = _genres.asStateFlow()
+    private val _genres =
+        MutableStateFlow(mutableListOf(GenresWithImgUrl(0, "", "")))
+    val genres: StateFlow<MutableList<GenresWithImgUrl>> = _genres.asStateFlow()
 
     fun getFromRepository() {
         viewModelScope.launch {
