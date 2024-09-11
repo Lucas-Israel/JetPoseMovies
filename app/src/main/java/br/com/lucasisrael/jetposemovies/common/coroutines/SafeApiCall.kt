@@ -2,7 +2,6 @@ package br.com.lucasisrael.jetposemovies.common.coroutines
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
-import br.com.lucasisrael.jetposemovies.common.models.ClientResult
 import br.com.lucasisrael.jetposemovies.common.models.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
