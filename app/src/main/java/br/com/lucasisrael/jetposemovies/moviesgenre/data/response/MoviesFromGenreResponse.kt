@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.moviesgenre.data.respose
+package br.com.lucasisrael.jetposemovies.moviesgenre.data.response
 
 
 data class MoviesFromGenreResponse(

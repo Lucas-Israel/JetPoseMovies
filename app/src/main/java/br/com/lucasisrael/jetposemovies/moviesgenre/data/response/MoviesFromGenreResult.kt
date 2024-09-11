@@ -1,7 +1,4 @@
-package br.com.lucasisrael.jetposemovies.moviesgenre.data.respose
-
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.JsonNames
+package br.com.lucasisrael.jetposemovies.moviesgenre.data.response
 
 data class MoviesFromGenreResult(
     val adult: Boolean,
