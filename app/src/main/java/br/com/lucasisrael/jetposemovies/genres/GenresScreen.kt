@@ -8,10 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.lucasisrael.jetposemovies.R
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.ui.components.CustomCard
+import br.com.lucasisrael.jetposemovies.common.ui.screen.LoadingScreen
 import br.com.lucasisrael.jetposemovies.common.ui.screen.ScreenStructure
 import kotlinx.serialization.Serializable
 
@@ -26,28 +29,33 @@ fun GenresScreen(
 ) {
 
     val collectingGenres by viewModel.genres.collectAsStateWithLifecycle()
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
-    ScreenStructure {
-        SearchBar(
-            hint = "Search..."
-        ) {
-            viewModel.searchGenres(it)
-        }
-        LazyColumn(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            if (collectingGenres.isNotEmpty()) {
-                collectingGenres.forEach {
-                    item {
-                        CustomCard(
-                            title = it.name,
-                            url = it.imgUrl!!,
-                            modifier = Modifier
-                                .clickable {
-                                    navigationActions.toMovieGenreScreen()
-                                }
-                        )
+    if (isLoading) {
+        LoadingScreen()
+    } else {
+        ScreenStructure {
+            SearchBar(
+                hint = stringResource(R.string.search)
+            ) {
+                viewModel.searchGenres(it)
+            }
+            LazyColumn(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                if (collectingGenres.isNotEmpty()) {
+                    collectingGenres.forEach {
+                        item {
+                            CustomCard(
+                                title = it.name,
+                                url = it.imgUrl,
+                                modifier = Modifier
+                                    .clickable {
+                                        navigationActions.toMovieGenreScreen()
+                                    }
+                            )
+                        }
                     }
                 }
             }
