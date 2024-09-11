@@ -68,7 +68,7 @@ class GenresViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> {
-
+                        _genres.value = listOf()
                     }
                 }
             } catch (e: CancellationException) {
