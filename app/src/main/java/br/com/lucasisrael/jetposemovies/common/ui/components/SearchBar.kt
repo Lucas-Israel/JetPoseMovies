@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 @SuppressWarnings("FunctionNaming")
 @Composable
 fun SearchBar(
-    modifier: Modifier = Modifier,
     hint: String,
     onSearch: (String) -> Unit = {}
 ) {
@@ -33,7 +32,9 @@ fun SearchBar(
         mutableStateOf(hint != "")
     }
 
-    Box(modifier = modifier) {
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .padding(16.dp)) {
         BasicTextField(
             value = text,
             onValueChange = {
