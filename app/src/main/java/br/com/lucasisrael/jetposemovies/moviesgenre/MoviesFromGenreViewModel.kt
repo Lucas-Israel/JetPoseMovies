@@ -2,9 +2,10 @@ package br.com.lucasisrael.jetposemovies.moviesgenre
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.lucasisrael.jetposemovies.common.coroutines.CoroutinesProvider
 import br.com.lucasisrael.jetposemovies.common.models.Resource
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.repository.MoviesFromGenreRepository
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.respose.MoviesFromGenreResponse
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.response.MoviesFromGenreResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesFromGenreViewModel @Inject constructor(private val repository: MoviesFromGenreRepository) :
+class MoviesFromGenreViewModel @Inject constructor(
+    private val repository: MoviesFromGenreRepository,
+    private val coroutinesProvider: CoroutinesProvider
+) :
     ViewModel() {
 
     private val _isLoading = MutableStateFlow(true)
@@ -24,7 +28,7 @@ class MoviesFromGenreViewModel @Inject constructor(private val repository: Movie
     val moviesFromGenre: StateFlow<MoviesFromGenreResponse> = _moviesFromGenre.asStateFlow()
 
     fun getMoviesFromGenreRepository(genreId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutinesProvider.io()) {
             try {
                 _isLoading.value = true
                 when (val response = repository.getMoviesFromGenre(genreId)) {
