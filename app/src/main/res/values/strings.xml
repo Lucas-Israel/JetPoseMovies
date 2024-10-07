@@ -2,4 +2,8 @@
     <string name="app_name">JetPoseMovies</string>
     <string name="loading">Loading</string>
     <string name="search">Search&#8230;</string>
+    <string name="movie_genres">Movie genres</string>
+    <string name="movies">%1$s movies</string>
+    <string name="rating">Rating: %1$s</string>
+    <string name="movie_image_from_the_genre">Movie image from the %1$s genre</string>
 </resources>
