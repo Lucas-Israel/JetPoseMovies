@@ -52,7 +52,7 @@ fun GenresScreen(
                                 url = it.imgUrl,
                                 modifier = Modifier
                                     .clickable {
-                                        navigationActions.toMovieGenreScreen()
+                                        navigationActions.toMovieGenreScreen(it.id.toString())
                                     }
                             )
                         }
