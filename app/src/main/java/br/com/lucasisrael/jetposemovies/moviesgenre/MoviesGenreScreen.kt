@@ -1,43 +1,59 @@
 package br.com.lucasisrael.jetposemovies.moviesgenre
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
+import br.com.lucasisrael.jetposemovies.common.ui.components.CustomCard
+import br.com.lucasisrael.jetposemovies.common.ui.screen.LoadingScreen
+import br.com.lucasisrael.jetposemovies.common.ui.screen.ScreenStructure
 import kotlinx.serialization.Serializable
 
 @Serializable
-object MoviesGenreScreen
+data class MoviesGenreScreen(
+    val genreId: String
+)
 
+@Suppress("FunctionNaming")
 @Composable
-fun MoviesGenreScreen(navigationActions: NavigationActions) {
+fun MoviesGenreScreen(
+    navigationActions: NavigationActions,
+    viewModel: MoviesFromGenreViewModel = hiltViewModel(),
+    genreId: String
+) {
+    viewModel.getMoviesFromGenreRepository(genreId)
+    val collectingMoviesGenre by viewModel.moviesFromGenre.collectAsStateWithLifecycle()
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
-    // TODO movies genre screen
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
-    ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
+    if (isLoading) {
+        LoadingScreen()
+    } else {
+        ScreenStructure {
+            LazyColumn(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-            Text(
-                text = "Movies Genre Screen",
-                modifier = Modifier.padding(16.dp)
-            )
-            Button(onClick = {
-                navigationActions.toDetailsScreen()
-            }) {
-                Text(text = "Go to Details Screen")
+                val results = collectingMoviesGenre.results
+                if (results.isNotEmpty()) {
+                    results.forEach {
+                        item {
+                            CustomCard(
+                                title = it.title,
+                                url = it.poster_path,
+                                modifier = Modifier
+                                    .clickable {
+                                        navigationActions.toDetailsScreen()
+                                    }
+                            )
+                        }
+                    }
+                }
             }
         }
     }
