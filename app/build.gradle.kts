@@ -97,7 +97,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     // Coil
-    implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation(libs.coil.compose)
 }
 
 // Allow references to generated code
