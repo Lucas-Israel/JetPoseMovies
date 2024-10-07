@@ -45,7 +45,8 @@ fun MoviesGenreScreen(
                         item {
                             CustomCard(
                                 title = it.title,
-                                url = it.poster_path ?: "",
+                                url = it.poster_path,
+                                rating = it.vote_average,
                                 modifier = Modifier
                                     .clickable {
                                         navigationActions.toDetailsScreen()
