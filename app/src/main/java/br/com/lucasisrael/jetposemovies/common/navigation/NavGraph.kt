@@ -29,7 +29,8 @@ fun NavGraph() {
             val args = it.toRoute<MoviesGenreScreen>()
             MoviesGenreScreen(
                 navigationActions = navActions,
-                genreId = args.genreId
+                genreId = args.genreId,
+                genreName = args.genreName
             )
         }
 
