@@ -8,8 +8,8 @@ class NavigationActions(
     private val navController: NavHostController,
 ) {
 
-    fun toMovieGenreScreen(genreId: String) {
-        navController.navigate(MoviesGenreScreen(genreId))
+    fun toMovieGenreScreen(genreId: String, genreName: String) {
+        navController.navigate(MoviesGenreScreen(genreId, genreName))
     }
 
     fun toDetailsScreen() {
