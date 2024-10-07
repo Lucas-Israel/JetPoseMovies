@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -52,9 +53,10 @@ fun CustomCard(
 
                 if (rating != null) {
                     Text(
-                        text = "Rating: ${
+                        text = stringResource(
+                            R.string.rating,
                             BigDecimal(rating).setScale(1, RoundingMode.UP).toDouble()
-                        }",
+                        ),
                         modifier = Modifier
                             .padding(10.dp)
                             .fillMaxWidth(),
@@ -66,7 +68,7 @@ fun CustomCard(
 
                 AsyncImage(
                     model = "https://image.tmdb.org/t/p/w500$url",
-                    contentDescription = "Movie image from the $title genre",
+                    contentDescription = stringResource(R.string.movie_image_from_the_genre, title),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
