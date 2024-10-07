@@ -1,6 +1,5 @@
 package br.com.lucasisrael.jetposemovies.genres
 
-
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
@@ -40,16 +39,15 @@ fun GenresScreen(
     } else {
         ScreenStructure {
             Text(
-                text = "Movie Genres",
+                text = stringResource(R.string.movie_genres),
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold
             )
 
-            SearchBar(
-                hint = stringResource(R.string.search)
-            ) {
+            SearchBar {
                 viewModel.searchGenres(it)
             }
+
             LazyColumn(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -62,7 +60,10 @@ fun GenresScreen(
                                 url = it.imgUrl,
                                 modifier = Modifier
                                     .clickable {
-                                        navigationActions.toMovieGenreScreen(it.id.toString())
+                                        navigationActions.toMovieGenreScreen(
+                                            it.id.toString(),
+                                            it.name
+                                        )
                                     }
                             )
                         }
