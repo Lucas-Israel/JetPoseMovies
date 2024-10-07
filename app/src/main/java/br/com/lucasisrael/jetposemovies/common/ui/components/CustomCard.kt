@@ -45,7 +45,7 @@ fun CustomCard(
             ) {
                 AsyncImage(
                     model = "https://image.tmdb.org/t/p/w500$url",
-                    contentDescription = "image of a movie from the $title genre",
+                    contentDescription = "Movie image from the $title genre",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxWidth(),
                 )
