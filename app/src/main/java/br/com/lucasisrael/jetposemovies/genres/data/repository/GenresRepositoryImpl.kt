@@ -12,7 +12,7 @@ import javax.inject.Inject
 class GenresRepositoryImpl @Inject constructor(
     private val genresDataSource: GenresDataSource,
     private val moviesFromGenreDataSource: MoviesFromGenreDataSource
-): GenresRepository {
+) : GenresRepository {
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override suspend fun getGenres(): Resource<MutableList<GenresWithImgUrl>?> {
@@ -22,7 +22,7 @@ class GenresRepositoryImpl @Inject constructor(
             genres.genres.forEach {
                 val id = it.id.toString()
                 val movies = moviesFromGenreDataSource.getMoviesFromGenre(id)
-                payload.add(GenresWithImgUrl(it.id, it.name, movies.results[0].backdrop_path))
+                payload.add(GenresWithImgUrl(it.id, it.name, movies.results[0].backdrop_path ?: ""))
             }
 
             return@safeApiCall payload
