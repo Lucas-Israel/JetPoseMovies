@@ -13,9 +13,9 @@ class MoviesFromGenreRepositoryImpl @Inject constructor(
 ) :
     MoviesFromGenreRepository {
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    override suspend fun getMoviesFromGenre(id: String): Resource<MoviesFromGenreResponse?> {
+    override suspend fun getMoviesFromGenre(id: String, page: Int): Resource<MoviesFromGenreResponse?> {
         return safeApiCall {
-            dataSource.getMoviesFromGenre(id)
+            dataSource.getMoviesFromGenre(id, page)
         }
     }
 }

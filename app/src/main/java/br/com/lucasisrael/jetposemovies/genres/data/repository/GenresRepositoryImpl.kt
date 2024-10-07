@@ -21,7 +21,7 @@ class GenresRepositoryImpl @Inject constructor(
             val genres = genresDataSource.getGenres()
             genres.genres.forEach {
                 val id = it.id.toString()
-                val movies = moviesFromGenreDataSource.getMoviesFromGenre(id)
+                val movies = moviesFromGenreDataSource.getMoviesFromGenre(id, page = 1)
                 payload.add(GenresWithImgUrl(it.id, it.name, movies.results[0].poster_path))
             }
 

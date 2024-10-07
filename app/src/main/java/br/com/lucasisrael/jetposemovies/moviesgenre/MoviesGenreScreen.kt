@@ -37,7 +37,7 @@ fun MoviesGenreScreen(
     genreName: String
 ) {
     LaunchedEffect(Unit) {
-        viewModel.getMoviesFromGenreRepository(genreId)
+        viewModel.getMoviesFromGenreRepository(genreId, page = 1)
     }
 
     val collectingMoviesGenre by viewModel.moviesFromGenre.collectAsStateWithLifecycle()

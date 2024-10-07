@@ -63,11 +63,11 @@ class MoviesFromGenreViewModel @Inject constructor(
         }
     }
 
-    fun getMoviesFromGenreRepository(genreId: String) {
+    fun getMoviesFromGenreRepository(genreId: String, page: Int) {
         viewModelScope.launch(coroutinesProvider.io()) {
             try {
                 _isLoading.value = true
-                when (val response = repository.getMoviesFromGenre(genreId)) {
+                when (val response = repository.getMoviesFromGenre(genreId, page)) {
                     is Resource.Success -> {
                         _moviesFromGenre.value = response.data!!
                     }
