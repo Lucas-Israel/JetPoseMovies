@@ -42,8 +42,7 @@ class MoviesFromGenreViewModel @Inject constructor(
                 }
             } catch (e: CancellationException) {
                 e.printStackTrace()
-            }
-            finally {
+            } finally {
                 _isLoading.value = false
             }
         }
