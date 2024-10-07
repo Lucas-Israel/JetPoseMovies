@@ -1,6 +1,11 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -18,6 +23,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField ("String","TOKEN_BEARER","\"${properties.getProperty("TOKEN_BEARER")}\"")
+        buildConfigField("String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\"")
     }
 
     buildTypes {
@@ -49,6 +59,8 @@ android {
     }
 }
 
+android.buildFeatures.buildConfig = true
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -66,4 +78,31 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    // Retrofit Gson converter
+    implementation(libs.converter.gson)
+
+    // Dagger hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    // okhttp
+    implementation(libs.okhttp)
+
+    // navigation
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
+
+    // Coil
+    implementation(libs.coil.compose)
 }
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
+}
+
+
