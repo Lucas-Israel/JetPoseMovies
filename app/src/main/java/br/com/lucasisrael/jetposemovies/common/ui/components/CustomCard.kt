@@ -15,16 +15,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.lucasisrael.jetposemovies.R
 import coil.compose.AsyncImage
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 @SuppressWarnings("FunctionNaming")
 @Composable
 fun CustomCard(
     title: String,
-    url: String,
+    url: String? = "",
+    rating: Double? = null,
     modifier: Modifier,
 ) {
     Box(
@@ -45,6 +49,21 @@ fun CustomCard(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
+
+                if (rating != null) {
+                    Text(
+                        text = "Rating: ${
+                            BigDecimal(rating).setScale(1, RoundingMode.UP).toDouble()
+                        }",
+                        modifier = Modifier
+                            .padding(10.dp)
+                            .fillMaxWidth(),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp,
+                        textAlign = TextAlign.Right
+                    )
+                }
+
                 AsyncImage(
                     model = "https://image.tmdb.org/t/p/w500$url",
                     contentDescription = "Movie image from the $title genre",
