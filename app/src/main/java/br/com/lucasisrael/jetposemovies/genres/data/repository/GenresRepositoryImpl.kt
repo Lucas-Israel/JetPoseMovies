@@ -22,7 +22,7 @@ class GenresRepositoryImpl @Inject constructor(
             genres.genres.forEach {
                 val id = it.id.toString()
                 val movies = moviesFromGenreDataSource.getMoviesFromGenre(id)
-                payload.add(GenresWithImgUrl(it.id, it.name, movies.results[0].backdrop_path ?: ""))
+                payload.add(GenresWithImgUrl(it.id, it.name, movies.results[0].poster_path))
             }
 
             return@safeApiCall payload
