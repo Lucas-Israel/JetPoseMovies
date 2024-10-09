@@ -19,7 +19,7 @@ class GenresRepositoryImpl @Inject constructor(
         return safeApiCall {
             val payload: MutableList<GenresWithImgUrl> = mutableListOf()
             val genres = genresDataSource.getGenres()
-            genres.genres.forEach {
+            genres.forEach {
                 val id = it.id.toString()
                 val movies = moviesFromGenreDataSource.getMoviesFromGenre(id, page = 1)
                 payload.add(GenresWithImgUrl(it.id, it.name, movies.results[0].poster_path))
