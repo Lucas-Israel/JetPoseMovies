@@ -98,6 +98,16 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+
+    // Paging3
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+
+    // Room
+    implementation(libs.androidx.room.ktx)
+    //noinspection KaptUsageInsteadOfKsp
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.paging)
 }
 
 // Allow references to generated code
