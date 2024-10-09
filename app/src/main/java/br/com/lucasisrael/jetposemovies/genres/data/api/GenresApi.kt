@@ -1,6 +1,6 @@
 package br.com.lucasisrael.jetposemovies.genres.data.api
 
-import br.com.lucasisrael.jetposemovies.genres.data.response.GenresResponse
+import br.com.lucasisrael.jetposemovies.genres.data.models.response.GenresResponse
 import retrofit2.http.GET
 
 interface GenresApi {
