@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.genres
+package br.com.lucasisrael.jetposemovies.genres.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
