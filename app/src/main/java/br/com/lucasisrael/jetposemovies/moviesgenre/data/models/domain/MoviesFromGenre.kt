@@ -1,6 +1,6 @@
-package br.com.lucasisrael.jetposemovies.moviesgenre.data.response
+package br.com.lucasisrael.jetposemovies.moviesgenre.data.models.domain
 
-data class MoviesFromGenreResult(
+data class MoviesFromGenre(
     val adult: Boolean,
     val backdrop_path: String?,
     val genre_ids: List<Int>,
