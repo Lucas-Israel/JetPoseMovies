@@ -5,7 +5,7 @@ import androidx.annotation.RequiresExtension
 import br.com.lucasisrael.jetposemovies.common.coroutines.safeApiCall
 import br.com.lucasisrael.jetposemovies.common.models.Resource
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.MoviesFromGenreDataSource
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.response.MoviesFromGenreResponse
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.response.MoviesFromGenreResponse
 import javax.inject.Inject
 
 class MoviesFromGenreRepositoryImpl @Inject constructor(

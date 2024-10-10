@@ -2,7 +2,7 @@ package br.com.lucasisrael.jetposemovies.common.navigation
 
 import br.com.lucasisrael.jetposemovies.details.DetailsScreen
 import br.com.lucasisrael.jetposemovies.genres.presentation.GenresScreen
-import br.com.lucasisrael.jetposemovies.moviesgenre.MoviesGenreScreen
+import br.com.lucasisrael.jetposemovies.moviesgenre.presentation.MoviesGenreScreen
 
 object Screens {
     val GENRES_SCREEN = GenresScreen

@@ -1,6 +1,6 @@
 package br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource
 
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.response.MoviesFromGenreResponse
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.response.MoviesFromGenreResponse
 
 interface MoviesFromGenreDataSource {
     suspend fun getMoviesFromGenre(id: String, page: Int): MoviesFromGenreResponse

@@ -7,7 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import br.com.lucasisrael.jetposemovies.details.DetailsScreen
 import br.com.lucasisrael.jetposemovies.genres.presentation.GenresScreen
-import br.com.lucasisrael.jetposemovies.moviesgenre.MoviesGenreScreen
+import br.com.lucasisrael.jetposemovies.moviesgenre.presentation.MoviesGenreScreen
 
 @Suppress("FunctionNaming")
 @Composable
