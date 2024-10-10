@@ -1,6 +1,7 @@
 package br.com.lucasisrael.jetposemovies.genres.di
 
-import br.com.lucasisrael.jetposemovies.genres.data.datasource.GenresDataSource
+import br.com.lucasisrael.jetposemovies.genres.data.datasource.local.GenresLocal
+import br.com.lucasisrael.jetposemovies.genres.data.datasource.remote.GenresRemote
 import br.com.lucasisrael.jetposemovies.genres.data.repository.GenresRepository
 import br.com.lucasisrael.jetposemovies.genres.data.repository.GenresRepositoryImpl
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.MoviesFromGenreDataSource
@@ -17,9 +18,10 @@ object GenresRepositoryModule {
     @Provides
     @Singleton
     fun provideGenresRepository(
-        dataSource: GenresDataSource,
-        moviesFromGenreDataSource: MoviesFromGenreDataSource
+        genresRemote: GenresRemote,
+        moviesFromGenreDataSource: MoviesFromGenreDataSource,
+        genresLocal: GenresLocal
     ): GenresRepository {
-        return GenresRepositoryImpl(dataSource, moviesFromGenreDataSource)
+        return GenresRepositoryImpl(genresRemote, moviesFromGenreDataSource, genresLocal)
     }
 }
