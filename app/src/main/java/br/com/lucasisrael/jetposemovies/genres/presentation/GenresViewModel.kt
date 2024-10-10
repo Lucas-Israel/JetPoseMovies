@@ -62,7 +62,7 @@ class GenresViewModel @Inject constructor(
         viewModelScope.launch(coroutinesProvider.io()) {
             try {
                 _isLoading.value = true
-                when (val response = repository.getGenres()) {
+                when (val response = repository.getGenresWithImage()) {
                     is Resource.Success -> {
                         _genres.value = response.data!!
                     }
