@@ -1,12 +1,12 @@
-package br.com.lucasisrael.jetposemovies.moviesgenre
+package br.com.lucasisrael.jetposemovies.moviesgenre.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.lucasisrael.jetposemovies.common.coroutines.CoroutinesProvider
 import br.com.lucasisrael.jetposemovies.common.models.Resource
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.repository.MoviesFromGenreRepository
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.response.MoviesFromGenreResponse
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.response.MoviesFromGenreResult
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.response.MoviesFromGenreResponse
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.remote.MoviesFromGenreDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,7 +29,7 @@ class MoviesFromGenreViewModel @Inject constructor(
     val moviesFromGenre: StateFlow<MoviesFromGenreResponse> = _moviesFromGenre.asStateFlow()
 
     private var cachedMoviesFromGenre =
-        MoviesFromGenreResponse(0, listOf<MoviesFromGenreResult>(), 0, 0)
+        MoviesFromGenreResponse(0, listOf<MoviesFromGenreDto>(), 0, 0)
     private var isSearchStarting = true
 
     fun searchMoviesFromGenre(query: String) {
