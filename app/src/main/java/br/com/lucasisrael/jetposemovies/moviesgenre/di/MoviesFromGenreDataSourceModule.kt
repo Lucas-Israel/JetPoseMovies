@@ -1,6 +1,9 @@
 package br.com.lucasisrael.jetposemovies.moviesgenre.di
 
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.api.MoviesGenreApi
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.database.MoviesFromGenreDao
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.local.MoviesFromGenreLocal
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.local.MoviesFromGenreLocalImpl
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.remote.MoviesFromGenreRemote
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.remote.MoviesFromGenreRemoteImpl
 import dagger.Module
@@ -15,7 +18,13 @@ object MoviesFromGenreDataSourceModule {
 
     @Singleton
     @Provides
-    fun provideMoviesFromGenreDataSource(api: MoviesGenreApi) : MoviesFromGenreRemote {
+    fun provideMoviesFromGenreRemoteDataSource(api: MoviesGenreApi) : MoviesFromGenreRemote {
         return MoviesFromGenreRemoteImpl(api)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMoviesFromGenreLocalDataSource(dao: MoviesFromGenreDao) : MoviesFromGenreLocal {
+        return MoviesFromGenreLocalImpl(dao)
     }
 }
