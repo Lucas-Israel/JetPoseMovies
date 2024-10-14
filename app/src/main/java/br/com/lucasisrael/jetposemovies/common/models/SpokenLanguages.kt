@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.details.data.models.response
+package br.com.lucasisrael.jetposemovies.common.models
 
 data class SpokenLanguages(
     val english_name: String,
