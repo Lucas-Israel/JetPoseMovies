@@ -2,7 +2,6 @@ package br.com.lucasisrael.jetposemovies.genres.di
 
 import br.com.lucasisrael.jetposemovies.genres.data.api.GenresApi
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.database.GenreDao
-import br.com.lucasisrael.jetposemovies.genres.data.datasource.database.GenreDataBase
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.local.GenresLocal
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.local.GenresLocalImpl
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.remote.GenresRemote
