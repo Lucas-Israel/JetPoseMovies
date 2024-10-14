@@ -1,7 +1,7 @@
-package br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource
+package br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.remote
 
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.response.MoviesFromGenreResponse
 
-interface MoviesFromGenreDataSource {
+interface MoviesFromGenreRemote {
     suspend fun getMoviesFromGenre(id: String, page: Int): MoviesFromGenreResponse
 }

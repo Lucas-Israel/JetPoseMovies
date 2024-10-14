@@ -1,22 +1,19 @@
 package br.com.lucasisrael.jetposemovies.genres.data.repository
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresExtension
 import br.com.lucasisrael.jetposemovies.common.coroutines.safeApiCall
 import br.com.lucasisrael.jetposemovies.common.models.GenresWithImgUrl
 import br.com.lucasisrael.jetposemovies.common.models.Resource
-import br.com.lucasisrael.jetposemovies.genres.data.datasource.database.GenreDao
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.local.GenresLocal
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.remote.GenresRemote
 import br.com.lucasisrael.jetposemovies.genres.data.mappers.toGenresEntity
-import br.com.lucasisrael.jetposemovies.genres.data.models.local.GenreEntity
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.MoviesFromGenreDataSource
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.remote.MoviesFromGenreRemote
 import javax.inject.Inject
 
 class GenresRepositoryImpl @Inject constructor(
     private val genresRemote: GenresRemote,
-    private val moviesFromGenreDataSource: MoviesFromGenreDataSource,
+    private val moviesFromGenreDataSource: MoviesFromGenreRemote,
     private val genresLocal: GenresLocal
 ) : GenresRepository {
 
