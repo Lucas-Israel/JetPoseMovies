@@ -26,7 +26,7 @@ class DetailsViewModel @Inject constructor(
     private val _details = MutableStateFlow<Details?>(null)
     val details: StateFlow<Details?> = _details.asStateFlow()
 
-    private fun getFromRepository(movieId: String) {
+    fun getFromRepository(movieId: String) {
         viewModelScope.launch(coroutinesProvider.io()) {
             try {
                 _isLoading.value = true
@@ -39,6 +39,7 @@ class DetailsViewModel @Inject constructor(
                         _details.value = null
                     }
                 }
+
             } catch (e: CancellationException) {
                 e.printStackTrace()
             } finally {
