@@ -1,5 +1,7 @@
 package br.com.lucasisrael.jetposemovies.details.data.repository
 
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import br.com.lucasisrael.jetposemovies.common.coroutines.safeApiCall
 import br.com.lucasisrael.jetposemovies.common.models.Resource
 import br.com.lucasisrael.jetposemovies.details.data.datasource.local.DetailsLocal
@@ -14,6 +16,7 @@ class DetailsRepositoryImpl @Inject constructor(
     private val detailsLocal: DetailsLocal
 ): DetailsRepository {
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override suspend fun getDetails(movieId: String): Resource<Details?> {
         return safeApiCall {
             refreshDetails(movieId)
@@ -21,6 +24,7 @@ class DetailsRepositoryImpl @Inject constructor(
         }
     }
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override suspend fun refreshDetails(movieId: String) {
         safeApiCall {
 
