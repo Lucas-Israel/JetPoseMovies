@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.local.MovieFromGenreEntity
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.local.MoviesFromGenreEntity
 
 @Database(
-    entities = [MovieFromGenreEntity::class],
+    entities = [MoviesFromGenreEntity::class],
     version = 1
 )
 abstract class MoviesFromGenreDataBase : RoomDatabase() {
