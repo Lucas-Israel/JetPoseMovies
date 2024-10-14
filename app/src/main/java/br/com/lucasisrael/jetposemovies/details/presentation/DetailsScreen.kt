@@ -1,37 +1,48 @@
 package br.com.lucasisrael.jetposemovies.details.presentation
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
+import br.com.lucasisrael.jetposemovies.common.ui.components.CustomCard
+import br.com.lucasisrael.jetposemovies.common.ui.screen.LoadingScreen
+import br.com.lucasisrael.jetposemovies.common.ui.screen.ScreenStructure
 import kotlinx.serialization.Serializable
 
 @Serializable
-object DetailsScreen
+data class DetailsScreen(
+    val movieId: String
+)
 
+@Suppress("FunctionNaming")
 @Composable
-fun DetailsScreen() {
+fun DetailsScreen(
+    navigationActions: NavigationActions,
+    viewModel: DetailsViewModel = hiltViewModel()
+) {
+    LaunchedEffect(Unit) {
+        viewModel.getFromRepository("533535")
+    }
 
-    // TODO movie details screen
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
-    ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = "Movie Details Screen",
-                modifier = Modifier.padding(16.dp)
-            )
+    val collectingDetails by viewModel.details.collectAsStateWithLifecycle()
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
+
+
+    if (isLoading) {
+        LoadingScreen()
+    } else {
+        ScreenStructure {
+            collectingDetails?.let {
+                CustomCard(
+                    title = it.title,
+                    url = it.poster_path,
+                    modifier = Modifier
+                )
+            }
+
         }
     }
 }
