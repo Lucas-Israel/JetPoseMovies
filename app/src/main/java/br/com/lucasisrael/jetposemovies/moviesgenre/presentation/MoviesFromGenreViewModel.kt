@@ -3,10 +3,11 @@ package br.com.lucasisrael.jetposemovies.moviesgenre.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.lucasisrael.jetposemovies.common.coroutines.CoroutinesProvider
+import br.com.lucasisrael.jetposemovies.common.models.Movie
 import br.com.lucasisrael.jetposemovies.common.models.Resource
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.mappers.toMoviesFromGenre
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.domain.MoviesFromGenre
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.repository.MoviesFromGenreRepository
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.response.MoviesFromGenreResponse
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.remote.MoviesFromGenreDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,11 +26,11 @@ class MoviesFromGenreViewModel @Inject constructor(
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
     private val _moviesFromGenre =
-        MutableStateFlow(MoviesFromGenreResponse(0, listOf(), 0, 0))
-    val moviesFromGenre: StateFlow<MoviesFromGenreResponse> = _moviesFromGenre.asStateFlow()
+        MutableStateFlow(MoviesFromGenre(0, listOf(), 0, 0))
+    val moviesFromGenre: StateFlow<MoviesFromGenre> = _moviesFromGenre.asStateFlow()
 
     private var cachedMoviesFromGenre =
-        MoviesFromGenreResponse(0, listOf<MoviesFromGenreDto>(), 0, 0)
+        MoviesFromGenre(0, listOf<Movie>(), 0, 0)
     private var isSearchStarting = true
 
     fun searchMoviesFromGenre(query: String) {
@@ -48,7 +49,7 @@ class MoviesFromGenreViewModel @Inject constructor(
                 it.title.contains(query.trim(), ignoreCase = true)
             }
 
-            val totalResult = MoviesFromGenreResponse(
+            val totalResult = MoviesFromGenre(
                 _moviesFromGenre.value.page,
                 results,
                 _moviesFromGenre.value.total_pages,
@@ -69,7 +70,7 @@ class MoviesFromGenreViewModel @Inject constructor(
                 _isLoading.value = true
                 when (val response = repository.getMoviesFromGenre(genreId, page)) {
                     is Resource.Success -> {
-                        _moviesFromGenre.value = response.data!!
+                        _moviesFromGenre.value = response.data!!.toMoviesFromGenre()
                     }
 
                     is Resource.Error -> {
