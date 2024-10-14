@@ -1,9 +1,9 @@
 package br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.local
 
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.local.MovieFromGenreEntity
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.remote.MovieFromGenreDto
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.local.MoviesFromGenreEntity
+import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.remote.MoviesFromGenreDto
 
 interface MoviesFromGenreLocal {
-    suspend fun saveMoviesFromGenreToDataBase(movies: List<MovieFromGenreDto>)
-    suspend fun getMoviesFromGenreFromDataBase(): List<MovieFromGenreEntity>
+    suspend fun saveMoviesFromGenreToDataBase(movies: MoviesFromGenreDto)
+    suspend fun getMoviesFromGenreFromDataBase(): MoviesFromGenreEntity
 }
