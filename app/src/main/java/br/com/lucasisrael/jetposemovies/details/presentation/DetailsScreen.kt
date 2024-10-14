@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.details
+package br.com.lucasisrael.jetposemovies.details.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

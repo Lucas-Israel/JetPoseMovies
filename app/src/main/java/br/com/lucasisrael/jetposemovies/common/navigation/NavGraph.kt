@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import br.com.lucasisrael.jetposemovies.details.DetailsScreen
+import br.com.lucasisrael.jetposemovies.details.presentation.DetailsScreen
 import br.com.lucasisrael.jetposemovies.genres.presentation.GenresScreen
 import br.com.lucasisrael.jetposemovies.moviesgenre.presentation.MoviesGenreScreen
 

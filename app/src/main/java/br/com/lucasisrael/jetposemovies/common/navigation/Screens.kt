@@ -1,6 +1,6 @@
 package br.com.lucasisrael.jetposemovies.common.navigation
 
-import br.com.lucasisrael.jetposemovies.details.DetailsScreen
+import br.com.lucasisrael.jetposemovies.details.presentation.DetailsScreen
 import br.com.lucasisrael.jetposemovies.genres.presentation.GenresScreen
 import br.com.lucasisrael.jetposemovies.moviesgenre.presentation.MoviesGenreScreen
 
