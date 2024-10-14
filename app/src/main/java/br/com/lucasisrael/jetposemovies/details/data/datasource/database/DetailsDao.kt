@@ -13,6 +13,6 @@ interface DetailsDao {
     suspend fun insertDetails(details: DetailsEntity)
 
     @Query("SELECT * from detailsentity")
-    suspend fun getDetails()
+    suspend fun getDetails(): DetailsEntity
 
 }
