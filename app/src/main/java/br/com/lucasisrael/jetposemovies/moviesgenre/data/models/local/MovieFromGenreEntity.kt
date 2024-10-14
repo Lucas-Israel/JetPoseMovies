@@ -1,9 +1,14 @@
-package br.com.lucasisrael.jetposemovies.moviesgenre.data.models.remote
+package br.com.lucasisrael.jetposemovies.moviesgenre.data.models.local
 
-data class MoviesFromGenreDto(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class MovieFromGenreEntity(
     val adult: Boolean,
     val backdrop_path: String?,
     val genre_ids: List<Int>,
+    @PrimaryKey
     val id: Int,
     val original_language: String,
     val original_Title: String,
