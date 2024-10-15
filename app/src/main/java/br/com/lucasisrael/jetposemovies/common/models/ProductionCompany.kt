@@ -1,8 +1,12 @@
 package br.com.lucasisrael.jetposemovies.common.models
 
+import androidx.room.ColumnInfo
+
 data class ProductionCompany(
     val id: Int,
-    val logo_path: String,
+    @ColumnInfo(name = "logo_path")
+    val logoPath: String,
     val name: String,
-    val origin_country: String
+    @ColumnInfo(name = "origin_country")
+    val originCountry: String
 )

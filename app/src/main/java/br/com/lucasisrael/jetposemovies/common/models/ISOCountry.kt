@@ -1,6 +1,9 @@
 package br.com.lucasisrael.jetposemovies.common.models
 
+import androidx.room.ColumnInfo
+
 data class ISOCountry(
-    val iso_3166_1: String,
+    @ColumnInfo(name = "iso_3166_1")
+    val iso3166u1: String,
     val name: String,
 )

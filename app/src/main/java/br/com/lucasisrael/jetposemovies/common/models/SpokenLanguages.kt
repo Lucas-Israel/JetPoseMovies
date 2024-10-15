@@ -1,7 +1,11 @@
 package br.com.lucasisrael.jetposemovies.common.models
 
+import androidx.room.ColumnInfo
+
 data class SpokenLanguages(
-    val english_name: String,
-    val iso_639_1: String,
+    @ColumnInfo(name = "english_name")
+    val englishName: String,
+    @ColumnInfo(name = "iso_639_1")
+    val iso6391: String,
     val name: String,
 )

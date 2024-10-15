@@ -7,18 +7,18 @@ import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.response.MoviesF
 
 fun MoviesFromGenreResponse.toMoviesFromGenreDto(): MoviesFromGenreDto {
     return MoviesFromGenreDto(
-        page, results, total_pages, total_results
+        page, results, totalPages, totalResults
     )
 }
 
 fun MoviesFromGenreDto.toMoviesFromGenreEntity(): MoviesFromGenreEntity {
     return MoviesFromGenreEntity(
-        page, results, total_pages, total_results
+        page, page, results, totalPages, totalResults
     )
 }
 
 fun MoviesFromGenreEntity.toMoviesFromGenre(): MoviesFromGenre {
     return MoviesFromGenre(
-        page, results, total_pages, total_results
+        page, results, totalPages, totalResults
     )
 }

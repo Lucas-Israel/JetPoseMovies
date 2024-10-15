@@ -27,7 +27,7 @@ class GenresRepositoryImpl @Inject constructor(
             genres.map {
                 val id = it.id.toString()
                 val movies = moviesFromGenreDataSource.getMoviesFromGenre(id, page = 1)
-                val imageUrlForGenre = movies.results[0].poster_path
+                val imageUrlForGenre = movies.results[0].posterPath
                 GenresWithImgUrl(it.id, it.name, imageUrlForGenre)
             }
         }

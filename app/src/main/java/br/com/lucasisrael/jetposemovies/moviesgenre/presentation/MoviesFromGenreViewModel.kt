@@ -52,8 +52,8 @@ class MoviesFromGenreViewModel @Inject constructor(
             val totalResult = MoviesFromGenre(
                 _moviesFromGenre.value.page,
                 results,
-                _moviesFromGenre.value.total_pages,
-                _moviesFromGenre.value.total_results
+                _moviesFromGenre.value.totalPages,
+                _moviesFromGenre.value.totalResults
             )
 
             if (isSearchStarting) {
