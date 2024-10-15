@@ -8,7 +8,7 @@ class DetailsLocalImpl @Inject constructor(
     private val detailsDao: DetailsDao
 ): DetailsLocal {
 
-    override suspend fun saveDetails(details: DetailsEntity) {
+    override suspend fun saveDetailsToDataBase(details: DetailsEntity) {
         detailsDao.insertDetails(details)
     }
 
