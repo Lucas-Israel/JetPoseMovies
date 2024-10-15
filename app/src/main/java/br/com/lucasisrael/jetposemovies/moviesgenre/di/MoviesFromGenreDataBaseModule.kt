@@ -27,11 +27,8 @@ object MoviesFromGenreDataBaseModule {
     }
 
     @Provides
-    @Singleton
-    suspend fun provideMoviesFromGenreDao(dataBase: MoviesFromGenreDataBase): MoviesFromGenreDao {
-        return dataBase.withTransaction {
-            dataBase.movieDao()
-        }
+    fun provideMoviesFromGenreDao(dataBase: MoviesFromGenreDataBase): MoviesFromGenreDao {
+        return dataBase.movieDao()
     }
 
 }

@@ -2,7 +2,6 @@ package br.com.lucasisrael.jetposemovies.genres.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.withTransaction
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.database.GenreDao
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.database.GenreDataBase
 import dagger.Module
@@ -27,10 +26,7 @@ object GenresDataBaseModule {
     }
 
     @Provides
-    @Singleton
-    suspend fun provideGenreDao(dataBase: GenreDataBase): GenreDao {
-        return dataBase.withTransaction {
-            dataBase.genreDao()
-        }
+    fun provideGenreDao(dataBase: GenreDataBase): GenreDao {
+        return dataBase.genreDao()
     }
 }

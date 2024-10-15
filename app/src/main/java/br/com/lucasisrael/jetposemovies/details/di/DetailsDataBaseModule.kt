@@ -27,10 +27,7 @@ object DetailsDataBaseModule {
     }
 
     @Provides
-    @Singleton
-    suspend fun provideDetailsDao(dataBase: DetailsDataBase): DetailsDao {
-        return dataBase.withTransaction {
-            dataBase.detailsDao()
-        }
+    fun provideDetailsDao(dataBase: DetailsDataBase): DetailsDao {
+        return dataBase.detailsDao()
     }
 }
