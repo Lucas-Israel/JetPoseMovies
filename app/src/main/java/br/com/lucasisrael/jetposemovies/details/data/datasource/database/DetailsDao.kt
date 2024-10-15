@@ -12,7 +12,7 @@ interface DetailsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDetails(details: DetailsEntity)
 
-    @Query("SELECT * from detailsentity")
+    @Query("SELECT * from details_structure")
     suspend fun getDetails(): DetailsEntity
 
 }
