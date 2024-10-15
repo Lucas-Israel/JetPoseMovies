@@ -1,18 +1,28 @@
 package br.com.lucasisrael.jetposemovies.common.models
 
+import androidx.room.ColumnInfo
+
 data class Movie(
     val adult: Boolean,
-    val backdrop_path: String?,
-    val genre_ids: List<Int>,
+    @ColumnInfo(name = "backdrop_path")
+    val backdropPath: String?,
+    @ColumnInfo(name = "genre_ids")
+    val genreIds: List<Int>,
     val id: Int,
-    val original_language: String,
-    val original_Title: String,
+    @ColumnInfo(name = "original_language")
+    val originalLanguage: String,
+    @ColumnInfo(name = "original_Title")
+    val originalTitle: String,
     val overview: String,
     val popularity: Double,
-    val poster_path: String?,
-    val release_date: String,
+    @ColumnInfo(name = "poster_path")
+    val posterPath: String?,
+    @ColumnInfo(name = "release_date")
+    val releaseDate: String,
     val title: String,
     val video: Boolean,
-    val vote_average: Double,
-    val vote_count: Int
+    @ColumnInfo(name = "vote_average")
+    val voteAverage: Double,
+    @ColumnInfo(name = "vote_count")
+    val voteCount: Int
 )
