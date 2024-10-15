@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import br.com.lucasisrael.jetposemovies.details.data.datasource.converters.DetailsTypeConverters
 import br.com.lucasisrael.jetposemovies.details.data.models.local.DetailsEntity
 
 @Database(
     entities = [DetailsEntity::class],
     version = 1
 )
+@TypeConverters(DetailsTypeConverters::class)
 abstract class DetailsDataBase : RoomDatabase() {
 
     abstract fun detailsDao(): DetailsDao
