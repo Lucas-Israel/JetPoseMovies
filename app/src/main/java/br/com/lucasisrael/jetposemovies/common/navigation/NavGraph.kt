@@ -35,7 +35,11 @@ fun NavGraph() {
         }
 
         composable<DetailsScreen> {
-            DetailsScreen()
+            val args = it.toRoute<DetailsScreen>()
+            DetailsScreen(
+                navigationActions = navActions,
+                movieId = args.movieId
+            )
         }
     }
 
