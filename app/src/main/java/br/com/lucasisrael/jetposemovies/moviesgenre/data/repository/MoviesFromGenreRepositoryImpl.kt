@@ -6,7 +6,6 @@ import br.com.lucasisrael.jetposemovies.common.coroutines.safeApiCall
 import br.com.lucasisrael.jetposemovies.common.models.Resource
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.local.MoviesFromGenreLocal
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.remote.MoviesFromGenreRemote
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.mappers.toMoviesFromGenreEntity
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.local.MoviesFromGenreEntity
 import javax.inject.Inject
 
@@ -28,7 +27,7 @@ class MoviesFromGenreRepositoryImpl @Inject constructor(
     override suspend fun refreshMoviesFromGenre(genreId: String, page: Int) {
         safeApiCall {
             moviesLocal.saveMoviesFromGenreToDataBase(
-                moviesRemote.getMoviesFromGenre(genreId, page).toMoviesFromGenreEntity()
+                moviesRemote.getMoviesFromGenre(genreId, page)
             )
         }
     }
