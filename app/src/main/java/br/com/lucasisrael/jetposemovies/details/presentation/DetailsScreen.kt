@@ -21,7 +21,8 @@ data class DetailsScreen(
 @Composable
 fun DetailsScreen(
     navigationActions: NavigationActions,
-    viewModel: DetailsViewModel = hiltViewModel()
+    viewModel: DetailsViewModel = hiltViewModel(),
+    movieId: String
 ) {
     LaunchedEffect(Unit) {
         viewModel.getFromRepository("533535")
@@ -38,7 +39,7 @@ fun DetailsScreen(
             collectingDetails?.let {
                 CustomCard(
                     title = it.title,
-                    url = it.poster_path,
+                    url = it.posterPath,
                     modifier = Modifier
                 )
             }
