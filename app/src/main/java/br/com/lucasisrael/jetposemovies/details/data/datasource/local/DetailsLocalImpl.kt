@@ -9,6 +9,7 @@ class DetailsLocalImpl @Inject constructor(
 ): DetailsLocal {
 
     override suspend fun saveDetailsToDataBase(details: DetailsEntity) {
+        detailsDao.clear()
         detailsDao.insertDetails(details)
     }
 
