@@ -37,7 +37,7 @@ data class DetailsEntity(
     @ColumnInfo(name = "imdb_id")
     val imdbId: String,
     @ColumnInfo(name = "origin_country")
-    val originCountry: String,
+    val originCountry: List<String>,
     @ColumnInfo(name = "original_language")
     val originalLanguage: String,
     @ColumnInfo(name = "original_title")
@@ -52,7 +52,7 @@ data class DetailsEntity(
     val productionCountries: List<ISOCountry>,
     @ColumnInfo(name = "release_date")
     val releaseDate: String,
-    val revenue: Int,
+    val revenue: Long,
     val runtime: Int,
     @ColumnInfo(name = "spoken_languages")
     val spokenLanguages: List<SpokenLanguages>,
