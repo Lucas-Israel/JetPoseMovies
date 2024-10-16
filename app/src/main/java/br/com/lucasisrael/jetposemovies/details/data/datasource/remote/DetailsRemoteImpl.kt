@@ -8,7 +8,9 @@ import javax.inject.Inject
 class DetailsRemoteImpl @Inject constructor(private val api: DetailsApi) : DetailsRemote {
 
     override suspend fun getDetailsById(movieId: String): DetailsDto {
-        return api.getDetailsById(movieId).toDetailsDto()
+        val response = api.getDetailsById(movieId)
+
+        return response.toDetailsDto()
     }
 
 }
