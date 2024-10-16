@@ -8,43 +8,43 @@ import br.com.lucasisrael.jetposemovies.genres.data.models.remote.GenreDto
 import com.google.gson.annotations.SerializedName
 
 data class DetailsResponse(
-    val adult: Boolean,
+    val adult: Boolean?,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: MovieCollection,
-    val budget: Int,
-    val genres: List<GenreDto>,
-    val homepage: String,
-    val id: Int,
+    val belongsToCollection: MovieCollection?,
+    val budget: Int?,
+    val genres: List<GenreDto>?,
+    val homepage: String?,
+    val id: Int?,
     @SerializedName("imdb_id")
-    val imdbId: String,
+    val imdbId: String?,
     @SerializedName("origin_country")
-    val originCountry: List<String>,
+    val originCountry: List<String>?,
     @SerializedName("original_language")
-    val originalLanguage: String,
+    val originalLanguage: String?,
     @SerializedName("original_title")
-    val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
+    val originalTitle: String?,
+    val overview: String?,
+    val popularity: Double?,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompany>,
+    val productionCompanies: List<ProductionCompany>?,
     @SerializedName("production_countries")
-    val productionCountries: List<ISOCountry>,
+    val productionCountries: List<ISOCountry>?,
     @SerializedName("release_date")
-    val releaseDate: String,
-    val revenue: Long,
-    val runtime: Int,
+    val releaseDate: String?,
+    val revenue: Long?,
+    val runtime: Int?,
     @SerializedName("spoken_languages")
-    val spokenLanguages: List<SpokenLanguages>,
-    val status: String,
-    val tagline: String,
-    val title: String,
-    val video: Boolean,
+    val spokenLanguages: List<SpokenLanguages>?,
+    val status: String?,
+    val tagline: String?,
+    val title: String?,
+    val video: Boolean?,
     @SerializedName("vote_average")
-    val voteAverage: Double,
+    val voteAverage: Double?,
     @SerializedName("vote_count")
-    val voteCount: Int,
+    val voteCount: Int?,
 )
