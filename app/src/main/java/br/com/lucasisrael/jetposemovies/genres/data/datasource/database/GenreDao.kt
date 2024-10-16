@@ -13,12 +13,12 @@ interface GenreDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGenres(genres: List<GenreEntity>)
 
-    @Query("SELECT * from genreentity")
+    @Query("SELECT * from genre_entity")
     suspend fun getAllGenres(): List<GenreEntity>
 
     @Delete
     suspend fun deleteGenre(genre: GenreEntity)
 
-    @Query("DELETE from genreentity")
+    @Query("DELETE from genre_entity")
     suspend fun clearAll()
 }
