@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
-import br.com.lucasisrael.jetposemovies.common.ui.components.CustomCard
 import br.com.lucasisrael.jetposemovies.common.ui.screen.LoadingScreen
 import br.com.lucasisrael.jetposemovies.common.ui.screen.ScreenStructure
 import kotlinx.serialization.Serializable
@@ -36,13 +35,11 @@ fun DetailsScreen(
         LoadingScreen()
     } else {
         ScreenStructure {
-            collectingDetails?.let {
-                CustomCard(
-                    title = it.title,
-                    url = it.posterPath,
-                    modifier = Modifier
-                )
-            }
+
+            DetailCard(
+                modifier = Modifier,
+                details = collectingDetails,
+            )
 
         }
     }
