@@ -1,11 +1,12 @@
 package br.com.lucasisrael.jetposemovies.common.models
 
 import androidx.room.ColumnInfo
+import com.google.gson.annotations.SerializedName
 
 data class SpokenLanguages(
-    @ColumnInfo(name = "english_name")
+    @SerializedName("english_name")
     val englishName: String,
-    @ColumnInfo(name = "iso_639_1")
+    @SerializedName("iso_639_1")
     val iso6391: String,
     val name: String,
 )
