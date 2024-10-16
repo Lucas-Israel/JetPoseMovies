@@ -6,4 +6,5 @@
     <string name="movies">%1$s movies</string>
     <string name="rating">Rating: %1$s</string>
     <string name="movie_image_from_the_genre">Movie image from the %1$s genre</string>
+    <string name="image_base_url">https://image.tmdb.org/t/p/w500%1$s</string>
 </resources>
