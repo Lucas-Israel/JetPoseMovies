@@ -4,7 +4,6 @@ import br.com.lucasisrael.jetposemovies.common.models.ISOCountry
 import br.com.lucasisrael.jetposemovies.common.models.MovieCollection
 import br.com.lucasisrael.jetposemovies.common.models.ProductionCompany
 import br.com.lucasisrael.jetposemovies.common.models.SpokenLanguages
-import br.com.lucasisrael.jetposemovies.genres.data.models.local.GenreEntity
 import br.com.lucasisrael.jetposemovies.genres.data.models.remote.GenreDto
 
 data class DetailsDto(
