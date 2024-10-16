@@ -70,7 +70,7 @@ fun MoviesGenreScreen(
                                 rating = it.voteAverage,
                                 modifier = Modifier
                                     .clickable {
-                                        navigationActions.toDetailsScreen()
+                                        navigationActions.toDetailsScreen(it.id.toString())
                                     }
                             )
                         }
