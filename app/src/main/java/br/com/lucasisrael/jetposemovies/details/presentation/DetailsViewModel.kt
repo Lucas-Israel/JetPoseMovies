@@ -23,8 +23,8 @@ class DetailsViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _details = MutableStateFlow<Details?>(null)
-    val details: StateFlow<Details?> = _details.asStateFlow()
+    private val _details = MutableStateFlow<Details>(Details())
+    val details: StateFlow<Details> = _details.asStateFlow()
 
     fun getFromRepository(movieId: String) {
         viewModelScope.launch(coroutinesProvider.io()) {
@@ -32,11 +32,11 @@ class DetailsViewModel @Inject constructor(
                 _isLoading.value = true
                 when (val response = repository.getDetails(movieId)) {
                     is Resource.Success -> {
-                        _details.value = response.data
+                        _details.value = response.data!!
                     }
 
                     is Resource.Error -> {
-                        _details.value = null
+                        _details.value = Details()
                     }
                 }
 
