@@ -1,6 +1,7 @@
 package br.com.lucasisrael.jetposemovies.details.data.datasource.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -14,5 +15,8 @@ interface DetailsDao {
 
     @Query("SELECT * from details_structure")
     suspend fun getDetails(): DetailsEntity
+
+    @Query("DELETE from details_structure")
+    suspend fun clear()
 
 }
