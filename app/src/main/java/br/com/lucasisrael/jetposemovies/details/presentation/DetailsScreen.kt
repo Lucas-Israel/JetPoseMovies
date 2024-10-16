@@ -25,7 +25,7 @@ fun DetailsScreen(
     movieId: String
 ) {
     LaunchedEffect(Unit) {
-        viewModel.getFromRepository("533535")
+        viewModel.getFromRepository(movieId)
     }
 
     val collectingDetails by viewModel.details.collectAsStateWithLifecycle()
