@@ -8,6 +8,7 @@ import androidx.room.TypeConverters
 import br.com.lucasisrael.jetposemovies.common.converters.DetailConverters
 import br.com.lucasisrael.jetposemovies.common.converters.GenreConverters
 import br.com.lucasisrael.jetposemovies.common.converters.ISOCountryConverters
+import br.com.lucasisrael.jetposemovies.common.converters.ListConverters
 import br.com.lucasisrael.jetposemovies.common.converters.MovieCollectionConverters
 import br.com.lucasisrael.jetposemovies.common.converters.ProductionCompanyConverters
 import br.com.lucasisrael.jetposemovies.common.converters.SpokenLanguagesConverters
@@ -25,6 +26,7 @@ import br.com.lucasisrael.jetposemovies.details.data.models.local.DetailsEntity
     ProductionCompanyConverters::class,
     ISOCountryConverters::class,
     SpokenLanguagesConverters::class,
+    ListConverters::class
 )
 abstract class DetailsDataBase : RoomDatabase() {
 
