@@ -1,7 +1,7 @@
 package br.com.lucasisrael.jetposemovies.common.navigation
 
 import androidx.navigation.NavHostController
-import br.com.lucasisrael.jetposemovies.common.navigation.Screens.DETAILS_SCREEN
+import br.com.lucasisrael.jetposemovies.details.presentation.DetailsScreen
 import br.com.lucasisrael.jetposemovies.moviesgenre.presentation.MoviesGenreScreen
 
 class NavigationActions(
@@ -12,7 +12,7 @@ class NavigationActions(
         navController.navigate(MoviesGenreScreen(genreId, genreName))
     }
 
-    fun toDetailsScreen() {
-        navController.navigate(DETAILS_SCREEN)
+    fun toDetailsScreen(movieId: String) {
+        navController.navigate(DetailsScreen(movieId = movieId))
     }
 }
