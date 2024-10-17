@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.common.models
+package br.com.lucasisrael.jetposemovies.genres.domain.models
 
 data class GenreWithImgUrl(
     val id: Int,
