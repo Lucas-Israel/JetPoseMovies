@@ -3,9 +3,8 @@ package br.com.lucasisrael.jetposemovies.genres.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.lucasisrael.jetposemovies.common.coroutines.CoroutinesProvider
-import br.com.lucasisrael.jetposemovies.common.models.GenresWithImgUrl
-import br.com.lucasisrael.jetposemovies.common.models.Resource
-import br.com.lucasisrael.jetposemovies.genres.data.repository.GenresRepository
+import br.com.lucasisrael.jetposemovies.genres.domain.models.GenreWithImgUrl
+import br.com.lucasisrael.jetposemovies.genres.domain.usecase.LoadGenresUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GenresViewModel @Inject constructor(
-    private val repository: GenresRepository,
+    private val genresUseCase: LoadGenresUseCase,
     private val coroutinesProvider: CoroutinesProvider
 ) : ViewModel() {
 
@@ -24,15 +23,14 @@ class GenresViewModel @Inject constructor(
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
     private val _genres =
-        MutableStateFlow<List<GenresWithImgUrl>>(listOf())
-    val genres: StateFlow<List<GenresWithImgUrl>> = _genres.asStateFlow()
+        MutableStateFlow<List<GenreWithImgUrl>>(listOf())
+    val genres: StateFlow<List<GenreWithImgUrl>> = _genres.asStateFlow()
 
-    private var cachedGenresList = listOf<GenresWithImgUrl>()
+    private var cachedGenresList = listOf<GenreWithImgUrl>()
     private var isSearchStarting = true
 
-
     init {
-        getFromRepository()
+        loadGenres()
     }
 
     fun searchGenres(query: String) {
@@ -58,19 +56,12 @@ class GenresViewModel @Inject constructor(
         }
     }
 
-    private fun getFromRepository() {
+    private fun loadGenres() {
         viewModelScope.launch(coroutinesProvider.io()) {
             try {
                 _isLoading.value = true
-                when (val response = repository.getGenresWithImage()) {
-                    is Resource.Success -> {
-                        _genres.value = response.data!!
-                    }
+                _genres.value = genresUseCase.getGenres()
 
-                    is Resource.Error -> {
-                        _genres.value = listOf()
-                    }
-                }
             } catch (e: CancellationException) {
                 e.printStackTrace()
             } finally {
