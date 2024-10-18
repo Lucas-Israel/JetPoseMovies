@@ -1,6 +1,6 @@
 package br.com.lucasisrael.jetposemovies.moviesgenre.data.mappers
 
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.domain.MoviesFromGenre
+import br.com.lucasisrael.jetposemovies.moviesgenre.domain.models.MoviesFromGenre
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.local.MoviesFromGenreEntity
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.remote.MoviesFromGenreDto
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.response.MoviesFromGenreResponse
