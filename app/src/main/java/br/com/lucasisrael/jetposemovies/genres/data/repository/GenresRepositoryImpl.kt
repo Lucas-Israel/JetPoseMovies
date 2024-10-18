@@ -18,7 +18,9 @@ class GenresRepositoryImpl @Inject constructor(
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override suspend fun getGenresFromApi(): Resource<List<GenreDto>?> {
-        return safeApiCall { genresRemote.getGenres() }
+        return safeApiCall {
+            genresRemote.getGenres()
+        }
     }
 
     override suspend fun saveGenresToDb(genres: List<GenreDto>) {

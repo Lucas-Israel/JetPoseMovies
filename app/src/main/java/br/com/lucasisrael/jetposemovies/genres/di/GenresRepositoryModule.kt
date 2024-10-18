@@ -4,7 +4,6 @@ import br.com.lucasisrael.jetposemovies.genres.data.datasource.local.GenresLocal
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.remote.GenresRemote
 import br.com.lucasisrael.jetposemovies.genres.data.repository.GenresRepository
 import br.com.lucasisrael.jetposemovies.genres.data.repository.GenresRepositoryImpl
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.datasource.remote.MoviesFromGenreRemote
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,9 +18,8 @@ object GenresRepositoryModule {
     @Singleton
     fun provideGenresRepository(
         genresRemote: GenresRemote,
-        moviesFromGenreDataSource: MoviesFromGenreRemote,
         genresLocal: GenresLocal
     ): GenresRepository {
-        return GenresRepositoryImpl(genresRemote, moviesFromGenreDataSource, genresLocal)
+        return GenresRepositoryImpl(genresRemote, genresLocal)
     }
 }
