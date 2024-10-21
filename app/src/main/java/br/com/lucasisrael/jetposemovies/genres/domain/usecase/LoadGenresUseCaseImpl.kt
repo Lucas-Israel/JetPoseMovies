@@ -19,7 +19,7 @@ class LoadGenresUseCaseImpl @Inject constructor(
     override suspend fun getImageForGenre(genreId: Int): String? {
         return try {
             when (val response =
-                moviesFromGenreRepository.getMoviesFromGenre(genreId.toString(), page = 1)) {
+                moviesFromGenreRepository.getMoviesFromGenreFromApi(genreId.toString(), page = 1)) {
                 is Resource.Success -> {
                     response.data?.results?.get(0)?.posterPath!!
                 }

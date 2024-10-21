@@ -7,5 +7,5 @@ import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.remote.MoviesFro
 interface MoviesFromGenreRepository {
     suspend fun getMoviesFromGenreFromApi(genreId: String, page: Int): Resource<MoviesFromGenreDto?>
     suspend fun saveMoviesFromGenreToDataBase(moviesFromGenreDto: MoviesFromGenreDto)
-    suspend fun loadMoviesFromGenreToDataBase(): MoviesFromGenreEntity
+    suspend fun loadMoviesFromGenreFromDataBase(): MoviesFromGenreEntity
 }
