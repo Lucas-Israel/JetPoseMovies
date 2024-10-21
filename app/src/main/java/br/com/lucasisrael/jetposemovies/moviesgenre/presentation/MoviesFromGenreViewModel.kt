@@ -4,10 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.lucasisrael.jetposemovies.common.coroutines.CoroutinesProvider
 import br.com.lucasisrael.jetposemovies.common.models.Movie
-import br.com.lucasisrael.jetposemovies.common.models.Resource
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.mappers.toMoviesFromGenre
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.models.domain.MoviesFromGenre
+import br.com.lucasisrael.jetposemovies.moviesgenre.domain.models.MoviesFromGenre
 import br.com.lucasisrael.jetposemovies.moviesgenre.data.repository.MoviesFromGenreRepository
+import br.com.lucasisrael.jetposemovies.moviesgenre.domain.usecase.MoviesFromGenreUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesFromGenreViewModel @Inject constructor(
-    private val repository: MoviesFromGenreRepository,
+    private val moviesFromGenreUseCase: MoviesFromGenreUseCase,
     private val coroutinesProvider: CoroutinesProvider
 ) : ViewModel() {
 
@@ -68,15 +67,7 @@ class MoviesFromGenreViewModel @Inject constructor(
         viewModelScope.launch(coroutinesProvider.io()) {
             try {
                 _isLoading.value = true
-                when (val response = repository.getMoviesFromGenre(genreId, page)) {
-                    is Resource.Success -> {
-                        _moviesFromGenre.value = response.data!!.toMoviesFromGenre()
-                    }
-
-                    is Resource.Error -> {
-
-                    }
-                }
+                _moviesFromGenre.value = moviesFromGenreUseCase.getMoviesFromGenre(genreId, page)
             } catch (e: CancellationException) {
                 e.printStackTrace()
             } finally {
