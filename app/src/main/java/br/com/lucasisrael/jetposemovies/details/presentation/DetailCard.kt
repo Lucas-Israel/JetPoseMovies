@@ -17,15 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.lucasisrael.jetposemovies.R
-import br.com.lucasisrael.jetposemovies.details.data.models.domain.Details
+import br.com.lucasisrael.jetposemovies.details.domain.models.Details
 import coil.compose.AsyncImage
-import com.google.gson.Gson
-import java.io.File
-
 
 @SuppressWarnings("FunctionNaming")
 @Composable
@@ -145,17 +141,3 @@ fun DetailCard(
     }
 
 }
-
-//val jsonString =
-//    File("/home/lucas/android_projects/JetPoseMovies/app/src/androidTest/java/br/com/lucasisrael/jetposemovies/resources/Details.json").readText()
-//
-//val detailsJson: Details = Gson().fromJson(jsonString, Details::class.java)
-//
-//@Preview(showBackground = true, name = "Greeting Preview")
-//@Composable
-//fun PreviewDetailCard() {
-//    DetailCard(
-//        modifier = Modifier,
-//        details = detailsJson
-//    )
-//}
