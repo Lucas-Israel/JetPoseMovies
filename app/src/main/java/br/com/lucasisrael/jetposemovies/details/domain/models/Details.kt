@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.details.data.models.domain
+package br.com.lucasisrael.jetposemovies.details.domain.models
 
 import br.com.lucasisrael.jetposemovies.common.models.ISOCountry
 import br.com.lucasisrael.jetposemovies.common.models.MovieCollection
