@@ -6,9 +6,9 @@ import br.com.lucasisrael.jetposemovies.common.coroutines.safeApiCall
 import br.com.lucasisrael.jetposemovies.common.models.Resource
 import br.com.lucasisrael.jetposemovies.details.data.datasource.local.DetailsLocal
 import br.com.lucasisrael.jetposemovies.details.data.datasource.remote.DetailsRemote
-import br.com.lucasisrael.jetposemovies.details.data.mappers.toDetails
 import br.com.lucasisrael.jetposemovies.details.data.mappers.toDetailsEntity
-import br.com.lucasisrael.jetposemovies.details.data.models.domain.Details
+import br.com.lucasisrael.jetposemovies.details.data.models.local.DetailsEntity
+import br.com.lucasisrael.jetposemovies.details.data.models.remote.DetailsDto
 import javax.inject.Inject
 
 class DetailsRepositoryImpl @Inject constructor(
@@ -17,21 +17,18 @@ class DetailsRepositoryImpl @Inject constructor(
 ): DetailsRepository {
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    override suspend fun getDetails(movieId: String): Resource<Details?> {
+    override suspend fun getDetailsByIdFromApi(movieId: String): Resource<DetailsDto?> {
         return safeApiCall {
-            refreshDetails(movieId)
-            detailsLocal.getDetailsFromDataBase().toDetails()
+            detailsRemote.getDetailsById(movieId)
         }
     }
 
-    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    override suspend fun refreshDetails(movieId: String) {
-        safeApiCall {
+    override suspend fun saveDetailsToDb(detailsDto: DetailsDto) {
+        detailsLocal.saveDetailsToDataBase(detailsDto.toDetailsEntity())
+    }
 
-            detailsLocal.saveDetailsToDataBase(
-                detailsRemote.getDetailsById(movieId).toDetailsEntity()
-            )
-        }
+    override suspend fun loadDetailsFromDb(movieId: String): DetailsEntity {
+        return detailsLocal.getDetailsByMovieIdFromDataBase(movieId)
     }
 
 }
