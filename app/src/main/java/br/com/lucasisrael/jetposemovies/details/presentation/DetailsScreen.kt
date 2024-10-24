@@ -9,6 +9,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.ui.screen.LoadingScreen
 import br.com.lucasisrael.jetposemovies.common.ui.screen.ScreenStructure
+import br.com.lucasisrael.jetposemovies.details.presentation.components.DetailCard
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -37,6 +38,7 @@ fun DetailsScreen(
         ScreenStructure {
 
             DetailCard(
+                navigationActions = navigationActions,
                 modifier = Modifier,
                 details = collectingDetails,
             )
