@@ -1,6 +1,6 @@
 package br.com.lucasisrael.jetposemovies.genres.data.mappers
 
-import br.com.lucasisrael.jetposemovies.common.utils.types.values.dephault.replaceNullable
+import br.com.lucasisrael.jetposemovies.common.utils.types.values.nullable.replaceNullable
 import br.com.lucasisrael.jetposemovies.genres.domain.models.GenreWithImgUrl
 import br.com.lucasisrael.jetposemovies.genres.data.models.local.GenreEntity
 import br.com.lucasisrael.jetposemovies.genres.data.models.remote.GenreDto

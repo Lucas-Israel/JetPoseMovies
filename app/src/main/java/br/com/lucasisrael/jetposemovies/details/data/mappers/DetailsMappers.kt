@@ -1,6 +1,6 @@
 package br.com.lucasisrael.jetposemovies.details.data.mappers
 
-import br.com.lucasisrael.jetposemovies.common.utils.types.values.dephault.replaceNullable
+import br.com.lucasisrael.jetposemovies.common.utils.types.values.nullable.replaceNullable
 import br.com.lucasisrael.jetposemovies.details.domain.models.Details
 import br.com.lucasisrael.jetposemovies.details.data.models.local.DetailsEntity
 import br.com.lucasisrael.jetposemovies.details.data.models.remote.DetailsDto
