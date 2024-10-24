@@ -104,7 +104,7 @@ fun DetailCard(
                 modifier = Modifier
             )
 
-            Homepage(
+            HomepageUrl(
                 homePageUrl = details.homepage
             )
         }
