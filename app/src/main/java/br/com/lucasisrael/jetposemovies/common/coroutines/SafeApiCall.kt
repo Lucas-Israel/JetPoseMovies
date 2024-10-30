@@ -6,14 +6,13 @@ import br.com.lucasisrael.jetposemovies.common.models.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * A helper function to make safe API calls.
  * @param dispatcher The coroutine dispatcher to use for making the API call.
  * @param apiCall The suspend function representing the API call.
  * @return A [Resource] indicating the success or failure of the API call.
- * @throws CancellationException if the API call is cancelled.
+ * @throws Exception
  */
 @SuppressWarnings("TooGenericExceptionCaught")
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
