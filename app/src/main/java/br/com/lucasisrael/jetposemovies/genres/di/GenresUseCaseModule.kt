@@ -3,7 +3,6 @@ package br.com.lucasisrael.jetposemovies.genres.di
 import br.com.lucasisrael.jetposemovies.genres.data.repository.GenresRepository
 import br.com.lucasisrael.jetposemovies.genres.domain.usecase.LoadGenresUseCase
 import br.com.lucasisrael.jetposemovies.genres.domain.usecase.LoadGenresUseCaseImpl
-import br.com.lucasisrael.jetposemovies.moviesgenre.data.repository.MoviesFromGenreRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
