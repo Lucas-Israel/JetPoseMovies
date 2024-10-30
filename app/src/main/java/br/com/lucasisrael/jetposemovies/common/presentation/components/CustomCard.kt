@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.common.ui.components
+package br.com.lucasisrael.jetposemovies.common.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -51,7 +51,7 @@ fun CustomCard(
             ) {
 
                 CustomAsyncImageWithGradient(
-                    url = url!!,
+                    url = url,
                     title = title,
                     modifier = modifier,
                     color = color
