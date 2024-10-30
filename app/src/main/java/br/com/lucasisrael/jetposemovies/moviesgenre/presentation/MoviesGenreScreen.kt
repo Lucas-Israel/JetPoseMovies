@@ -16,10 +16,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.lucasisrael.jetposemovies.R
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
-import br.com.lucasisrael.jetposemovies.common.ui.components.CustomCard
-import br.com.lucasisrael.jetposemovies.common.ui.components.SearchBar
-import br.com.lucasisrael.jetposemovies.common.ui.screen.LoadingScreen
-import br.com.lucasisrael.jetposemovies.common.ui.screen.ScreenStructure
+import br.com.lucasisrael.jetposemovies.common.presentation.components.CustomCard
+import br.com.lucasisrael.jetposemovies.common.presentation.components.SearchBar
+import br.com.lucasisrael.jetposemovies.common.presentation.screens.LoadingScreen
+import br.com.lucasisrael.jetposemovies.common.presentation.screens.ScreenStructure
 import kotlinx.serialization.Serializable
 
 @Serializable

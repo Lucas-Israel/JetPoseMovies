@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
-import br.com.lucasisrael.jetposemovies.common.ui.screen.LoadingScreen
-import br.com.lucasisrael.jetposemovies.common.ui.screen.ScreenStructure
+import br.com.lucasisrael.jetposemovies.common.presentation.screens.LoadingScreen
+import br.com.lucasisrael.jetposemovies.common.presentation.screens.ScreenStructure
 import br.com.lucasisrael.jetposemovies.details.presentation.components.DetailCard
 import kotlinx.serialization.Serializable
 
