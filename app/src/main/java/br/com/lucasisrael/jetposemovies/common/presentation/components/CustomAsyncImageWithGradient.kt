@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.common.ui.components
+package br.com.lucasisrael.jetposemovies.common.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,18 +15,18 @@ import androidx.compose.ui.unit.dp
 import br.com.lucasisrael.jetposemovies.R
 import coil.compose.AsyncImage
 
+const val HALF_FLOAT = 0.5f
+
 @SuppressWarnings("FunctionNaming")
 @Composable
 fun CustomAsyncImageWithGradient(
-    url: String,
+    url: String?,
     title: String,
     modifier: Modifier,
     color: Color
 ){
-    val halfFloat = 0.5f
-
     AsyncImage(
-        model = stringResource(R.string.image_base_url, url),
+        model = url?.let { stringResource(R.string.image_base_url, it) },
         contentDescription = stringResource(R.string.movie_image_from_the_genre, title),
         contentScale = ContentScale.Crop,
         placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
@@ -39,7 +39,7 @@ fun CustomAsyncImageWithGradient(
                     drawContent()
                     drawRect(
                         Brush.verticalGradient(
-                            halfFloat to color.copy(alpha = 0f),
+                            HALF_FLOAT to color.copy(alpha = 0f),
                             1f to color
                         )
                     )
