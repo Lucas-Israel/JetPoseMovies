@@ -5,8 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import br.com.lucasisrael.jetposemovies.common.presentation.screens.InitialScreen
 import br.com.lucasisrael.jetposemovies.details.presentation.DetailsScreen
-import br.com.lucasisrael.jetposemovies.genres.presentation.GenresScreen
 import br.com.lucasisrael.jetposemovies.moviesgenre.presentation.MoviesGenreScreen
 
 @Suppress("FunctionNaming")
@@ -18,11 +18,11 @@ fun NavGraph() {
 
     NavHost(
         navController = navController,
-        startDestination = GenresScreen,
+        startDestination = InitialScreen,
     ) {
 
-        composable<GenresScreen> {
-            GenresScreen(navigationActions = navActions)
+        composable<InitialScreen> {
+            InitialScreen(navigationActions = navActions)
         }
 
         composable<MoviesGenreScreen> {
