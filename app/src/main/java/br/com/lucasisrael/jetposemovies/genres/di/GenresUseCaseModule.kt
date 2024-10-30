@@ -18,8 +18,7 @@ object GenresUseCaseModule {
     @Singleton
     fun providesGenresUseCase(
         genresRepository: GenresRepository,
-        moviesFromGenreRepository: MoviesFromGenreRepository,
     ): LoadGenresUseCase {
-        return LoadGenresUseCaseImpl(genresRepository, moviesFromGenreRepository)
+        return LoadGenresUseCaseImpl(genresRepository)
     }
 }

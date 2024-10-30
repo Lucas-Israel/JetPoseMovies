@@ -27,7 +27,6 @@ class GenresRepositoryImpl @Inject constructor(
         genresLocal.saveGenresToDataBase(genres.map { it.toGenresEntity() })
     }
 
-    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override suspend fun loadGenresFromDb(): List<GenreEntity> {
         return genresLocal.getGenresFromDataBase()
     }
