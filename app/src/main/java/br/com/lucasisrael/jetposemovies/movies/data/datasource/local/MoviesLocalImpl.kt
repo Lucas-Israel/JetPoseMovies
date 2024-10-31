@@ -14,8 +14,21 @@ class MoviesLocalImpl @Inject constructor(
         moviesDao.insertMoviesFromGenre(movies.toMoviesListEntity())
     }
 
-    override suspend fun getMoviesFromGenreFromDataBase(genreId: String): List<MovieEntity> {
-        return moviesDao.getAllMoviesFromGenre(genreId)
-    }
+    override suspend fun getMoviesFromDatabase(searchType: SearchType): List<MovieEntity> {
+        return when (searchType) {
 
+            is SearchType.GenreId -> {
+                moviesDao.getAllMoviesFromGenre(searchType.genreId)
+            }
+
+            is SearchType.Upcoming -> {
+                moviesDao.getUpcomingMovies()
+            }
+        }
+    }
+}
+
+sealed class SearchType {
+    data class GenreId(val genreId: String) : SearchType()
+    data object Upcoming : SearchType()
 }
