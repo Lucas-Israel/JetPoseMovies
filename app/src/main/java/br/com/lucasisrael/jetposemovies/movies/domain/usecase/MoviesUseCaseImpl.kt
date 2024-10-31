@@ -2,6 +2,7 @@ package br.com.lucasisrael.jetposemovies.movies.domain.usecase
 
 import android.util.Log
 import br.com.lucasisrael.jetposemovies.common.models.Resource
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.SearchType
 import br.com.lucasisrael.jetposemovies.movies.data.mappers.toMovieDomain
 import br.com.lucasisrael.jetposemovies.movies.data.models.local.MovieEntity
 import br.com.lucasisrael.jetposemovies.movies.data.models.remote.MovieDto
@@ -13,11 +14,10 @@ import javax.inject.Inject
 class MoviesUseCaseImpl @Inject constructor(
     private val repository: MoviesListRepository
 ) : MoviesUseCase {
-
-    override suspend fun getMoviesFromGenreRemote(genreId: String, page: Int): List<MovieDto?>? {
-        return when (val response = repository.getMoviesFromGenreFromApi(genreId, page)) {
+    override suspend fun fetchMovies(searchType: SearchType): List<MovieDto> {
+        return when (val response = repository.fetchMovies(searchType)) {
             is Resource.Success -> {
-                response.data
+                response.data!!.map { it!! }
             }
 
             is Resource.Error -> {
@@ -26,27 +26,21 @@ class MoviesUseCaseImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveMoviesFromGenreToDataBase(movies: MovieDto) {
-        repository.saveMoviesFromGenreToDataBase(movies)
+    override suspend fun saveMovies(movies: List<MovieDto>) {
+        movies.forEach {
+            repository.saveMoviesFromGenreToDataBase(it)
+        }
     }
 
-    override suspend fun loadMoviesFromGenreFromDataBase(
-        genreId: String,
-        page: Int
-    ): List<MovieEntity> {
-        return repository.loadMoviesFromGenreFromDataBase(genreId)
+    override suspend fun loadMovies(searchType: SearchType): List<MovieEntity> {
+        return repository.loadMoviesFromDataBase(searchType)
     }
 
-    override suspend fun getMoviesFromGenre(genreId: String, page: Int): List<MovieDomain> {
+    override suspend fun synchronizeMovies(searchType: SearchType): List<MovieDomain> {
         return try {
-            getMoviesFromGenreRemote(genreId, page)?.map {
-                if (it != null) {
-                    saveMoviesFromGenreToDataBase(it)
-                }
-            }
-            loadMoviesFromGenreFromDataBase(genreId, page).map {
-                it.toMovieDomain()
-            }
+            val data = fetchMovies(searchType)
+            saveMovies(data)
+            loadMovies(searchType).map { it.toMovieDomain() }
         } catch (e: CancellationException) {
             Log.e(e.localizedMessage, e.message.toString())
             listOf<MovieDomain>()
