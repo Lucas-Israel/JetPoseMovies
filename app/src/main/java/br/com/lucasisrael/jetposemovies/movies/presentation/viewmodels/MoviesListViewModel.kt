@@ -1,8 +1,9 @@
-package br.com.lucasisrael.jetposemovies.movies.presentation
+package br.com.lucasisrael.jetposemovies.movies.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.lucasisrael.jetposemovies.common.coroutines.CoroutinesProvider
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.SearchType
 import br.com.lucasisrael.jetposemovies.movies.domain.models.MovieDomain
 import br.com.lucasisrael.jetposemovies.movies.domain.usecase.MoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,6 +47,7 @@ class MoviesListViewModel @Inject constructor(
     private var cachedMovieDomain =
         listOf(EMPTY_MOVIE_DOMAIN)
     private var isSearchStarting = true
+
 
     fun searchMoviesFromGenre(query: String) {
         val listToSearch = if (isSearchStarting) {
@@ -91,11 +93,11 @@ class MoviesListViewModel @Inject constructor(
         }
     }
 
-    fun getMoviesFromGenreRepository(genreId: String, page: Int) {
+    fun getMoviesFromGenreRepository(searchType: SearchType) {
         viewModelScope.launch(coroutinesProvider.io()) {
             try {
                 _isLoading.value = true
-                _movieDomain.value = moviesFromGenreUseCase.getMoviesFromGenre(genreId, page)
+                _movieDomain.value = moviesFromGenreUseCase.synchronizeMovies(searchType)
             } catch (e: CancellationException) {
                 e.printStackTrace()
             } finally {

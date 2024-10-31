@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.movies.presentation
+package br.com.lucasisrael.jetposemovies.movies.presentation.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +20,8 @@ import br.com.lucasisrael.jetposemovies.common.presentation.components.CustomCar
 import br.com.lucasisrael.jetposemovies.common.presentation.components.SearchBar
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.LoadingScreen
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.ScreenStructure
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.SearchType
+import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodels.MoviesListViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -37,10 +39,10 @@ fun MoviesListScreen(
     genreName: String
 ) {
     LaunchedEffect(Unit) {
-        viewModel.getMoviesFromGenreRepository(genreId, page = 1)
+        viewModel.getMoviesFromGenreRepository(searchType = SearchType.GenreId(genreId))
     }
 
-    val collectingMoviesGenre by viewModel.movieDomain.collectAsStateWithLifecycle()
+    val collectingMovies by viewModel.movieDomain.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
     if (isLoading) {
@@ -61,8 +63,8 @@ fun MoviesListScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                if (collectingMoviesGenre.isNotEmpty()) {
-                    collectingMoviesGenre.forEach {
+                if (collectingMovies.isNotEmpty()) {
+                    collectingMovies.forEach {
                         item {
                             CustomCard(
                                 title = it.title,
