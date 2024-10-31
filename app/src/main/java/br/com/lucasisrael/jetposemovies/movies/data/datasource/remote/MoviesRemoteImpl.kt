@@ -9,7 +9,7 @@ class MoviesRemoteImpl @Inject constructor(
 ) :
     MoviesRemote {
     override suspend fun fetchMoviesFromGenre(genreId: String, page: Int): List<MovieDto> {
-        return moviesApi.getMoviesFromGenre(genreId = genreId, page = page).results
+        return moviesApi.fetchMoviesFromGenre(genreId = genreId, page = page).results
     }
 
     override suspend fun fetchUpcomingMovies(page: Int): List<MovieDto> {

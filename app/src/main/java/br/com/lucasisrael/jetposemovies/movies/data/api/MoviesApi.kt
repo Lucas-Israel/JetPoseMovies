@@ -7,7 +7,7 @@ import retrofit2.http.Query
 interface MoviesApi {
 
     @GET("discover/movie")
-    suspend fun getMoviesFromGenre(
+    suspend fun fetchMoviesFromGenre(
         @Query("with_genres") genreId: String,
         @Query("sort_by") sortBy: String = "popularity.desc",
         @Query("page") page: Int = 1
