@@ -9,7 +9,7 @@ interface MoviesApi {
     @GET("discover/movie")
     suspend fun getMoviesFromGenre(
         @Query("with_genres") genreId: String,
-        @Query("sort_by") sortBy: String = "revenue.desc",
+        @Query("sort_by") sortBy: String = "popularity.desc",
         @Query("page") page: Int = 1
     ): MoviesResponse
 

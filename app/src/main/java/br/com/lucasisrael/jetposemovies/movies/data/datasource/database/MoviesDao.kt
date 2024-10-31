@@ -13,7 +13,11 @@ interface MoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMoviesFromGenre(moviesFromGenre: MovieEntity)
 
-    @Query("SELECT * from movies_from_genre WHERE genre_ids LIKE '%' || :genreId || '%'")
+    @Query(
+        "SELECT * from movies_from_genre" +
+                " WHERE genre_ids LIKE '%' || :genreId || '%'" +
+                " ORDER BY popularity DESC LIMIT 20"
+    )
     suspend fun getAllMoviesFromGenre(genreId: String): List<MovieEntity>
 
     @Delete
