@@ -5,5 +5,5 @@ import br.com.lucasisrael.jetposemovies.movies.data.models.remote.MovieDto
 
 interface MoviesLocal {
     suspend fun saveMoviesToDataBase(movies: MovieDto)
-    suspend fun getMoviesFromGenreFromDataBase(genreId: String): List<MovieEntity>
+    suspend fun getMoviesFromDatabase(searchType: SearchType): List<MovieEntity>
 }
