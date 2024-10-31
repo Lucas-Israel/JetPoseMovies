@@ -2,7 +2,7 @@ package br.com.lucasisrael.jetposemovies.common.navigation
 
 import androidx.navigation.NavHostController
 import br.com.lucasisrael.jetposemovies.details.presentation.DetailsScreen
-import br.com.lucasisrael.jetposemovies.movies.presentation.MoviesListScreen
+import br.com.lucasisrael.jetposemovies.movies.presentation.screen.MoviesListScreen
 
 class NavigationActions(
     private val navController: NavHostController,
