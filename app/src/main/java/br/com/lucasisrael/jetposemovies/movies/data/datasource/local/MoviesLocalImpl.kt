@@ -14,8 +14,8 @@ class MoviesLocalImpl @Inject constructor(
         moviesDao.insertMoviesFromGenre(movies.toMoviesListEntity())
     }
 
-    override suspend fun getMoviesFromDataBase(): List<MovieEntity> {
-        return moviesDao.getAllMoviesFromGenre()
+    override suspend fun getMoviesFromDataBase(genreId: String): List<MovieEntity> {
+        return moviesDao.getAllMoviesFromGenre(genreId)
     }
 
 }

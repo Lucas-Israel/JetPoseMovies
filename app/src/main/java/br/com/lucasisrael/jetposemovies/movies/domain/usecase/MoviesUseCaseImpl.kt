@@ -34,7 +34,7 @@ class MoviesUseCaseImpl @Inject constructor(
         genreId: String,
         page: Int
     ): List<MovieEntity> {
-        return repository.loadMoviesFromGenreFromDataBase()
+        return repository.loadMoviesFromGenreFromDataBase(genreId)
     }
 
     override suspend fun getMoviesFromGenre(genreId: String, page: Int): List<MovieDomain> {

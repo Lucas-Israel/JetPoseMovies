@@ -29,7 +29,7 @@ class MoviesListRepositoryImpl @Inject constructor(
         moviesLocal.saveMoviesToDataBase(movieDto)
     }
 
-    override suspend fun loadMoviesFromGenreFromDataBase(): List<MovieEntity> {
-        return moviesLocal.getMoviesFromDataBase()
+    override suspend fun loadMoviesFromGenreFromDataBase(genreId: String): List<MovieEntity> {
+        return moviesLocal.getMoviesFromDataBase(genreId)
     }
 }
