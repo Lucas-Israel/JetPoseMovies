@@ -60,6 +60,7 @@ class MoviesListViewModel @Inject constructor(
                 return@launch
             }
             val results = listToSearch.filter {
+                if (it.title == null) return@filter false
                 it.title.contains(query.trim(), ignoreCase = true)
             }
 

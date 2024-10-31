@@ -13,27 +13,27 @@ import br.com.lucasisrael.jetposemovies.common.converters.MovieConverters
     ListConverters::class
 )
 data class MovieEntity(
-    val adult: Boolean,
+    val adult: Boolean?,
     @ColumnInfo("backdrop_path")
     val backdropPath: String?,
     @ColumnInfo("genre_ids")
-    val genreIds: List<Int>,
+    val genreIds: List<Int>?,
     @PrimaryKey
-    val id: Int,
+    val id: Int?,
     @ColumnInfo("original_language")
-    val originalLanguage: String,
+    val originalLanguage: String?,
     @ColumnInfo("original_title")
-    val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
+    val originalTitle: String?,
+    val overview: String?,
+    val popularity: Double?,
     @ColumnInfo("poster_path")
     val posterPath: String?,
     @ColumnInfo("release_date")
-    val releaseDate: String,
-    val title: String,
-    val video: Boolean,
+    val releaseDate: String?,
+    val title: String?,
+    val video: Boolean?,
     @ColumnInfo("vote_average")
-    val voteAverage: Double,
+    val voteAverage: Double?,
     @ColumnInfo("vote_count")
-    val voteCount: Int
+    val voteCount: Int?
 )

@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 @SuppressWarnings("FunctionNaming")
 @Composable
 fun CustomCard(
-    title: String,
+    title: String? = "",
     url: String? = "",
     rating: Double? = null,
     modifier: Modifier,
@@ -78,7 +78,7 @@ fun CustomCard(
                     .background(color)
             ) {
                 Text(
-                    text = title,
+                    text = title ?: "",
                     fontWeight = FontWeight.Bold,
                     fontSize = 24.sp,
                     modifier = Modifier

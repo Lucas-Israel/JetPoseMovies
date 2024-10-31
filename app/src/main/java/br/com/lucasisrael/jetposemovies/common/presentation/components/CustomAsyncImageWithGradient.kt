@@ -21,13 +21,13 @@ const val HALF_FLOAT = 0.5f
 @Composable
 fun CustomAsyncImageWithGradient(
     url: String?,
-    title: String,
+    title: String?,
     modifier: Modifier,
     color: Color
 ){
     AsyncImage(
         model = url?.let { stringResource(R.string.image_base_url, it) },
-        contentDescription = stringResource(R.string.movie_image_from_the_genre, title),
+        contentDescription = stringResource(R.string.movie_image_from_the_genre, title ?: ""),
         contentScale = ContentScale.Crop,
         placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
         error = painterResource(id = R.drawable.ic_action_name),
