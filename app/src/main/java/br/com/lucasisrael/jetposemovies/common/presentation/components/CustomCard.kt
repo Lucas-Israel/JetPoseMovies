@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.sp
 @SuppressWarnings("FunctionNaming")
 @Composable
 fun CustomCard(
-    title: String? = "",
-    url: String? = "",
+    title: String? = null,
+    url: String? = null,
     rating: Double? = null,
     modifier: Modifier,
 ) {
@@ -64,26 +64,28 @@ fun CustomCard(
                 }
             }
 
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(bottom = 8.dp, start = 8.dp, end = 8.dp)
-                    .clip(
-                        RoundedCornerShape(
-                            bottomStart = 8.dp,
-                            bottomEnd = 8.dp
+            if (title != null) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(bottom = 8.dp, start = 8.dp, end = 8.dp)
+                        .clip(
+                            RoundedCornerShape(
+                                bottomStart = 8.dp,
+                                bottomEnd = 8.dp
+                            )
                         )
+                        .background(color)
+                ) {
+                    Text(
+                        text = title ?: "",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp,
+                        modifier = Modifier
+                            .padding(10.dp)
                     )
-                    .background(color)
-            ) {
-                Text(
-                    text = title ?: "",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp,
-                    modifier = Modifier
-                        .padding(10.dp)
-                )
+                }
             }
         }
     }
