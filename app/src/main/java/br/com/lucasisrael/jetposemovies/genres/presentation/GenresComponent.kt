@@ -42,6 +42,12 @@ fun GenresComponent(
                     Box(
                         modifier = Modifier
                             .padding(4.dp)
+                            .clickable {
+                                navigationActions.toMovieGenreScreen(
+                                    it.id.toString(),
+                                    it.name
+                                )
+                            }
                     ) {
                         Box(
                             contentAlignment = Alignment.Center,
@@ -54,12 +60,6 @@ fun GenresComponent(
                             Text(
                                 text = it.name,
                                 modifier = Modifier
-                                    .clickable {
-                                        navigationActions.toMovieGenreScreen(
-                                            it.id.toString(),
-                                            it.name
-                                        )
-                                    }
                             )
 
                         }
