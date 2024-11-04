@@ -6,28 +6,6 @@ import retrofit2.http.Query
 
 interface MoviesApi {
 
-    @GET("discover/movie")
-    suspend fun fetchMoviesFromGenre(
-        @Query("with_genres") genreId: String,
-        @Query("sort_by") sortBy: String = "popularity.desc",
-        @Query("page") page: Int = 1
-    ): MoviesResponse
-
-    @GET("discover/movie")
-    suspend fun fetchUpComingMovies(
-        @Query("sort_by") sortBy: String = "popularity.desc",
-        @Query("with_release_type") releaseType: Int = 2 or 3,
-        @Query("release_date.gte") releaseDateGte: String = "{min_date}",
-        @Query("release_date.lte") releaseDateLte: String = "{max_date}",
-        @Query("page") page: Int = 1
-    ) : MoviesResponse
-
-    @GET("discover/movie")
-    suspend fun fetchPopularMovies(
-        @Query("sort_by") sortBy: String = "popularity.desc",
-        @Query("page") page: Int = 1
-    ) : MoviesResponse
-
     @SuppressWarnings("LongParameterList")
     @GET("discover/movie")
     suspend fun fetchMovies(
