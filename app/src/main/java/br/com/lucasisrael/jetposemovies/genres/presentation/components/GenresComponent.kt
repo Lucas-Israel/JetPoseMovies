@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.genres.presentation
+package br.com.lucasisrael.jetposemovies.genres.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
+import br.com.lucasisrael.jetposemovies.genres.presentation.viewmodel.GenresViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
