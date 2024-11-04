@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.details.presentation
+package br.com.lucasisrael.jetposemovies.details.presentation.screen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,6 +9,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.LoadingScreen
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.ScreenStructure
+import br.com.lucasisrael.jetposemovies.details.presentation.viewmodel.DetailsViewModel
 import br.com.lucasisrael.jetposemovies.details.presentation.components.DetailCard
 import kotlinx.serialization.Serializable
 
