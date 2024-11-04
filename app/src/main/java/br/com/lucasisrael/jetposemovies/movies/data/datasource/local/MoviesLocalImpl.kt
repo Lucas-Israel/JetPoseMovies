@@ -24,6 +24,10 @@ class MoviesLocalImpl @Inject constructor(
             is SearchType.Upcoming -> {
                 moviesDao.getUpcomingMovies()
             }
+
+            is SearchType.Popular -> {
+                moviesDao.getPopularMovies()
+            }
         }
     }
 }
@@ -31,4 +35,5 @@ class MoviesLocalImpl @Inject constructor(
 sealed class SearchType {
     data class GenreId(val genreId: String) : SearchType()
     data object Upcoming : SearchType()
+    data object Popular : SearchType()
 }
