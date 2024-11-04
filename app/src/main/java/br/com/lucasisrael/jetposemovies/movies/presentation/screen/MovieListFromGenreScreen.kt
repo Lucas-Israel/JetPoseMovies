@@ -54,9 +54,9 @@ fun MovieListFromGenreScreen(
                 fontWeight = FontWeight.Bold
             )
 
-            SearchBar {
-                viewModel.searchMoviesFromGenre(it)
-            }
+//            SearchBar {
+//                viewModel.searchMoviesFromGenre(it)
+//            }
 
             LazyColumn(
                 verticalArrangement = Arrangement.Center,
