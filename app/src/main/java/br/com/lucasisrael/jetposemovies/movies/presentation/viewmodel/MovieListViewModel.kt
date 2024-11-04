@@ -14,50 +14,36 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-val EMPTY_MOVIE_DOMAIN = MovieDomain(
-    backdropPath = "",
-    releaseDate = "",
-    adult = false,
-    genreIds = listOf(),
-    posterPath = "",
-    originalTitle = "",
-    popularity = 0.00,
-    voteAverage = 0.00,
-    title = "",
-    voteCount = 0,
-    video = false,
-    overview = "",
-    id = 0,
-    originalLanguage = "",
-)
-
 @HiltViewModel
-class MoviesListViewModel @Inject constructor(
-    private val moviesFromGenreUseCase: MoviesUseCase,
+class MovieListViewModel @Inject constructor(
+    private val movieUseCase: MoviesUseCase,
     private val coroutinesProvider: CoroutinesProvider
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _movieDomain =
-        MutableStateFlow(listOf(EMPTY_MOVIE_DOMAIN))
-    val movieDomain: StateFlow<List<MovieDomain>> = _movieDomain.asStateFlow()
+    private val _moviesFromGenre =
+        MutableStateFlow<List<MovieDomain>>(emptyList())
+    val moviesFromGenre: StateFlow<List<MovieDomain>> = _moviesFromGenre.asStateFlow()
+
+    private val _upcomingMovies = MutableStateFlow<List<MovieDomain>>(emptyList())
+    val upcomingMovies: StateFlow<List<MovieDomain>> = _upcomingMovies.asStateFlow()
 
     private var cachedMovieDomain =
-        listOf(EMPTY_MOVIE_DOMAIN)
+        emptyList<MovieDomain>()
     private var isSearchStarting = true
 
 
     fun searchMoviesFromGenre(query: String) {
         val listToSearch = if (isSearchStarting) {
-            _movieDomain.value
+            _moviesFromGenre.value
         } else {
             cachedMovieDomain
         }
         viewModelScope.launch(coroutinesProvider.default()) {
             if (query.isEmpty()) {
-                _movieDomain.value = cachedMovieDomain
+                _moviesFromGenre.value = cachedMovieDomain
                 isSearchStarting = true
                 return@launch
             }
@@ -66,38 +52,36 @@ class MoviesListViewModel @Inject constructor(
                 it.title.contains(query.trim(), ignoreCase = true)
             }
 
-            val totalResult = results.map {
-                MovieDomain(
-                    backdropPath = it.backdropPath,
-                    genreIds = it.genreIds,
-                    id = it.id,
-                    posterPath = it.posterPath,
-                    title = it.title,
-                    originalTitle = it.title,
-                    video = it.video,
-                    overview = it.overview,
-                    voteCount = it.voteCount,
-                    releaseDate = it.releaseDate,
-                    voteAverage = it.voteAverage,
-                    adult = it.adult,
-                    popularity = it.popularity,
-                    originalLanguage = it.originalLanguage,
-                )
-            }
-
             if (isSearchStarting) {
-                cachedMovieDomain = _movieDomain.value
+                cachedMovieDomain = _moviesFromGenre.value
                 isSearchStarting = false
             }
-            _movieDomain.value = totalResult
+            _moviesFromGenre.value = results
         }
     }
 
-    fun getMoviesFromGenreRepository(searchType: SearchType) {
+    fun getMoviesFromGenreRepository(genreId: String) {
         viewModelScope.launch(coroutinesProvider.io()) {
             try {
                 _isLoading.value = true
-                _movieDomain.value = moviesFromGenreUseCase.synchronizeMovies(searchType)
+                _moviesFromGenre.value = movieUseCase
+                    .synchronizeMovies(searchType = SearchType.GenreId(genreId = genreId))
+
+            } catch (e: CancellationException) {
+                e.printStackTrace()
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun getUpcomingMovies() {
+        viewModelScope.launch(coroutinesProvider.io()) {
+            try {
+                _isLoading.value = true
+                _upcomingMovies.value =
+                    movieUseCase.synchronizeMovies(searchType = SearchType.Upcoming)
+
             } catch (e: CancellationException) {
                 e.printStackTrace()
             } finally {
