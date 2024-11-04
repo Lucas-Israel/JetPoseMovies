@@ -21,4 +21,21 @@ interface MoviesApi {
         @Query("release_date.lte") releaseDateLte: String = "{max_date}",
         @Query("page") page: Int = 1
     ) : MoviesResponse
+
+    @GET("discover/movie")
+    suspend fun fetchPopularMovies(
+        @Query("sort_by") sortBy: String = "popularity.desc",
+        @Query("page") page: Int = 1
+    ) : MoviesResponse
+
+    @SuppressWarnings("LongParameterList")
+    @GET("discover/movie")
+    suspend fun fetchMovies(
+        @Query("with_genres") genreId: String? = null,
+        @Query("sort_by") sortBy: String? = "popularity.desc",
+        @Query("with_release_type") releaseType: Int? = null,
+        @Query("release_date.gte") releaseDateGte: String? = null,
+        @Query("release_date.lte") releaseDateLte: String? = null,
+        @Query("page") page: Int? = 1
+    ) : MoviesResponse
 }

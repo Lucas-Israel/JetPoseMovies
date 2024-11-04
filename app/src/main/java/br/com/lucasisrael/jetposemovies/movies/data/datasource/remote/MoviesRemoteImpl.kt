@@ -6,13 +6,24 @@ import javax.inject.Inject
 
 class MoviesRemoteImpl @Inject constructor(
     private val moviesApi: MoviesApi,
-) :
-    MoviesRemote {
-    override suspend fun fetchMoviesFromGenre(genreId: String, page: Int): List<MovieDto> {
-        return moviesApi.fetchMoviesFromGenre(genreId = genreId, page = page).results
-    }
+) : MoviesRemote {
 
-    override suspend fun fetchUpcomingMovies(page: Int): List<MovieDto> {
-        return moviesApi.fetchUpComingMovies(page = page).results
+    @SuppressWarnings("LongParameterList")
+    override suspend fun fetchMovies(
+        genreId: String?,
+        sortBy: String?,
+        releaseType: Int?,
+        releaseDateGte: String?,
+        releaseDateLte: String?,
+        page: Int?
+    ): List<MovieDto> {
+        return moviesApi.fetchMovies(
+            genreId = genreId,
+            sortBy = sortBy,
+            releaseType = releaseType,
+            releaseDateGte = releaseDateGte,
+            releaseDateLte = releaseDateLte,
+            page = page
+        ).results
     }
 }
