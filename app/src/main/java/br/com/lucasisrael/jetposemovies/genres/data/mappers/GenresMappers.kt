@@ -19,11 +19,3 @@ fun GenreEntity.toGenres() : Genre {
         name = name
     )
 }
-
-fun GenreEntity.toGenreWithUrl(imageUrl: String) : GenreWithImgUrl {
-    return GenreWithImgUrl(
-        id = id,
-        name = name,
-        imgUrl = imageUrl
-    )
-}
