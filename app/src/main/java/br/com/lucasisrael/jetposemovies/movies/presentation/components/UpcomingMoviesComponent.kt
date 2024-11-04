@@ -9,7 +9,7 @@ import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.components.Carousel
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.LoadingScreen
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.SearchType
-import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodels.MoviesListViewModel
+import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel.MoviesListViewModel
 
 @SuppressWarnings("FunctionNaming")
 @Composable
