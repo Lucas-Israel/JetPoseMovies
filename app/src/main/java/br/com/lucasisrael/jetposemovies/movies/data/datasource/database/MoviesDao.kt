@@ -25,6 +25,11 @@ interface MoviesDao {
     )
     suspend fun getUpcomingMovies(): List<MovieEntity>
 
+    @Query(
+        "SELECT * from movies_from_genre ORDER BY popularity DESC LIMIT 20"
+    )
+    suspend fun getPopularMovies(): List<MovieEntity>
+
     @Delete
     suspend fun deleteMovieFromGenre(movieFromGenre: MovieEntity)
 
