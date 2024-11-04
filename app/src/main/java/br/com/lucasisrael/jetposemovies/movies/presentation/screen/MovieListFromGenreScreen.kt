@@ -20,29 +20,28 @@ import br.com.lucasisrael.jetposemovies.common.presentation.components.CustomCar
 import br.com.lucasisrael.jetposemovies.common.presentation.components.SearchBar
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.LoadingScreen
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.ScreenStructure
-import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.SearchType
-import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel.MoviesListViewModel
+import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel.MovieListViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MoviesListScreen(
+data class MovieListFromGenreScreen(
     val genreId: String,
     val genreName: String,
 )
 
 @Suppress("FunctionNaming")
 @Composable
-fun MoviesListScreen(
+fun MovieListFromGenreScreen(
     navigationActions: NavigationActions,
-    viewModel: MoviesListViewModel = hiltViewModel(),
+    viewModel: MovieListViewModel = hiltViewModel(),
     genreId: String,
     genreName: String
 ) {
     LaunchedEffect(Unit) {
-        viewModel.getMoviesFromGenreRepository(searchType = SearchType.GenreId(genreId))
+        viewModel.getMoviesFromGenreRepository(genreId)
     }
 
-    val collectingMovies by viewModel.movieDomain.collectAsStateWithLifecycle()
+    val collectingMovies by viewModel.moviesFromGenre.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
     if (isLoading) {

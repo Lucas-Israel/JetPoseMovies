@@ -8,20 +8,19 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.components.Carousel
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.LoadingScreen
-import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.SearchType
-import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel.MoviesListViewModel
+import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel.MovieListViewModel
 
 @SuppressWarnings("FunctionNaming")
 @Composable
 fun UpcomingMoviesComponent(
     navigationActions: NavigationActions,
-    viewModel: MoviesListViewModel = hiltViewModel(),
+    viewModel: MovieListViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(Unit) {
-        viewModel.getMoviesFromGenreRepository(searchType = SearchType.Upcoming)
+        viewModel.getUpcomingMovies()
     }
 
-    val collectingMovies by viewModel.movieDomain.collectAsStateWithLifecycle()
+    val collectingMovies by viewModel.upcomingMovies.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
     if (isLoading) {
