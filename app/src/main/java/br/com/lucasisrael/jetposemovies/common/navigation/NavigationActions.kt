@@ -1,7 +1,7 @@
 package br.com.lucasisrael.jetposemovies.common.navigation
 
 import androidx.navigation.NavHostController
-import br.com.lucasisrael.jetposemovies.details.presentation.DetailsScreen
+import br.com.lucasisrael.jetposemovies.details.presentation.screen.DetailsScreen
 import br.com.lucasisrael.jetposemovies.movies.presentation.screen.MoviesListScreen
 
 class NavigationActions(
