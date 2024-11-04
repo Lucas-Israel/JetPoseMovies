@@ -7,7 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.InitialScreen
 import br.com.lucasisrael.jetposemovies.details.presentation.screen.DetailsScreen
-import br.com.lucasisrael.jetposemovies.movies.presentation.screen.MoviesListScreen
+import br.com.lucasisrael.jetposemovies.movies.presentation.screen.MovieListFromGenreScreen
 
 @Suppress("FunctionNaming")
 @Composable
@@ -25,9 +25,9 @@ fun NavGraph() {
             InitialScreen(navigationActions = navActions)
         }
 
-        composable<MoviesListScreen> {
-            val args = it.toRoute<MoviesListScreen>()
-            MoviesListScreen(
+        composable<MovieListFromGenreScreen> {
+            val args = it.toRoute<MovieListFromGenreScreen>()
+            MovieListFromGenreScreen(
                 navigationActions = navActions,
                 genreId = args.genreId,
                 genreName = args.genreName
