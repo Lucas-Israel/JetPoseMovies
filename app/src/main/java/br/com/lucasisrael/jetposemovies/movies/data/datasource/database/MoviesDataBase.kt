@@ -6,7 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import br.com.lucasisrael.jetposemovies.common.converters.ListConverters
-import br.com.lucasisrael.jetposemovies.common.converters.MovieConverters
 import br.com.lucasisrael.jetposemovies.movies.data.models.local.MovieEntity
 
 @Database(
@@ -15,7 +14,6 @@ import br.com.lucasisrael.jetposemovies.movies.data.models.local.MovieEntity
     exportSchema = false
 )
 @TypeConverters(
-    MovieConverters::class,
     ListConverters::class
 )
 abstract class MoviesDataBase : RoomDatabase() {

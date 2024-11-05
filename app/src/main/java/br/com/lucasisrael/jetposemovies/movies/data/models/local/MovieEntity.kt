@@ -5,11 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import br.com.lucasisrael.jetposemovies.common.converters.ListConverters
-import br.com.lucasisrael.jetposemovies.common.converters.MovieConverters
 
 @Entity(tableName = "movies_from_genre")
 @TypeConverters(
-    MovieConverters::class,
     ListConverters::class
 )
 data class MovieEntity(
