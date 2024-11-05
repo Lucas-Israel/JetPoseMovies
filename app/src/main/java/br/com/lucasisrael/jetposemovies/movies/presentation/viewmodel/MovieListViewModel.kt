@@ -24,8 +24,7 @@ class MovieListViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _moviesFromGenre =
-        MutableStateFlow<List<MovieDomain>>(emptyList())
+    private val _moviesFromGenre = MutableStateFlow<List<MovieDomain>>(emptyList())
     val moviesFromGenre: StateFlow<List<MovieDomain>> = _moviesFromGenre.asStateFlow()
 
     private val _upcomingMovies = MutableStateFlow<List<MovieDomain>>(emptyList())
@@ -38,14 +37,9 @@ class MovieListViewModel @Inject constructor(
         viewModelScope.launch(coroutinesProvider.io()) {
             try {
                 _isLoading.value = true
-                val genreQuery = MovieApiQuery(
-                    genreId = genreId,
-                )
+
                 _moviesFromGenre.value = movieUseCase
-                    .synchronizeMovies(
-                        searchType = SearchType.GenreId(genreId = genreId),
-                        movieApiQuery = genreQuery
-                    )
+                    .synchronizeMovies(searchType = SearchType.GenreId(genreId = genreId))
 
             } catch (e: CancellationException) {
                 e.printStackTrace()
@@ -59,16 +53,9 @@ class MovieListViewModel @Inject constructor(
         viewModelScope.launch(coroutinesProvider.io()) {
             try {
                 _isLoading.value = true
-                val upcomingQuery = MovieApiQuery(
-                    releaseDateLte = "{min_date}",
-                    releaseType = 2 or 3,
-                    releaseDateGte = "{max_date}",
-                )
+
                 _upcomingMovies.value =
-                    movieUseCase.synchronizeMovies(
-                        searchType = SearchType.Upcoming,
-                        movieApiQuery = upcomingQuery
-                    )
+                    movieUseCase.synchronizeMovies(searchType = SearchType.Upcoming)
 
             } catch (e: CancellationException) {
                 e.printStackTrace()
@@ -82,13 +69,8 @@ class MovieListViewModel @Inject constructor(
         viewModelScope.launch(coroutinesProvider.io()) {
             try {
                 _isLoading.value = true
-                val popularQuery = MovieApiQuery(
-                    sortBy = "popular.desc"
-                )
-                _popularMovies.value = movieUseCase.synchronizeMovies(
-                    searchType = SearchType.Popular,
-                    movieApiQuery = popularQuery
-                )
+                _popularMovies.value =
+                    movieUseCase.synchronizeMovies(searchType = SearchType.Popular)
 
             } catch (e: CancellationException) {
                 e.printStackTrace()

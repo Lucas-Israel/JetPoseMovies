@@ -38,9 +38,29 @@ class MoviesUseCaseImpl @Inject constructor(
         return repository.loadMoviesFromDataBase(searchType)
     }
 
-    override suspend fun synchronizeMovies(searchType: SearchType, movieApiQuery: MovieApiQuery): List<MovieDomain> {
+    override suspend fun synchronizeMovies(searchType: SearchType): List<MovieDomain> {
         return try {
-            val data = fetchMovies(movieApiQuery)
+            val data = when (searchType) {
+                is SearchType.GenreId -> {
+                    val query = MovieApiQuery(genreId = searchType.genreId)
+                    fetchMovies(query)
+                }
+
+                is SearchType.Popular -> {
+                    val query = MovieApiQuery(sortBy = "popular.desc")
+                    fetchMovies(query)
+                }
+
+                is SearchType.Upcoming -> {
+                    val query = MovieApiQuery(
+                        releaseDateLte = "{min_date}",
+                        releaseType = 2 or 3,
+                        releaseDateGte = "{max_date}",
+                    )
+                    fetchMovies(query)
+                }
+            }
+
             saveMovies(data)
             loadMovies(searchType).map { it.toMovieDomain() }
         } catch (e: CancellationException) {

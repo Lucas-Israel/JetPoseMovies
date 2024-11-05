@@ -10,5 +10,5 @@ interface MoviesUseCase {
     suspend fun fetchMovies(movieApiQuery: MovieApiQuery): List<MovieDto>
     suspend fun saveMovies(movies: List<MovieDto>)
     suspend fun loadMovies(searchType: SearchType): List<MovieEntity>
-    suspend fun synchronizeMovies(searchType: SearchType, movieApiQuery: MovieApiQuery): List<MovieDomain>
+    suspend fun synchronizeMovies(searchType: SearchType): List<MovieDomain>
 }
