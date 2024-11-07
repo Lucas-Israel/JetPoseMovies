@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 import br.com.lucasisrael.jetposemovies.movies.data.models.local.MovieEntity
 
 @Dao
@@ -12,6 +13,9 @@ interface MoviesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMoviesFromGenre(moviesFromGenre: MovieEntity)
+
+    @Upsert
+    suspend fun upsertAll(movies: List<MovieEntity>)
 
     @Query(
         "SELECT * from movies_from_genre" +
