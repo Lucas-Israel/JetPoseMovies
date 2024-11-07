@@ -10,6 +10,10 @@ class MoviesLocalImpl @Inject constructor(
     private val moviesDao: MoviesDao
 ) : MoviesLocal {
 
+    override suspend fun clearAll() {
+        moviesDao.clearAll()
+    }
+
     override suspend fun saveMoviesToDataBase(movies: MovieDto) {
         moviesDao.insertMoviesFromGenre(movies.toMoviesListEntity())
     }
@@ -33,7 +37,7 @@ class MoviesLocalImpl @Inject constructor(
 }
 
 sealed class SearchType {
-    data class GenreId(val genreId: String) : SearchType()
-    data object Upcoming : SearchType()
-    data object Popular : SearchType()
+    data class GenreId(val genreId: String, val page: Int) : SearchType()
+    data class Upcoming(val page: Int) : SearchType()
+    data class Popular(val page: Int) : SearchType()
 }
