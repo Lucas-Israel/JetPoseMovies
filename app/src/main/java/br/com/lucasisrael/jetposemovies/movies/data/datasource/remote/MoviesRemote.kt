@@ -2,9 +2,10 @@ package br.com.lucasisrael.jetposemovies.movies.data.datasource.remote
 
 import br.com.lucasisrael.jetposemovies.movies.data.models.query.MovieApiQuery
 import br.com.lucasisrael.jetposemovies.movies.data.models.remote.MovieDto
+import br.com.lucasisrael.jetposemovies.movies.data.models.response.MoviesResponse
 
 interface MoviesRemote {
 
     @SuppressWarnings("LongParameterList")
-    suspend fun fetchMovies(query: MovieApiQuery): List<MovieDto>
+    suspend fun fetchMovies(query: MovieApiQuery): MoviesResponse
 }
