@@ -16,8 +16,11 @@ fun UpcomingMoviesComponent(
     navigationActions: NavigationActions,
     viewModel: MovieListViewModel = hiltViewModel(),
 ) {
+
+    var page: Int = 1
+
     LaunchedEffect(Unit) {
-        viewModel.getUpcomingMovies()
+        viewModel.getUpcomingMovies(page = page)
     }
 
     val collectingMovies by viewModel.upcomingMovies.collectAsStateWithLifecycle()

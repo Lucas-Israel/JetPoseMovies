@@ -32,8 +32,10 @@ fun PopularMoviesComponent(
     navigationActions: NavigationActions,
     viewModel: MovieListViewModel = hiltViewModel(),
 ) {
+    var page = 1
+
     LaunchedEffect(Unit) {
-        viewModel.getPopularMovies()
+        viewModel.getPopularMovies(page = page)
     }
 
     val collectingMovies by viewModel.popularMovies.collectAsStateWithLifecycle()
