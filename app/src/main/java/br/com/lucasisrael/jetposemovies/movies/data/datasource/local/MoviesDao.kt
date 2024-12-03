@@ -1,5 +1,6 @@
-package br.com.lucasisrael.jetposemovies.movies.data.datasource.database
+package br.com.lucasisrael.jetposemovies.movies.data.datasource.local
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -39,4 +40,19 @@ interface MoviesDao {
 
     @Query("DELETE from movies_from_genre")
     suspend fun clearAll()
+
+    @Query(
+        "SELECT * FROM movies_from_genre WHERE genre_ids LIKE '%' || :genreId || '%' ORDER BY popularity"
+    )
+    fun moviesByGenrePagingSource(genreId: String): PagingSource<Int, MovieEntity>
+
+    @Query(
+        "SELECT * from movies_from_genre ORDER BY popularity DESC"
+    )
+    fun popularMovies(): PagingSource<Int, MovieEntity>
+
+    @Query(
+        "SELECT * from movies_from_genre ORDER BY release_date DESC LIMIT 5"
+    )
+    fun upcomingMovies(): PagingSource<Int, MovieEntity>
 }
