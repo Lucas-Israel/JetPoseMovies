@@ -1,6 +1,5 @@
 package br.com.lucasisrael.jetposemovies.common.models
 
-import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 
 data class SpokenLanguages(
