@@ -1,13 +1,11 @@
 package br.com.lucasisrael.jetposemovies.movies.presentation.components
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.compose.collectAsLazyPagingItems
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.components.Carousel
-import br.com.lucasisrael.jetposemovies.common.presentation.screens.LoadingScreen
+import br.com.lucasisrael.jetposemovies.common.utils.types.SearchType
 import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel.MovieListViewModel
 
 @SuppressWarnings("FunctionNaming")
@@ -17,21 +15,13 @@ fun UpcomingMoviesComponent(
     viewModel: MovieListViewModel = hiltViewModel(),
 ) {
 
-    var page: Int = 1
+    val page = 1
 
-    LaunchedEffect(Unit) {
-        viewModel.getUpcomingMovies(page = page)
-    }
+    viewModel.setMoviesFlow(searchType = SearchType.Upcoming(page = page))
+    val movies = viewModel.upcomingMoviesPagingFlow.collectAsLazyPagingItems()
 
-    val collectingMovies by viewModel.upcomingMovies.collectAsStateWithLifecycle()
-    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
-
-    if (isLoading) {
-        LoadingScreen()
-    } else {
-        Carousel(
-            items = collectingMovies,
-            navigationActions = navigationActions
-        )
-    }
+    Carousel(
+        items = movies,
+        navigationActions = navigationActions
+    )
 }

@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.paging.compose.LazyPagingItems
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.components.Spacing.TwoDpSpacer
 import br.com.lucasisrael.jetposemovies.movies.domain.models.MovieDomain
@@ -29,10 +30,10 @@ import br.com.lucasisrael.jetposemovies.movies.domain.models.MovieDomain
 @SuppressWarnings("FunctionNaming")
 @Composable
 fun Carousel(
-    items: List<MovieDomain>,
+    items: LazyPagingItems<MovieDomain>,
     navigationActions: NavigationActions
 ) {
-    val pagerState = rememberPagerState(pageCount = { items.size })
+    val pagerState = rememberPagerState(pageCount = { items.itemCount })
 
     Column {
         HorizontalPager(
@@ -45,20 +46,20 @@ fun Carousel(
                 modifier = Modifier
                     .fillMaxSize()
                     .clickable {
-                        navigationActions.toDetailsScreen(items[page].id.toString())
+                        navigationActions.toDetailsScreen(items[page]?.id.toString())
                     }
             ) {
                 CustomAsyncImageWithGradient(
-                    url = items[page].backdropPath,
-                    title = items[page].title,
+                    url = items[page]?.backdropPath,
+                    title = items[page]?.title,
                     modifier = Modifier,
                     color = MaterialTheme.colorScheme.background
                 )
 
                 DescriptionTextBox(
-                    releaseDate = items[page].releaseDate,
-                    title = items[page].title,
-                    overview = items[page].overview,
+                    releaseDate = items[page]?.releaseDate,
+                    title = items[page]?.title,
+                    overview = items[page]?.overview,
                     modifier = Modifier
                         .align(Alignment.BottomStart)
                 )
@@ -66,7 +67,7 @@ fun Carousel(
         }
         HorizontalPagerIndicator(
             currentPage = pagerState.currentPage,
-            pageCount = items.size,
+            pageCount = items.itemCount,
             modifier = Modifier
                 .padding(16.dp)
                 .align(Alignment.CenterHorizontally)
