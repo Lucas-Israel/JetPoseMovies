@@ -18,7 +18,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.ScreenStructure
 import br.com.lucasisrael.jetposemovies.common.utils.types.SearchType
-import br.com.lucasisrael.jetposemovies.movies.presentation.components.ErrorViewer
+import br.com.lucasisrael.jetposemovies.common.presentation.components.ErrorViewer
 import br.com.lucasisrael.jetposemovies.movies.presentation.components.MovieItem
 import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel.MovieListViewModel
 import kotlinx.serialization.Serializable
