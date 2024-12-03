@@ -2,8 +2,8 @@ package br.com.lucasisrael.jetposemovies.movies.di
 
 import android.content.Context
 import androidx.room.Room
-import br.com.lucasisrael.jetposemovies.movies.data.datasource.database.MoviesDao
-import br.com.lucasisrael.jetposemovies.movies.data.datasource.database.MoviesDataBase
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MoviesDao
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MoviesDataBase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
