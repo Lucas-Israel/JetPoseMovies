@@ -2,112 +2,39 @@ package br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.lucasisrael.jetposemovies.common.coroutines.CoroutinesProvider
-import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.SearchType
-import br.com.lucasisrael.jetposemovies.movies.data.models.query.MovieApiQuery
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import br.com.lucasisrael.jetposemovies.common.utils.types.SearchType
 import br.com.lucasisrael.jetposemovies.movies.domain.models.MovieDomain
 import br.com.lucasisrael.jetposemovies.movies.domain.usecase.MoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
+
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieListViewModel @Inject constructor(
-    private val movieUseCase: MoviesUseCase,
-    private val coroutinesProvider: CoroutinesProvider
+    private val moviesUseCase: MoviesUseCase
 ) : ViewModel() {
 
-    private val _isLoading = MutableStateFlow(true)
-    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+    var moviesByGenrePagingFlow: Flow<PagingData<MovieDomain>> = emptyFlow()
+    var upcomingMoviesPagingFlow: Flow<PagingData<MovieDomain>> = emptyFlow()
+    var popularMoviesPagingFlow: Flow<PagingData<MovieDomain>> = emptyFlow()
 
-    private val _moviesFromGenre = MutableStateFlow<List<MovieDomain>>(emptyList())
-    val moviesFromGenre: StateFlow<List<MovieDomain>> = _moviesFromGenre.asStateFlow()
+    fun setMoviesFlow(searchType: SearchType) {
 
-    private val _upcomingMovies = MutableStateFlow<List<MovieDomain>>(emptyList())
-    val upcomingMovies: StateFlow<List<MovieDomain>> = _upcomingMovies.asStateFlow()
+        val data = getFlow(searchType)
 
-    private val _popularMovies = MutableStateFlow<List<MovieDomain>>(emptyList())
-    val popularMovies: StateFlow<List<MovieDomain>> = _popularMovies.asStateFlow()
-
-    fun getMoviesFromGenreRepository(genreId: String) {
-        viewModelScope.launch(coroutinesProvider.io()) {
-            try {
-                _isLoading.value = true
-
-                _moviesFromGenre.value = movieUseCase
-                    .synchronizeMovies(searchType = SearchType.GenreId(genreId = genreId))
-
-            } catch (e: CancellationException) {
-                e.printStackTrace()
-            } finally {
-                _isLoading.value = false
-            }
+        when (searchType) {
+            is SearchType.GenreId -> moviesByGenrePagingFlow = data
+            is SearchType.Popular -> popularMoviesPagingFlow = data
+            is SearchType.Upcoming -> upcomingMoviesPagingFlow = data
         }
     }
 
-    fun getUpcomingMovies() {
-        viewModelScope.launch(coroutinesProvider.io()) {
-            try {
-                _isLoading.value = true
-
-                _upcomingMovies.value =
-                    movieUseCase.synchronizeMovies(searchType = SearchType.Upcoming)
-
-            } catch (e: CancellationException) {
-                e.printStackTrace()
-            } finally {
-                _isLoading.value = false
-            }
-        }
+    private fun getFlow(searchType: SearchType): Flow<PagingData<MovieDomain>> {
+        return moviesUseCase.moviesFlow(searchType).cachedIn(viewModelScope)
     }
 
-    fun getPopularMovies() {
-        viewModelScope.launch(coroutinesProvider.io()) {
-            try {
-                _isLoading.value = true
-                _popularMovies.value =
-                    movieUseCase.synchronizeMovies(searchType = SearchType.Popular)
-
-            } catch (e: CancellationException) {
-                e.printStackTrace()
-            } finally {
-                _isLoading.value = false
-            }
-        }
-    }
 }
-
-
-//private var cachedMovieDomain =
-//    emptyList<MovieDomain>()
-//private var isSearchStarting = true
-//
-//
-//fun searchMoviesFromGenre(query: String) {
-//    val listToSearch = if (isSearchStarting) {
-//        _moviesFromGenre.value
-//    } else {
-//        cachedMovieDomain
-//    }
-//    viewModelScope.launch(coroutinesProvider.default()) {
-//        if (query.isEmpty()) {
-//            _moviesFromGenre.value = cachedMovieDomain
-//            isSearchStarting = true
-//            return@launch
-//        }
-//        val results = listToSearch.filter {
-//            if (it.title == null) return@filter false
-//            it.title.contains(query.trim(), ignoreCase = true)
-//        }
-//
-//        if (isSearchStarting) {
-//            cachedMovieDomain = _moviesFromGenre.value
-//            isSearchStarting = false
-//        }
-//        _moviesFromGenre.value = results
-//    }
-//}
