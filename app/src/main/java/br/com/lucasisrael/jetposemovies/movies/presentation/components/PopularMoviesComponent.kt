@@ -19,6 +19,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import br.com.lucasisrael.jetposemovies.R
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
+import br.com.lucasisrael.jetposemovies.common.presentation.components.ErrorViewer
 import br.com.lucasisrael.jetposemovies.common.utils.types.SearchType
 import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel.MovieListViewModel
 
