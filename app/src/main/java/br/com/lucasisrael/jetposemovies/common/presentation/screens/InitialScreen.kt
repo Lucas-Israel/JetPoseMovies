@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.genres.presentation.components.GenresComponent
 import br.com.lucasisrael.jetposemovies.movies.presentation.components.PopularMoviesComponent
+import br.com.lucasisrael.jetposemovies.movies.presentation.components.TopRatedMoviesComponent
 import br.com.lucasisrael.jetposemovies.movies.presentation.components.UpcomingMoviesComponent
 import kotlinx.serialization.Serializable
 
@@ -19,13 +20,16 @@ fun InitialScreen(
     ScreenStructure {
         LazyColumn {
             item {
-                UpcomingMoviesComponent(navigationActions)
+                UpcomingMoviesComponent(navigationActions = navigationActions)
             }
             item {
-                GenresComponent(navigationActions)
+                GenresComponent(navigationActions = navigationActions)
             }
             item {
-                PopularMoviesComponent(navigationActions)
+                PopularMoviesComponent(navigationActions = navigationActions)
+            }
+            item {
+                TopRatedMoviesComponent(navigationActions = navigationActions)
             }
         }
     }
