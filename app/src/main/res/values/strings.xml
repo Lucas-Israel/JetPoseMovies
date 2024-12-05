@@ -16,4 +16,5 @@
     <string name="movie_poster_image">%1$s Movie poster image</string>
     <string name="upcoming_movies">Upcoming Movies</string>
     <string name="popular_movies">Popular movies</string>
+    <string name="top_rated_movies">Top rated movies</string>
 </resources>
