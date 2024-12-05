@@ -19,7 +19,7 @@ class MoviesRemoteMediator(
     private val movieDataBase: MoviesDataBase,
     private val movieApi: MoviesApi
 ) : RemoteMediator<Int, MovieEntity>() {
-    
+
     var searchType: SearchType? = null
 
     override suspend fun load(
@@ -27,10 +27,11 @@ class MoviesRemoteMediator(
         state: PagingState<Int, MovieEntity>
     ): MediatorResult {
         return try {
+            if (searchType == null) throw NullPointerException("SearchType cannot be null")
 
-            val loadKey = getLoadKey(loadType, state)
+            val loadKey = getLoadKey(loadType, state, searchType!!.toApiQuery().page!!)
 
-            val movies = fetchMovies(searchType, loadKey)
+            val movies = fetchMovies(searchType!!, loadKey)
 
             databaseTransaction(loadType, movies)
 
@@ -44,13 +45,19 @@ class MoviesRemoteMediator(
         }
     }
 
-    private suspend fun fetchMovies(searchType: SearchType?, page: Int): MoviesResponse  {
-        if (searchType == null) throw NullPointerException("SearchType cannot be null")
+    private suspend fun fetchMovies(searchType: SearchType, page: Int): MoviesResponse {
 
-        return when (searchType) {
-            is SearchType.GenreId -> movieApi.fetchMovies(genreId = searchType.genreId, page = page)
-            else -> movieApi.fetchMovies(page = page)
-        }
+        val queryParams = searchType.toApiQuery()
+
+        return movieApi.fetchMovies(
+            genreId = queryParams.genreId,
+            sortBy = queryParams.sortBy,
+            releaseType = queryParams.releaseType,
+            releaseDateGte = queryParams.releaseDateGte,
+            releaseDateLte = queryParams.releaseDateLte,
+            voteCountGte = queryParams.voteCount,
+            page = queryParams.page,
+        )
     }
 
     private suspend fun databaseTransaction(
@@ -68,22 +75,25 @@ class MoviesRemoteMediator(
 
     private fun getLoadKey(
         loadType: LoadType,
-        state: PagingState<Int, MovieEntity>
+        state: PagingState<Int, MovieEntity>,
+        page: Int
     ): Int {
         val loadKey = when (loadType) {
             LoadType.REFRESH -> {
                 1
             }
+
             LoadType.PREPEND -> {
                 MediatorResult.Success(endOfPaginationReached = true)
                 1
             }
+
             LoadType.APPEND -> {
                 val lastItem = state.lastItemOrNull()
                 if (lastItem == null) {
                     1
                 } else {
-                    1
+                    page
                 }
             }
         }
