@@ -38,4 +38,9 @@ interface MoviesDao {
         "SELECT * from movies_from_genre ORDER BY release_date DESC LIMIT 5"
     )
     fun upcomingMovies(): PagingSource<Int, MovieEntity>
+
+    @Query(
+        "SELECT * from movies_from_genre ORDER BY vote_average DESC"
+    )
+    fun topRatedMovies(): PagingSource<Int, MovieEntity>
 }

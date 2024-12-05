@@ -14,6 +14,7 @@ class MoviesRepository @Inject constructor(
             is SearchType.GenreId -> movieDao.moviesByGenrePagingSource(searchType.genreId)
             is SearchType.Popular -> movieDao.popularMovies()
             is SearchType.Upcoming -> movieDao.upcomingMovies()
+            is SearchType.TopRated -> movieDao.topRatedMovies()
         }
     }
 }

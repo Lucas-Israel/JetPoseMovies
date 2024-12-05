@@ -21,6 +21,7 @@ class MovieListViewModel @Inject constructor(
     var moviesByGenrePagingFlow: Flow<PagingData<MovieDomain>> = emptyFlow()
     var upcomingMoviesPagingFlow: Flow<PagingData<MovieDomain>> = emptyFlow()
     var popularMoviesPagingFlow: Flow<PagingData<MovieDomain>> = emptyFlow()
+    var topRatedMoviesPagingFlow: Flow<PagingData<MovieDomain>> = emptyFlow()
 
     fun setMoviesFlow(searchType: SearchType) {
 
@@ -30,6 +31,7 @@ class MovieListViewModel @Inject constructor(
             is SearchType.GenreId -> moviesByGenrePagingFlow = data
             is SearchType.Popular -> popularMoviesPagingFlow = data
             is SearchType.Upcoming -> upcomingMoviesPagingFlow = data
+            is SearchType.TopRated -> topRatedMoviesPagingFlow = data
         }
     }
 

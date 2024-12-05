@@ -14,6 +14,7 @@ interface MoviesApi {
         @Query("with_release_type") releaseType: Int? = null,
         @Query("release_date.gte") releaseDateGte: String? = null,
         @Query("release_date.lte") releaseDateLte: String? = null,
+        @Query("vote_count.gte") voteCountGte: Double? = null,
         @Query("page") page: Int? = 1
     ) : MoviesResponse
 }
