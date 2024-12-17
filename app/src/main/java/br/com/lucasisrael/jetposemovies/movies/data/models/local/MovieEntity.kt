@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import br.com.lucasisrael.jetposemovies.common.converters.ListConverters
 
-@Entity(tableName = "movies_from_genre")
+@Entity(tableName = "movies")
 @TypeConverters(
     ListConverters::class
 )
