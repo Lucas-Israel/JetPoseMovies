@@ -1,6 +1,8 @@
 package br.com.lucasisrael.jetposemovies.movies.di
 
 import br.com.lucasisrael.jetposemovies.movies.data.api.MoviesApi
+import br.com.lucasisrael.jetposemovies.movies.data.api.PopularMoviesApi
+import br.com.lucasisrael.jetposemovies.movies.data.api.UpcomingMoviesApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,5 +18,17 @@ object MoviesApiModule {
     @Provides
     fun provideApiModule(retrofit: Retrofit): MoviesApi {
         return retrofit.create(MoviesApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUpcomingApiModule(retrofit: Retrofit): UpcomingMoviesApi {
+        return retrofit.create(UpcomingMoviesApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePopularApiModule(retrofit: Retrofit): PopularMoviesApi {
+        return retrofit.create(PopularMoviesApi::class.java)
     }
 }
