@@ -4,12 +4,10 @@ import br.com.lucasisrael.jetposemovies.movies.data.models.response.MoviesRespon
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface MoviesApi {
-
-    @GET("movie/popular")
+interface UpcomingMoviesApi {
+    @GET("movie/upcoming")
     suspend fun fetch(
-        @Query("with_genres") genreId: String? = null,
         @Query("language") language: String? = "en-US",
         @Query("page") page: Int? = 1
-    ): MoviesResponse
+    ) : MoviesResponse
 }
