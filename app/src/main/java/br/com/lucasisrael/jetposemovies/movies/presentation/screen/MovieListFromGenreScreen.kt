@@ -17,7 +17,6 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.ScreenStructure
-import br.com.lucasisrael.jetposemovies.common.utils.types.SearchType
 import br.com.lucasisrael.jetposemovies.common.presentation.components.ErrorViewer
 import br.com.lucasisrael.jetposemovies.movies.presentation.components.MovieItem
 import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel.MovieListViewModel
@@ -37,8 +36,8 @@ fun MovieListFromGenreScreen(
     genreId: String,
     genreName: String,
 ) {
-    viewModel.setMoviesFlow(searchType = SearchType.GenreId(genreId = genreId, page = 1))
-    val movies = viewModel.moviesByGenrePagingFlow.collectAsLazyPagingItems()
+    viewModel.setFlow(genreId)
+    val movies = viewModel.pagingFlow.collectAsLazyPagingItems()
 
     ErrorViewer(movies = movies)
 
