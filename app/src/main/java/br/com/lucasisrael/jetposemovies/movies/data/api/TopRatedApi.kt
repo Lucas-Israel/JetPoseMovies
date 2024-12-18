@@ -7,8 +7,8 @@ import retrofit2.http.Query
 interface TopRatedApi {
 
     @GET("movie/top_rated")
-    fun fetch(
-        @Query("language") language: String? = null,
-        @Query("page") page: Int = 1
+    suspend fun fetch(
+        @Query("language") language: String? = "en-US",
+        @Query("page") page: Int? = 1
     ): MoviesResponse
 }
