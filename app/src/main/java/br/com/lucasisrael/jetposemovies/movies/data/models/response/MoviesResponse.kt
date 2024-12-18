@@ -1,11 +1,13 @@
 package br.com.lucasisrael.jetposemovies.movies.data.models.response
 
 import br.com.lucasisrael.jetposemovies.movies.data.models.remote.MovieDto
-
+import com.google.gson.annotations.SerializedName
 
 data class MoviesResponse(
     val page: Int,
     val results: List<MovieDto>,
+    @SerializedName("total_pages")
     val totalPages: Int,
+    @SerializedName("total_results")
     val totalResults: Int
 )
