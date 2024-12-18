@@ -5,6 +5,7 @@ import androidx.room.Room
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MovieDao
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MoviesDataBase
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.PopularMoviesDao
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.TopRatedDao
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.UpcomingMoviesDao
 import dagger.Module
 import dagger.Provides
@@ -43,5 +44,11 @@ object MoviesDataBaseModule {
     @Singleton
     fun providePopularDao(dataBase: MoviesDataBase): PopularMoviesDao {
         return dataBase.popularDao
+    }
+
+    @Provides
+    @Singleton
+    fun provideTopRatedDao(dataBase: MoviesDataBase): TopRatedDao {
+        return dataBase.topRatedDao
     }
 }

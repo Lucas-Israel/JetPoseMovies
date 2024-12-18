@@ -2,6 +2,7 @@ package br.com.lucasisrael.jetposemovies.movies.di
 
 import br.com.lucasisrael.jetposemovies.movies.data.api.MoviesApi
 import br.com.lucasisrael.jetposemovies.movies.data.api.PopularMoviesApi
+import br.com.lucasisrael.jetposemovies.movies.data.api.TopRatedApi
 import br.com.lucasisrael.jetposemovies.movies.data.api.UpcomingMoviesApi
 import dagger.Module
 import dagger.Provides
@@ -30,5 +31,11 @@ object MoviesApiModule {
     @Provides
     fun providePopularApiModule(retrofit: Retrofit): PopularMoviesApi {
         return retrofit.create(PopularMoviesApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideTopRatedApiModule(retrofit: Retrofit): TopRatedApi {
+        return retrofit.create(TopRatedApi::class.java)
     }
 }
