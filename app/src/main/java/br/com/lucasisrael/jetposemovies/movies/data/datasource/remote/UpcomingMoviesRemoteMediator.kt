@@ -9,11 +9,10 @@ import br.com.lucasisrael.jetposemovies.movies.data.api.UpcomingMoviesApi
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MoviesDataBase
 import br.com.lucasisrael.jetposemovies.movies.data.mappers.toMoviesListEntity
 import br.com.lucasisrael.jetposemovies.movies.data.mappers.toUpcomingMovieEntity
+import br.com.lucasisrael.jetposemovies.movies.data.models.local.PopularWithMovie
 import br.com.lucasisrael.jetposemovies.movies.data.models.local.UpcomingWithMovie
 import br.com.lucasisrael.jetposemovies.movies.data.models.response.MoviesResponse
 import coil.network.HttpException
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
@@ -25,23 +24,43 @@ class UpcomingMoviesRemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, UpcomingWithMovie>,
     ): MediatorResult {
-        return withContext(Dispatchers.Default) {
-            try {
+        return try {
 
-                val loadKey = getLoadKey(loadType, state)
+            val loadKey = getLoadKey(loadType, state)
 
-                val movies = fetchMovies(loadKey)
+            if (loadKey == -1) return MediatorResult.Success(endOfPaginationReached = true)
 
-                moviesDataBaseTransaction(loadType, movies)
+            val movies = fetchMovies(loadKey)
 
-                MediatorResult.Success(endOfPaginationReached = movies.page > 50)
+            moviesDataBaseTransaction(loadType, movies)
 
-            } catch (e: IOException) {
-                MediatorResult.Error(e)
-            } catch (e: HttpException) {
-                MediatorResult.Error(e)
+            MediatorResult.Success(endOfPaginationReached = loadKey >= movies.totalPages)
+
+        } catch (e: IOException) {
+            MediatorResult.Error(e)
+        } catch (e: HttpException) {
+            MediatorResult.Error(e)
+        }
+
+    }
+
+    private fun getLoadKey(
+        loadType: LoadType,
+        state: PagingState<Int, UpcomingWithMovie>,
+    ): Int {
+        val loadKey = when (loadType) {
+            LoadType.REFRESH -> 1
+            LoadType.PREPEND -> -1
+            LoadType.APPEND -> {
+                val lastItem = state.lastItemOrNull()
+                if (lastItem == null) {
+                    1
+                } else {
+                    (lastItem.upcomingMovie.tableId / state.config.pageSize) + 1
+                }
             }
         }
+        return loadKey
     }
 
     private suspend fun fetchMovies(page: Int): MoviesResponse {
@@ -57,8 +76,8 @@ class UpcomingMoviesRemoteMediator(
 
         dataBase.withTransaction {
             if (loadType == LoadType.REFRESH) {
-                movieDao.clearAll()
                 upcomingDao.clearAll()
+                upcomingDao.clearPrimaryKey()
             }
 
             val movieEntities = movies.results.map { it.toMoviesListEntity() }
@@ -69,29 +88,4 @@ class UpcomingMoviesRemoteMediator(
         }
     }
 
-    private fun getLoadKey(
-        loadType: LoadType,
-        state: PagingState<Int, UpcomingWithMovie>,
-    ): Int {
-        val loadKey = when (loadType) {
-            LoadType.REFRESH -> {
-                1
-            }
-
-            LoadType.PREPEND -> {
-                MediatorResult.Success(endOfPaginationReached = true)
-                1
-            }
-
-            LoadType.APPEND -> {
-                val lastItem = state.lastItemOrNull()
-                if (lastItem == null) {
-                    1
-                } else {
-                    1
-                }
-            }
-        }
-        return loadKey
-    }
 }
