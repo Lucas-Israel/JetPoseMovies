@@ -19,4 +19,7 @@ interface PopularMoviesDao {
 
     @Query("DELETE from popular")
     fun clearAll()
+
+    @Query("DELETE FROM sqlite_sequence WHERE name = 'popular'")
+    fun clearPrimaryKey()
 }

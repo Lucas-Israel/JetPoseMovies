@@ -19,4 +19,7 @@ interface UpcomingMoviesDao {
 
     @Query("DELETE from upcoming")
     fun clearAll()
+
+    @Query("DELETE FROM sqlite_sequence WHERE name = 'upcoming'")
+    fun clearPrimaryKey()
 }

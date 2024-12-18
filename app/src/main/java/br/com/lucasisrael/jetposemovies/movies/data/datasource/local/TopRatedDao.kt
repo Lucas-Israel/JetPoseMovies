@@ -10,7 +10,6 @@ import br.com.lucasisrael.jetposemovies.movies.data.models.local.TopRatedWithMov
 
 @Dao
 interface TopRatedDao {
-
     @Upsert
     fun upsert(list: List<TopRatedMoviesEntity>)
 
@@ -20,4 +19,7 @@ interface TopRatedDao {
 
     @Query("DELETE from top_rated")
     fun clearAll()
+
+    @Query("DELETE FROM sqlite_sequence WHERE name = 'top_rated'")
+    fun clearPrimaryKey()
 }
