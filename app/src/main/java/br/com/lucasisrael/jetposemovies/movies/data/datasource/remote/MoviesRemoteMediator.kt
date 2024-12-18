@@ -27,13 +27,16 @@ class MoviesRemoteMediator(
     ): MediatorResult {
         return try {
 
-            val page = getLoadKey(loadType = loadType, state = state)
+            val loadKey = getLoadKey(loadType, state)
 
-            val movies = fetchMovies(genreId = genreId, page = page)
+            if (loadKey == -1) return MediatorResult.Success(endOfPaginationReached = true)
+
+            val movies = fetchMovies(genreId = genreId, page = loadKey)
 
             moviesDataBaseTransaction(loadType = loadType, movies = movies)
 
-            MediatorResult.Success(endOfPaginationReached = movies.page > 500)
+            MediatorResult.Success(endOfPaginationReached = loadKey >= movies.totalPages)
+
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch (e: HttpException) {
@@ -41,6 +44,25 @@ class MoviesRemoteMediator(
         }
     }
 
+    private fun getLoadKey(
+        loadType: LoadType,
+        state: PagingState<Int, MovieEntity>,
+    ): Int {
+        val loadKey = when (loadType) {
+            LoadType.REFRESH -> 1
+            LoadType.PREPEND -> -1
+            LoadType.APPEND -> {
+                val lastItem = state.lastItemOrNull()
+                if (lastItem == null) {
+                    1
+                } else {
+                    (state.pages.lastIndex / state.config.pageSize) + 1
+                    TODO("LOGIC FOR PAGINATION IN THE MOVIES BY GENRE")
+                }
+            }
+        }
+        return loadKey
+    }
 
     private suspend fun fetchMovies(genreId: String, page: Int): MoviesResponse {
         return api.fetch(genreId = genreId, page = page)
@@ -58,36 +80,7 @@ class MoviesRemoteMediator(
             }
 
             val movieEntities = movies.results.map { it.toMoviesListEntity() }
-
             dao.upsert(list = movieEntities)
         }
     }
-
-    private fun getLoadKey(
-        loadType: LoadType,
-        state: PagingState<Int, MovieEntity>,
-    ): Int {
-        val loadKey = when (loadType) {
-            LoadType.REFRESH -> {
-                1
-            }
-
-            LoadType.PREPEND -> {
-                MediatorResult.Success(endOfPaginationReached = true)
-                1
-            }
-
-            LoadType.APPEND -> {
-                val lastItem = state.lastItemOrNull()
-                if (lastItem == null) {
-                    1
-                } else {
-                    1
-                }
-            }
-        }
-        return loadKey
-    }
-
 }
-
