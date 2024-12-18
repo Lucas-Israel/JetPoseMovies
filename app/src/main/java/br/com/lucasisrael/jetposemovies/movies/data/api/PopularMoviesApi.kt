@@ -8,6 +8,6 @@ interface PopularMoviesApi {
     @GET("movie/popular")
     suspend fun fetch(
         @Query("language") language: String? = "en-US",
-        @Query("page") page: Int? = 1
+        @Query("page") page: Int
     ) : MoviesResponse
 }
