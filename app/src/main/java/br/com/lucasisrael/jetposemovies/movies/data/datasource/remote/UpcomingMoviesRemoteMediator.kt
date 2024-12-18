@@ -34,7 +34,7 @@ class UpcomingMoviesRemoteMediator(
 
                 moviesDataBaseTransaction(loadType, movies)
 
-                MediatorResult.Success(endOfPaginationReached = movies.page > 500)
+                MediatorResult.Success(endOfPaginationReached = movies.page >= movies.totalPages)
 
             } catch (e: IOException) {
                 MediatorResult.Error(e)

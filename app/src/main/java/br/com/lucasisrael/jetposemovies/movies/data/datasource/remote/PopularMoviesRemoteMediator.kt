@@ -17,15 +17,14 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 import javax.inject.Inject
 
-
 @OptIn(ExperimentalPagingApi::class)
 class PopularMoviesRemoteMediator @Inject constructor(
     private val dataBase: MoviesDataBase,
-    private val api: PopularMoviesApi
+    private val api: PopularMoviesApi,
 ) : RemoteMediator<Int, PopularWithMovie>() {
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, PopularWithMovie>
+        state: PagingState<Int, PopularWithMovie>,
     ): MediatorResult {
         return withContext(Dispatchers.Default) {
             try {
@@ -36,7 +35,7 @@ class PopularMoviesRemoteMediator @Inject constructor(
 
                 moviesDataBaseTransaction(loadType, movies)
 
-                MediatorResult.Success(endOfPaginationReached = movies.page > 500)
+                MediatorResult.Success(endOfPaginationReached = movies.page >= movies.totalPages)
 
             } catch (e: IOException) {
                 MediatorResult.Error(e)
@@ -52,7 +51,7 @@ class PopularMoviesRemoteMediator @Inject constructor(
 
     private suspend fun moviesDataBaseTransaction(
         loadType: LoadType,
-        movies: MoviesResponse
+        movies: MoviesResponse,
     ) {
         val movieDao = dataBase.movieDao
         val popularDao = dataBase.popularDao

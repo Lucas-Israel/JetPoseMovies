@@ -90,7 +90,7 @@ class TopRatedRemoteMediator @Inject constructor(
                 if (lastItem == null) {
                     1
                 } else {
-                    (lastItem.topRatedMovie.tableId / state.config.pageSize) + 1
+                    1
                 }
             }
         }
