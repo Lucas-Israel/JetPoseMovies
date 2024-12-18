@@ -35,7 +35,7 @@ class PopularMoviesRemoteMediator @Inject constructor(
 
                 moviesDataBaseTransaction(loadType, movies)
 
-                MediatorResult.Success(endOfPaginationReached = movies.page >= movies.totalPages)
+                MediatorResult.Success(endOfPaginationReached = movies.page > 500)
 
             } catch (e: IOException) {
                 MediatorResult.Error(e)
