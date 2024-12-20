@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +27,8 @@ fun CustomLazyRow(
     navigationActions: NavigationActions,
     categoryText: String
 ) {
+    val listState = rememberLazyListState()
+
     ErrorViewer(movies = movies)
 
     Column(
@@ -37,7 +40,7 @@ fun CustomLazyRow(
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp
         )
-        LazyRow {
+        LazyRow(state = listState) {
             items(count = movies.itemCount) { index ->
                 val movie = movies[index]
                 if (movie != null) {
