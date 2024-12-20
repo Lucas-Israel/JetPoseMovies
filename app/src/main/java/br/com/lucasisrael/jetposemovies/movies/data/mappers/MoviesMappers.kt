@@ -2,7 +2,7 @@ package br.com.lucasisrael.jetposemovies.movies.data.mappers
 
 import br.com.lucasisrael.jetposemovies.movies.domain.models.MovieDomain
 import br.com.lucasisrael.jetposemovies.movies.data.models.local.MovieEntity
-import br.com.lucasisrael.jetposemovies.movies.data.models.local.NowPlayingMoviesEntity
+import br.com.lucasisrael.jetposemovies.movies.data.models.local.NowPlayingMovieEntity
 import br.com.lucasisrael.jetposemovies.movies.data.models.local.PopularMoviesEntity
 import br.com.lucasisrael.jetposemovies.movies.data.models.local.TopRatedMoviesEntity
 import br.com.lucasisrael.jetposemovies.movies.data.models.local.UpcomingMoviesEntity
@@ -67,8 +67,8 @@ fun MovieDto.toTopRatedMovieEntity(): TopRatedMoviesEntity {
     )
 }
 
-fun MovieDto.toNowPlayingMovieEntity(): NowPlayingMoviesEntity {
-    return NowPlayingMoviesEntity(
+fun MovieDto.toNowPlayingMovieEntity(): NowPlayingMovieEntity {
+    return NowPlayingMovieEntity(
         tableId = 0,
         movieId = id ?: 0
     )

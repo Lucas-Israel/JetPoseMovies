@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
     ],
     indices = [Index("movieId")]
 )
-data class NowPlayingMoviesEntity(
+data class NowPlayingMovieEntity(
     @PrimaryKey(autoGenerate = true) val tableId: Int,
     val movieId: Int?,
 )
