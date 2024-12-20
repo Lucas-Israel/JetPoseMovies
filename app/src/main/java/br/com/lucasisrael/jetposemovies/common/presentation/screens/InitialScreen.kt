@@ -4,6 +4,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.genres.presentation.components.GenresComponent
+import br.com.lucasisrael.jetposemovies.movies.presentation.components.NowPlayingMoviesComponent
 import br.com.lucasisrael.jetposemovies.movies.presentation.components.PopularMoviesComponent
 import br.com.lucasisrael.jetposemovies.movies.presentation.components.TopRatedMoviesComponent
 import br.com.lucasisrael.jetposemovies.movies.presentation.components.UpcomingMoviesComponent
@@ -30,6 +31,9 @@ fun InitialScreen(
             }
             item {
                 TopRatedMoviesComponent(navigationActions = navigationActions)
+            }
+            item {
+                NowPlayingMoviesComponent(navigationActions = navigationActions)
             }
         }
     }
