@@ -29,5 +29,5 @@ abstract class MoviesDataBase : RoomDatabase() {
     abstract val upcomingDao: UpcomingMoviesDao
     abstract val popularDao: PopularMoviesDao
     abstract val topRatedDao: TopRatedDao
-    abstract val nowPLayingDao: NowPlayingDao
+    abstract val nowPlayingDao: NowPlayingDao
 }

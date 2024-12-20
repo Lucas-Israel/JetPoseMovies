@@ -1,11 +1,13 @@
 package br.com.lucasisrael.jetposemovies.movies.di
 
 import br.com.lucasisrael.jetposemovies.movies.data.api.MoviesApi
+import br.com.lucasisrael.jetposemovies.movies.data.api.NowPlayingApi
 import br.com.lucasisrael.jetposemovies.movies.data.api.PopularMoviesApi
 import br.com.lucasisrael.jetposemovies.movies.data.api.TopRatedApi
 import br.com.lucasisrael.jetposemovies.movies.data.api.UpcomingMoviesApi
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MoviesDataBase
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.remote.MoviesRemoteMediator
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.remote.NowPlayingMoviesRemoteMediator
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.remote.PopularMoviesRemoteMediator
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.remote.TopRatedRemoteMediator
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.remote.UpcomingMoviesRemoteMediator
@@ -53,5 +55,14 @@ object MoviesRemoteMediatorModule {
         api: TopRatedApi,
     ): TopRatedRemoteMediator {
         return TopRatedRemoteMediator(moviesDataBase, api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNowPlayingRemoteMediator(
+        moviesDataBase: MoviesDataBase,
+        api: NowPlayingApi,
+    ): NowPlayingMoviesRemoteMediator {
+        return NowPlayingMoviesRemoteMediator(moviesDataBase, api)
     }
 }

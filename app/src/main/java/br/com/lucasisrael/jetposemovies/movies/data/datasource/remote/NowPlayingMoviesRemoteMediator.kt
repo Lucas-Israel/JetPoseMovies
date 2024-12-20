@@ -72,7 +72,7 @@ class NowPlayingMoviesRemoteMediator @Inject constructor(
         movies: MoviesResponse,
     ) {
         val movieDao = dataBase.movieDao
-        val nowPlayingDao = dataBase.nowPLayingDao
+        val nowPlayingDao = dataBase.nowPlayingDao
 
         dataBase.withTransaction {
             if (loadType == LoadType.REFRESH) {

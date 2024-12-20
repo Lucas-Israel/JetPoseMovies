@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MovieDao
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MoviesDataBase
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.NowPlayingDao
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.PopularMoviesDao
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.TopRatedDao
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.UpcomingMoviesDao
@@ -50,5 +51,11 @@ object MoviesDataBaseModule {
     @Singleton
     fun provideTopRatedDao(dataBase: MoviesDataBase): TopRatedDao {
         return dataBase.topRatedDao
+    }
+
+    @Provides
+    @Singleton
+    fun provideNowPlayingDao(dataBase: MoviesDataBase): NowPlayingDao {
+        return dataBase.nowPlayingDao
     }
 }
