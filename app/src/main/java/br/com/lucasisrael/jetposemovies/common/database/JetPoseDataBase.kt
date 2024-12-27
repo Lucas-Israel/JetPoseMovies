@@ -6,6 +6,7 @@ import androidx.room.TypeConverters
 import br.com.lucasisrael.jetposemovies.common.converters.ListConverters
 import br.com.lucasisrael.jetposemovies.details.data.datasource.local.DetailsDao
 import br.com.lucasisrael.jetposemovies.details.models.local.DetailsEntity
+import br.com.lucasisrael.jetposemovies.details.models.local.MovieCollectionEntity
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.local.GenresDao
 import br.com.lucasisrael.jetposemovies.genres.models.local.GenreEntity
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MovieDao
@@ -30,6 +31,7 @@ import br.com.lucasisrael.jetposemovies.movies.models.local.UpcomingMoviesEntity
         GenreEntity::class,
         MovieGenreIdsEntity::class,
         DetailsEntity::class,
+        MovieCollectionEntity::class,
     ],
     version = 1,
     exportSchema = false
