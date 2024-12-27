@@ -3,7 +3,7 @@ package br.com.lucasisrael.jetposemovies.genres.data.models.local
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "genre_entity")
+@Entity(tableName = "genres")
 data class GenreEntity(
     @PrimaryKey
     val id: Int,
