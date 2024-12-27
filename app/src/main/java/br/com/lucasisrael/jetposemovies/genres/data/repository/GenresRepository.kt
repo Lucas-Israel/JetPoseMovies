@@ -1,11 +1,14 @@
 package br.com.lucasisrael.jetposemovies.genres.data.repository
 
-import br.com.lucasisrael.jetposemovies.common.models.Resource
+import androidx.paging.PagingSource
+import br.com.lucasisrael.jetposemovies.genres.data.datasource.local.GenresDao
 import br.com.lucasisrael.jetposemovies.genres.data.models.local.GenreEntity
-import br.com.lucasisrael.jetposemovies.genres.data.models.remote.GenreDto
+import javax.inject.Inject
 
-interface GenresRepository {
-    suspend fun getGenresFromApi(): Resource<List<GenreDto>?>
-    suspend fun saveGenresToDb(genres: List<GenreDto>)
-    suspend fun loadGenresFromDb(): List<GenreEntity>
+class GenresRepository @Inject constructor(
+    private val dao: GenresDao,
+) {
+    fun load(): PagingSource<Int, GenreEntity> {
+        return dao.load()
+    }
 }
