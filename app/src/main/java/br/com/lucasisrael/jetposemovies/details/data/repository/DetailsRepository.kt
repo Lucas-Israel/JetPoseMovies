@@ -5,7 +5,7 @@ import br.com.lucasisrael.jetposemovies.details.data.models.local.DetailsEntity
 import br.com.lucasisrael.jetposemovies.details.data.models.remote.DetailsDto
 
 interface DetailsRepository {
-    suspend fun getDetailsByIdFromApi(movieId: String): Resource<DetailsDto?>
+    suspend fun getDetailsByIdFromApi(movieId: String): DetailsDto?
     suspend fun saveDetailsToDb(detailsDto: DetailsDto)
     suspend fun loadDetailsFromDb(movieId: String): DetailsEntity
 }

@@ -17,7 +17,7 @@ class DetailsRepositoryImpl @Inject constructor(
 ): DetailsRepository {
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    override suspend fun getDetailsByIdFromApi(movieId: String): Resource<DetailsDto?> {
+    override suspend fun getDetailsByIdFromApi(movieId: String): DetailsDto? {
         return safeApiCall {
             detailsRemote.getDetailsById(movieId)
         }

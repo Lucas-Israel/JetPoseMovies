@@ -17,21 +17,15 @@ class DetailsUseCaseImpl @Inject constructor(
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override suspend fun invoke(movieId: String): Details {
-        when (val apiResult = getDetailsApi(movieId)) {
-            is Resource.Success -> {
-                saveDetailsToDb(apiResult.data!!)
-            }
+        val apiResult = getDetailsApi(movieId)
 
-            is Resource.Error -> {
-                Log.e("Details UseCase ---", apiResult.message.toString())
-            }
-        }
+        if (apiResult != null) saveDetailsToDb(apiResult)
 
         return loadDetailsFromDb(movieId).toDetails()
     }
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    private suspend fun getDetailsApi(movieId: String): Resource<DetailsDto?> {
+    private suspend fun getDetailsApi(movieId: String): DetailsDto? {
         return repositoryImpl.getDetailsByIdFromApi(movieId)
     }
 
