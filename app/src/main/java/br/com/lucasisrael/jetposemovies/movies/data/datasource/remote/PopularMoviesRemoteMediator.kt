@@ -4,20 +4,17 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
 import br.com.lucasisrael.jetposemovies.movies.data.api.PopularMoviesApi
-import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MoviesDataBase
-import br.com.lucasisrael.jetposemovies.movies.data.mappers.toMoviesListEntity
-import br.com.lucasisrael.jetposemovies.movies.data.mappers.toPopularMovieEntity
-import br.com.lucasisrael.jetposemovies.movies.data.models.local.PopularWithMovie
-import br.com.lucasisrael.jetposemovies.movies.data.models.response.MoviesResponse
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.PopularMoviesDao
+import br.com.lucasisrael.jetposemovies.movies.models.local.PopularWithMovie
+import br.com.lucasisrael.jetposemovies.movies.models.response.MoviesResponse
 import coil.network.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
 class PopularMoviesRemoteMediator @Inject constructor(
-    private val dataBase: MoviesDataBase,
+    private val dao: PopularMoviesDao,
     private val api: PopularMoviesApi,
 ) : RemoteMediator<Int, PopularWithMovie>() {
     override suspend fun load(
@@ -26,15 +23,15 @@ class PopularMoviesRemoteMediator @Inject constructor(
     ): MediatorResult {
         return try {
 
-            val loadKey = getLoadKey(loadType, state)
+            val loadKey = getLoadKey(loadType = loadType, state = state)
 
             if (loadKey == -1) return MediatorResult.Success(endOfPaginationReached = true)
 
             val movies = fetchMovies(page = loadKey)
 
-            moviesDataBaseTransaction(loadType, movies)
+            saveToDatabase(loadType = loadType, movies = movies)
 
-            MediatorResult.Success(endOfPaginationReached = loadKey >= movies.totalPages)
+            MediatorResult.Success(endOfPaginationReached = movies.results.isEmpty())
 
         } catch (e: IOException) {
             MediatorResult.Error(e)
@@ -43,6 +40,8 @@ class PopularMoviesRemoteMediator @Inject constructor(
         }
 
     }
+
+    private fun getCount() = dao.getCount()
 
     private fun getLoadKey(
         loadType: LoadType,
@@ -56,7 +55,7 @@ class PopularMoviesRemoteMediator @Inject constructor(
                 if (lastItem == null) {
                     1
                 } else {
-                    (lastItem.popularMovie.tableId / state.config.pageSize) + 1
+                    (getCount() / state.config.pageSize) + 1
                 }
             }
         }
@@ -67,24 +66,13 @@ class PopularMoviesRemoteMediator @Inject constructor(
         return api.fetch(page = page)
     }
 
-    private suspend fun moviesDataBaseTransaction(
+    private fun saveToDatabase(
         loadType: LoadType,
         movies: MoviesResponse,
     ) {
-        val movieDao = dataBase.movieDao
-        val popularDao = dataBase.popularDao
-
-        dataBase.withTransaction {
-            if (loadType == LoadType.REFRESH) {
-                popularDao.clearAll()
-                popularDao.clearPrimaryKey()
-            }
-
-            val movieEntities = movies.results.map { it.toMoviesListEntity() }
-            movieDao.upsert(list = movieEntities)
-
-            val popularEntity = movies.results.map { it.toPopularMovieEntity() }
-            popularDao.upsert(popularEntity)
+        if (loadType == LoadType.REFRESH) {
+            dao.clearAll()
         }
+        dao.upsert(movies.results)
     }
 }

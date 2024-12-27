@@ -1,48 +1,47 @@
 package br.com.lucasisrael.jetposemovies.movies.data.datasource.remote
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
 import br.com.lucasisrael.jetposemovies.movies.data.api.UpcomingMoviesApi
-import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MoviesDataBase
-import br.com.lucasisrael.jetposemovies.movies.data.mappers.toMoviesListEntity
-import br.com.lucasisrael.jetposemovies.movies.data.mappers.toUpcomingMovieEntity
-import br.com.lucasisrael.jetposemovies.movies.data.models.local.PopularWithMovie
-import br.com.lucasisrael.jetposemovies.movies.data.models.local.UpcomingWithMovie
-import br.com.lucasisrael.jetposemovies.movies.data.models.response.MoviesResponse
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.UpcomingMoviesDao
+import br.com.lucasisrael.jetposemovies.movies.models.local.UpcomingWithMovie
+import br.com.lucasisrael.jetposemovies.movies.models.response.MoviesResponse
 import coil.network.HttpException
 import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class UpcomingMoviesRemoteMediator(
-    private val dataBase: MoviesDataBase,
+    private val dao: UpcomingMoviesDao,
     private val api: UpcomingMoviesApi,
 ) : RemoteMediator<Int, UpcomingWithMovie>() {
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, UpcomingWithMovie>,
     ): MediatorResult {
         return try {
 
-            val loadKey = getLoadKey(loadType, state)
+            val loadKey = getLoadKey(loadType = loadType, state = state)
 
             if (loadKey == -1) return MediatorResult.Success(endOfPaginationReached = true)
 
-            val movies = fetchMovies(loadKey)
+            val movies = fetchMovies(page = loadKey)
 
-            moviesDataBaseTransaction(loadType, movies)
+            saveToDatabase(loadType = loadType, movies = movies)
 
-            MediatorResult.Success(endOfPaginationReached = loadKey >= movies.totalPages)
+            MediatorResult.Success(endOfPaginationReached = movies.results.isEmpty())
 
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch (e: HttpException) {
             MediatorResult.Error(e)
         }
-
     }
+
+    private fun getCount() = dao.getCount()
 
     private fun getLoadKey(
         loadType: LoadType,
@@ -56,7 +55,7 @@ class UpcomingMoviesRemoteMediator(
                 if (lastItem == null) {
                     1
                 } else {
-                    (lastItem.upcomingMovie.tableId / state.config.pageSize) + 1
+                    (getCount() / state.config.pageSize) + 1
                 }
             }
         }
@@ -67,25 +66,14 @@ class UpcomingMoviesRemoteMediator(
         return api.fetch(page = page)
     }
 
-    private suspend fun moviesDataBaseTransaction(
+    private fun saveToDatabase(
         loadType: LoadType,
         movies: MoviesResponse,
     ) {
-        val movieDao = dataBase.movieDao
-        val upcomingDao = dataBase.upcomingDao
-
-        dataBase.withTransaction {
-            if (loadType == LoadType.REFRESH) {
-                upcomingDao.clearAll()
-                upcomingDao.clearPrimaryKey()
-            }
-
-            val movieEntities = movies.results.map { it.toMoviesListEntity() }
-            movieDao.upsert(list = movieEntities)
-
-            val upcomingMovies = movies.results.map { it.toUpcomingMovieEntity() }
-            upcomingDao.upsert(upcomingMovies)
+        if (loadType == LoadType.REFRESH) {
+            dao.clearAll()
         }
-    }
 
+        dao.upsert(movies.results)
+    }
 }
