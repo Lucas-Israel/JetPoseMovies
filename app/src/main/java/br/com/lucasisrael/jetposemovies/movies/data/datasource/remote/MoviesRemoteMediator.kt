@@ -1,42 +1,42 @@
 package br.com.lucasisrael.jetposemovies.movies.data.datasource.remote
 
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
 import br.com.lucasisrael.jetposemovies.movies.data.api.MoviesApi
-import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MoviesDataBase
-import br.com.lucasisrael.jetposemovies.movies.data.mappers.toMoviesListEntity
-import br.com.lucasisrael.jetposemovies.movies.data.models.local.MovieEntity
-import br.com.lucasisrael.jetposemovies.movies.data.models.response.MoviesResponse
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MovieDao
+import br.com.lucasisrael.jetposemovies.movies.models.local.MovieGenreIdsWithMovie
+import br.com.lucasisrael.jetposemovies.movies.models.response.MoviesResponse
 import coil.network.HttpException
 import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class MoviesRemoteMediator(
-    private val moviesDataBase: MoviesDataBase,
+    private val dao: MovieDao,
     private val api: MoviesApi,
-) : RemoteMediator<Int, MovieEntity>() {
+) : RemoteMediator<Int, MovieGenreIdsWithMovie>() {
 
-    lateinit var genreId: String
+    var genreId: Int = 0
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, MovieEntity>,
+        state: PagingState<Int, MovieGenreIdsWithMovie>,
     ): MediatorResult {
         return try {
 
-            val loadKey = getLoadKey(loadType, state)
+            val loadKey = getLoadKey(loadType = loadType, state = state)
 
             if (loadKey == -1) return MediatorResult.Success(endOfPaginationReached = true)
 
             val movies = fetchMovies(genreId = genreId, page = loadKey)
 
-            moviesDataBaseTransaction(loadType = loadType, movies = movies)
+            saveToDatabase(loadType = loadType, movies = movies)
 
-            MediatorResult.Success(endOfPaginationReached = loadKey >= movies.totalPages)
-
+            MediatorResult.Success(endOfPaginationReached = movies.results.isEmpty())
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch (e: HttpException) {
@@ -44,9 +44,13 @@ class MoviesRemoteMediator(
         }
     }
 
+    private fun getCount(): Int {
+        return dao.getCount(genreId = genreId)
+    }
+
     private fun getLoadKey(
         loadType: LoadType,
-        state: PagingState<Int, MovieEntity>,
+        state: PagingState<Int, MovieGenreIdsWithMovie>,
     ): Int {
         val loadKey = when (loadType) {
             LoadType.REFRESH -> 1
@@ -56,31 +60,27 @@ class MoviesRemoteMediator(
                 if (lastItem == null) {
                     1
                 } else {
-                    (state.pages.lastIndex / state.config.pageSize) + 1
-                    TODO("LOGIC FOR PAGINATION IN THE MOVIES BY GENRE")
+                    getCount() / state.config.pageSize + 1
                 }
             }
         }
         return loadKey
     }
 
-    private suspend fun fetchMovies(genreId: String, page: Int): MoviesResponse {
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+    private suspend fun fetchMovies(genreId: Int, page: Int): MoviesResponse {
         return api.fetch(genreId = genreId, page = page)
     }
 
-    private suspend fun moviesDataBaseTransaction(
+    private fun saveToDatabase(
         loadType: LoadType,
         movies: MoviesResponse,
     ) {
-        val dao = moviesDataBase.movieDao
 
-        moviesDataBase.withTransaction {
-            if (loadType == LoadType.REFRESH) {
-                dao.clearAll()
-            }
-
-            val movieEntities = movies.results.map { it.toMoviesListEntity() }
-            dao.upsert(list = movieEntities)
+        if (loadType == LoadType.REFRESH) {
+            dao.clearAll()
         }
+
+        dao.upsert(list = movies.results)
     }
 }
