@@ -1,7 +1,8 @@
 package br.com.lucasisrael.jetposemovies.common.models
 
-sealed class Resource<T>(val data: T? = null, val message: String? = null) {
+sealed class Resource<T>(val data: T?, val message: String?) {
 
-    class Success<T>(data: T): Resource<T>(data)
-    class Error<T>(data: T, message: String): Resource<T>(data, message)
+    class Success<T>(data: T, message: String?): Resource<T>(data, message)
+    class Error<T>(data: T?, message: String): Resource<T>(data, message)
+
 }
