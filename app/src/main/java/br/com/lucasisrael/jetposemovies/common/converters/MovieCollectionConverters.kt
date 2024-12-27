@@ -10,7 +10,7 @@ class MovieCollectionConverters {
     private val gson = Gson()
 
     @TypeConverter
-    fun fromMovieCollection(movieCollection: MovieCollection): String {
+    fun fromMovieCollection(movieCollection: MovieCollection?): String {
         return gson.toJson(movieCollection)
     }
 
