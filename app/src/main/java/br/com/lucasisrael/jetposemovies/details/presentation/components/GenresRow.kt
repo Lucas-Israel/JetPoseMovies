@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
-import br.com.lucasisrael.jetposemovies.genres.domain.models.GenreDomain
+import br.com.lucasisrael.jetposemovies.genres.models.domain.GenreDomain
 
 @OptIn(ExperimentalLayoutApi::class)
 @SuppressWarnings("FunctionNaming")

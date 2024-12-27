@@ -4,7 +4,7 @@ import br.com.lucasisrael.jetposemovies.common.models.ISOCountry
 import br.com.lucasisrael.jetposemovies.common.models.MovieCollection
 import br.com.lucasisrael.jetposemovies.common.models.ProductionCompany
 import br.com.lucasisrael.jetposemovies.common.models.SpokenLanguages
-import br.com.lucasisrael.jetposemovies.genres.domain.models.GenreDomain
+import br.com.lucasisrael.jetposemovies.genres.models.domain.GenreDomain
 
 data class Details (
     val adult: Boolean = false,

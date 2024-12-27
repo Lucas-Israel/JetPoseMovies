@@ -1,7 +1,7 @@
 package br.com.lucasisrael.jetposemovies.common.converters
 
 import androidx.room.TypeConverter
-import br.com.lucasisrael.jetposemovies.genres.data.models.local.GenreEntity
+import br.com.lucasisrael.jetposemovies.genres.models.local.GenreEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

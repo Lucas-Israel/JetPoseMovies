@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import br.com.lucasisrael.jetposemovies.common.converters.ListConverters
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.local.GenresDao
-import br.com.lucasisrael.jetposemovies.genres.data.models.local.GenreEntity
+import br.com.lucasisrael.jetposemovies.genres.models.local.GenreEntity
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MovieDao
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.NowPlayingDao
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.PopularMoviesDao

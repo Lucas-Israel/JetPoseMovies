@@ -13,7 +13,7 @@ import br.com.lucasisrael.jetposemovies.common.models.SpokenLanguages
 import br.com.lucasisrael.jetposemovies.common.converters.MovieCollectionConverters
 import br.com.lucasisrael.jetposemovies.common.converters.ProductionCompanyConverters
 import br.com.lucasisrael.jetposemovies.common.converters.SpokenLanguagesConverters
-import br.com.lucasisrael.jetposemovies.genres.data.models.local.GenreEntity
+import br.com.lucasisrael.jetposemovies.genres.models.local.GenreEntity
 
 @Entity(tableName = "details_structure")
 @TypeConverters(
