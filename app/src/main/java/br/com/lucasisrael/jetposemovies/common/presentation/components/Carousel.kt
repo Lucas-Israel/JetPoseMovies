@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.components.Spacing.TwoDpSpacer
-import br.com.lucasisrael.jetposemovies.movies.domain.models.MovieDomain
+import br.com.lucasisrael.jetposemovies.movies.models.domain.MovieDomain
 
 @SuppressWarnings("FunctionNaming")
 @Composable
@@ -33,7 +33,7 @@ fun Carousel(
     items: LazyPagingItems<MovieDomain>,
     navigationActions: NavigationActions
 ) {
-    val pagerState = rememberPagerState(pageCount = { items.itemCount })
+    val pagerState = rememberPagerState(pageCount = { items.itemCount.coerceAtMost(5) })
 
     Column {
         HorizontalPager(
@@ -50,7 +50,7 @@ fun Carousel(
                     }
             ) {
                 CustomAsyncImageWithGradient(
-                    url = items[page]?.backdropPath,
+                    url = items[page]?.posterPath,
                     title = items[page]?.title,
                     modifier = Modifier,
                     color = MaterialTheme.colorScheme.background
@@ -67,7 +67,7 @@ fun Carousel(
         }
         HorizontalPagerIndicator(
             currentPage = pagerState.currentPage,
-            pageCount = items.itemCount,
+            pageCount = pagerState.pageCount,
             modifier = Modifier
                 .padding(16.dp)
                 .align(Alignment.CenterHorizontally)
