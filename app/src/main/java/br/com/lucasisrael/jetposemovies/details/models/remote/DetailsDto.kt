@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.details.data.models.response
+package br.com.lucasisrael.jetposemovies.details.models.remote
 
 import br.com.lucasisrael.jetposemovies.common.models.ISOCountry
 import br.com.lucasisrael.jetposemovies.common.models.MovieCollection
@@ -7,7 +7,7 @@ import br.com.lucasisrael.jetposemovies.common.models.SpokenLanguages
 import br.com.lucasisrael.jetposemovies.genres.models.remote.GenreDto
 import com.google.gson.annotations.SerializedName
 
-data class DetailsResponse(
+data class DetailsDto(
     val adult: Boolean?,
     @SerializedName("backdrop_path")
     val backdropPath: String?,
