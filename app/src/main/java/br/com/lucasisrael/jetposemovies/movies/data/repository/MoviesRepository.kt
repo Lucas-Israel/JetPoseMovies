@@ -1,14 +1,37 @@
 package br.com.lucasisrael.jetposemovies.movies.data.repository
 
-import androidx.paging.PagingSource
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
+import br.com.lucasisrael.jetposemovies.movies.data.api.MoviesApi
 import br.com.lucasisrael.jetposemovies.movies.data.datasource.local.MovieDao
-import br.com.lucasisrael.jetposemovies.movies.data.models.local.MovieEntity
+import br.com.lucasisrael.jetposemovies.movies.data.datasource.remote.MoviesRemoteMediator
+import br.com.lucasisrael.jetposemovies.movies.data.mappers.toDomain
+import br.com.lucasisrael.jetposemovies.movies.models.domain.MovieDomain
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+@OptIn(ExperimentalPagingApi::class)
 class MoviesRepository @Inject constructor(
-    private val movieDao: MovieDao,
+    private val dao: MovieDao,
+    private val api: MoviesApi,
 ) {
-    fun load(genreId: String): PagingSource<Int, MovieEntity> {
-        return movieDao.load(genreId)
+    fun flow(genreId: Int): Flow<PagingData<MovieDomain>> {
+        val remoteMediator = MoviesRemoteMediator(dao = dao, api = api)
+
+        remoteMediator.genreId = genreId
+
+        return Pager(
+            config = PagingConfig(pageSize = 20),
+            remoteMediator = remoteMediator,
+            pagingSourceFactory = { dao.load(genreId) }
+        ).flow
+            .map { pagingData -> pagingData.map { it.movie.toDomain() } }
+            .flowOn(Dispatchers.IO)
     }
 }
