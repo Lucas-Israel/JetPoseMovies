@@ -1,7 +1,7 @@
 package br.com.lucasisrael.jetposemovies.details.models.remote
 
 import br.com.lucasisrael.jetposemovies.details.models.local.ISOCountry
-import br.com.lucasisrael.jetposemovies.details.models.local.MovieCollection
+import br.com.lucasisrael.jetposemovies.details.models.local.MovieCollectionEntity
 import br.com.lucasisrael.jetposemovies.details.models.local.ProductionCompany
 import br.com.lucasisrael.jetposemovies.details.models.local.SpokenLanguages
 import br.com.lucasisrael.jetposemovies.genres.models.remote.GenreDto
@@ -12,7 +12,7 @@ data class DetailsDto(
     @SerializedName("backdrop_path")
     val backdropPath: String?,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: MovieCollection?,
+    val belongsToCollection: MovieCollectionEntity?,
     val budget: Int?,
     val genres: List<GenreDto>?,
     val homepage: String?,

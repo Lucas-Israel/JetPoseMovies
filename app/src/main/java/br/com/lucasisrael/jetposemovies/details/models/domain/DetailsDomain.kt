@@ -1,7 +1,7 @@
 package br.com.lucasisrael.jetposemovies.details.models.domain
 
 import br.com.lucasisrael.jetposemovies.details.models.local.ISOCountry
-import br.com.lucasisrael.jetposemovies.details.models.local.MovieCollection
+import br.com.lucasisrael.jetposemovies.details.models.local.MovieCollectionEntity
 import br.com.lucasisrael.jetposemovies.details.models.local.ProductionCompany
 import br.com.lucasisrael.jetposemovies.details.models.local.SpokenLanguages
 import br.com.lucasisrael.jetposemovies.genres.models.domain.GenreDomain
@@ -10,7 +10,7 @@ data class DetailsDomain (
     val detailsId: Int?,
     val adult: Boolean?,
     val backdropPath: String?,
-    val belongsToCollection: MovieCollection?,
+    val belongsToCollection: MovieCollectionEntity?,
     val budget: Int?,
     val genres: List<GenreDomain>?,
     val homepage: String?,

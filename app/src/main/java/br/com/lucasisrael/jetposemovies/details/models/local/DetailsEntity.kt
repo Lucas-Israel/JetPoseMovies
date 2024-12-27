@@ -25,7 +25,7 @@ data class DetailsEntity(
     @ColumnInfo(name = "backdrop_path")
     val backdropPath: String?,
     @ColumnInfo(name = "belongs_to_collection")
-    val belongsToCollection: MovieCollection?,
+    val belongsToCollection: MovieCollectionEntity?,
     val budget: Int?,
     val genres: List<GenreEntity>?,
     val homepage: String?,
