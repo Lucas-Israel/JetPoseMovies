@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -24,7 +26,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MovieListFromGenreScreen(
-    val genreId: String,
+    val genreId: Int,
     val genreName: String,
 )
 
@@ -33,10 +35,17 @@ data class MovieListFromGenreScreen(
 fun MovieListFromGenreScreen(
     navigationActions: NavigationActions,
     viewModel: MovieListViewModel = hiltViewModel(),
-    genreId: String,
+    genreId: Int,
     genreName: String,
 ) {
-    viewModel.setFlow(genreId)
+    val rememberGenreId = remember {
+        genreId
+    }
+
+    LaunchedEffect(rememberGenreId) {
+        viewModel.setFlow(rememberGenreId)
+    }
+
     val movies = viewModel.pagingFlow.collectAsLazyPagingItems()
 
     ErrorViewer(movies = movies)
