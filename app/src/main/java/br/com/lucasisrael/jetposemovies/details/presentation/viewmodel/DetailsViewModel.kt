@@ -2,46 +2,23 @@ package br.com.lucasisrael.jetposemovies.details.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.lucasisrael.jetposemovies.common.coroutines.CoroutinesProvider
-import br.com.lucasisrael.jetposemovies.details.domain.models.Details
-import br.com.lucasisrael.jetposemovies.details.domain.usecase.DetailsUseCase
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import br.com.lucasisrael.jetposemovies.details.data.repository.DetailsRepository
+import br.com.lucasisrael.jetposemovies.details.models.domain.DetailsDomain
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val useCase: DetailsUseCase,
-    private val coroutinesProvider: CoroutinesProvider
+    private val repository: DetailsRepository,
 ) : ViewModel() {
 
-    private val _isLoading = MutableStateFlow(true)
-    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+    var pagingFlow: Flow<PagingData<DetailsDomain>> = emptyFlow()
 
-    private val _isError = MutableStateFlow(false)
-    val isError: StateFlow<Boolean> = _isError
-
-    private val _details = MutableStateFlow<Details>(Details())
-    val details: StateFlow<Details> = _details.asStateFlow()
-
-    fun getFromRepository(movieId: String) {
-        viewModelScope.launch(coroutinesProvider.io()) {
-            try {
-                _isLoading.value = true
-                _isError.value = false
-                _details.value = useCase.invoke(movieId)
-
-            } catch (e: CancellationException) {
-                e.printStackTrace()
-                _details.value = Details()
-                _isError.value = true
-            } finally {
-                _isLoading.value = false
-            }
-        }
+    fun setFlow(movieId: Int) {
+        pagingFlow = repository.flow(movieId = movieId).cachedIn(viewModelScope)
     }
 }
