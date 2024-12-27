@@ -15,14 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
-import br.com.lucasisrael.jetposemovies.genres.domain.models.Genre
+import br.com.lucasisrael.jetposemovies.genres.domain.models.GenreDomain
 
 @OptIn(ExperimentalLayoutApi::class)
 @SuppressWarnings("FunctionNaming")
 @Composable
 fun GenresRow(
     navigationActions: NavigationActions,
-    genresList: List<Genre>,
+    genresList: List<GenreDomain>,
 ) {
 
     FlowRow(
@@ -39,7 +39,7 @@ fun GenresRow(
                     .padding(4.dp)
                     .clickable {
                         navigationActions.toMovieGenreScreen(
-                            genreId = it.id.toString(),
+                            genreId = it.id,
                             genreName = it.name
                         )
                     }
