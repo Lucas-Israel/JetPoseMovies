@@ -4,14 +4,14 @@ import br.com.lucasisrael.jetposemovies.common.models.ISOCountry
 import br.com.lucasisrael.jetposemovies.common.models.MovieCollection
 import br.com.lucasisrael.jetposemovies.common.models.ProductionCompany
 import br.com.lucasisrael.jetposemovies.common.models.SpokenLanguages
-import br.com.lucasisrael.jetposemovies.genres.domain.models.Genre
+import br.com.lucasisrael.jetposemovies.genres.domain.models.GenreDomain
 
 data class Details (
     val adult: Boolean = false,
     val backdropPath: String = "",
     val belongsToCollection: MovieCollection = MovieCollection(),
     val budget: Int = 0,
-    val genres: List<Genre> = listOf<Genre>(),
+    val genreDomains: List<GenreDomain> = listOf(),
     val homepage: String = "",
     val id: Int = 0,
     val imdbId: String = "",

@@ -59,7 +59,7 @@ fun DetailCard(
 
             GenresRow(
                 navigationActions = navigationActions,
-                genresList = details.genres,
+                genresList = details.genreDomains,
             )
 
             Row(
