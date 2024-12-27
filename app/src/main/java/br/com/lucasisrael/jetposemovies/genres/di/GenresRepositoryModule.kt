@@ -1,8 +1,8 @@
 package br.com.lucasisrael.jetposemovies.genres.di
 
-import br.com.lucasisrael.jetposemovies.common.database.JetPoseDataBase
 import br.com.lucasisrael.jetposemovies.genres.data.api.GenresApi
-import br.com.lucasisrael.jetposemovies.genres.data.datasource.remote.GenresRemoteMediator
+import br.com.lucasisrael.jetposemovies.genres.data.datasource.local.GenresDao
+import br.com.lucasisrael.jetposemovies.genres.data.repository.GenresRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,14 +11,14 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object GenresRemoteMediatorModule {
+object GenresRepositoryModule {
 
     @Provides
     @Singleton
     fun provideGenresRepository(
-        dataBase: JetPoseDataBase,
+        dao: GenresDao,
         api: GenresApi,
-    ): GenresRemoteMediator {
-        return GenresRemoteMediator(dataBase, api)
+    ): GenresRepository {
+        return GenresRepository(dao, api)
     }
 }
