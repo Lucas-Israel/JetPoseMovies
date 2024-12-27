@@ -12,7 +12,7 @@ class NavigationActions(
         navController.navigate(MovieListFromGenreScreen(genreId, genreName))
     }
 
-    fun toDetailsScreen(movieId: String) {
+    fun toDetailsScreen(movieId: Int) {
         navController.navigate(DetailsScreen(movieId = movieId))
     }
 }
