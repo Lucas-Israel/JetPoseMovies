@@ -1,48 +1,49 @@
 package br.com.lucasisrael.jetposemovies.movies.data.mappers
 
-import br.com.lucasisrael.jetposemovies.movies.domain.models.MovieDomain
-import br.com.lucasisrael.jetposemovies.movies.data.models.local.MovieEntity
-import br.com.lucasisrael.jetposemovies.movies.data.models.local.NowPlayingMovieEntity
-import br.com.lucasisrael.jetposemovies.movies.data.models.local.PopularMoviesEntity
-import br.com.lucasisrael.jetposemovies.movies.data.models.local.TopRatedMoviesEntity
-import br.com.lucasisrael.jetposemovies.movies.data.models.local.UpcomingMoviesEntity
-import br.com.lucasisrael.jetposemovies.movies.data.models.remote.MovieDto
+import br.com.lucasisrael.jetposemovies.movies.models.domain.MovieDomain
+import br.com.lucasisrael.jetposemovies.movies.models.local.MovieEntity
+import br.com.lucasisrael.jetposemovies.movies.models.local.MovieGenreIdsEntity
+import br.com.lucasisrael.jetposemovies.movies.models.local.NowPlayingMovieEntity
+import br.com.lucasisrael.jetposemovies.movies.models.local.PopularMoviesEntity
+import br.com.lucasisrael.jetposemovies.movies.models.local.TopRatedMoviesEntity
+import br.com.lucasisrael.jetposemovies.movies.models.local.UpcomingMoviesEntity
+import br.com.lucasisrael.jetposemovies.movies.models.remote.MovieDto
 
-fun MovieDto.toMoviesListEntity(): MovieEntity {
+fun MovieDto.toEntity(): MovieEntity {
     return MovieEntity(
-        adult,
-        posterPath,
-        genreIds,
-        id,
-        originalTitle,
-        title,
-        overview,
-        popularity,
-        posterPath,
-        releaseDate,
-        originalTitle,
-        video,
-        voteAverage,
-        voteCount,
+        adult = adult,
+        backdropPath = backdropPath,
+        genreIds = genreIds,
+        id = id,
+        originalLanguage = originalLanguage,
+        originalTitle = originalTitle,
+        overview = overview,
+        popularity = popularity,
+        posterPath = posterPath,
+        releaseDate = releaseDate,
+        title = title,
+        video = video,
+        voteAverage = voteAverage,
+        voteCount = voteCount
     )
 }
 
-fun MovieEntity.toMovieDomain(): MovieDomain {
+fun MovieEntity.toDomain(): MovieDomain {
     return MovieDomain(
-        adult,
-        posterPath,
-        genreIds,
-        id,
-        originalTitle,
-        title,
-        overview,
-        popularity,
-        posterPath,
-        releaseDate,
-        originalTitle,
-        video,
-        voteAverage,
-        voteCount,
+        adult = adult,
+        backdropPath = backdropPath,
+        genreIds = genreIds,
+        id = id,
+        originalLanguage = originalLanguage,
+        originalTitle = originalTitle,
+        overview = overview,
+        popularity = popularity,
+        posterPath = posterPath,
+        releaseDate = releaseDate,
+        title = title,
+        video = video,
+        voteAverage = voteAverage,
+        voteCount = voteCount
     )
 }
 
@@ -72,4 +73,13 @@ fun MovieDto.toNowPlayingMovieEntity(): NowPlayingMovieEntity {
         tableId = 0,
         movieId = id ?: 0
     )
+}
+
+fun MovieDto.toMovieGenreIdsEntityList(): List<MovieGenreIdsEntity> {
+    return genreIds?.map { genreIds ->
+        MovieGenreIdsEntity(
+            movieId = id ?: 0,
+            genreId = genreIds
+        )
+    } ?: emptyList()
 }
