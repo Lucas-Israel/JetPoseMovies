@@ -6,7 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import br.com.lucasisrael.jetposemovies.movies.domain.models.MovieDomain
+import br.com.lucasisrael.jetposemovies.movies.models.domain.MovieDomain
 
 @Suppress("FunctionNaming")
 @Composable
