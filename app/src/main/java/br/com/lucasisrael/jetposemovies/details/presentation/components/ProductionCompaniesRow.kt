@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import br.com.lucasisrael.jetposemovies.R
-import br.com.lucasisrael.jetposemovies.common.models.ProductionCompany
+import br.com.lucasisrael.jetposemovies.details.models.local.ProductionCompany
 
 @OptIn(ExperimentalLayoutApi::class)
 @SuppressWarnings("FunctionNaming")

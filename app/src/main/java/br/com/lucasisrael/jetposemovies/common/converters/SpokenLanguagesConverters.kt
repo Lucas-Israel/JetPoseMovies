@@ -1,7 +1,7 @@
 package br.com.lucasisrael.jetposemovies.common.converters
 
 import androidx.room.TypeConverter
-import br.com.lucasisrael.jetposemovies.common.models.SpokenLanguages
+import br.com.lucasisrael.jetposemovies.details.models.local.SpokenLanguages
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

@@ -1,9 +1,9 @@
 package br.com.lucasisrael.jetposemovies.details.models.remote
 
-import br.com.lucasisrael.jetposemovies.common.models.ISOCountry
-import br.com.lucasisrael.jetposemovies.common.models.MovieCollection
-import br.com.lucasisrael.jetposemovies.common.models.ProductionCompany
-import br.com.lucasisrael.jetposemovies.common.models.SpokenLanguages
+import br.com.lucasisrael.jetposemovies.details.models.local.ISOCountry
+import br.com.lucasisrael.jetposemovies.details.models.local.MovieCollection
+import br.com.lucasisrael.jetposemovies.details.models.local.ProductionCompany
+import br.com.lucasisrael.jetposemovies.details.models.local.SpokenLanguages
 import br.com.lucasisrael.jetposemovies.genres.models.remote.GenreDto
 import com.google.gson.annotations.SerializedName
 

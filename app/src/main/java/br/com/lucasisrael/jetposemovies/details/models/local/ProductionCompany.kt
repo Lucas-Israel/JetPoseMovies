@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.common.models
+package br.com.lucasisrael.jetposemovies.details.models.local
 
 import com.google.gson.annotations.SerializedName
 

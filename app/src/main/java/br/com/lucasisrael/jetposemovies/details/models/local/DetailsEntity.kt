@@ -6,10 +6,6 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import br.com.lucasisrael.jetposemovies.common.converters.GenreConverters
 import br.com.lucasisrael.jetposemovies.common.converters.ISOCountryConverters
-import br.com.lucasisrael.jetposemovies.common.models.ISOCountry
-import br.com.lucasisrael.jetposemovies.common.models.MovieCollection
-import br.com.lucasisrael.jetposemovies.common.models.ProductionCompany
-import br.com.lucasisrael.jetposemovies.common.models.SpokenLanguages
 import br.com.lucasisrael.jetposemovies.common.converters.MovieCollectionConverters
 import br.com.lucasisrael.jetposemovies.common.converters.ProductionCompanyConverters
 import br.com.lucasisrael.jetposemovies.common.converters.SpokenLanguagesConverters
