@@ -8,7 +8,7 @@ class NavigationActions(
     private val navController: NavHostController,
 ) {
 
-    fun toMovieGenreScreen(genreId: String, genreName: String) {
+    fun toMovieGenreScreen(genreId: Int, genreName: String) {
         navController.navigate(MovieListFromGenreScreen(genreId, genreName))
     }
 
