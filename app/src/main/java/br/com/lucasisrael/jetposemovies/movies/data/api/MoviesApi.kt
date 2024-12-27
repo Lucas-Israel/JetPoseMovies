@@ -1,15 +1,17 @@
 package br.com.lucasisrael.jetposemovies.movies.data.api
 
-import br.com.lucasisrael.jetposemovies.movies.data.models.response.MoviesResponse
+import br.com.lucasisrael.jetposemovies.movies.models.response.MoviesResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MoviesApi {
 
-    @GET("movie/popular")
+    @GET("discover/movie")
     suspend fun fetch(
-        @Query("with_genres") genreId: String? = null,
-        @Query("language") language: String? = "en-US",
-        @Query("page") page: Int? = 1
+        @Query("adult") adult: String = "false",
+        @Query("with_genres") genreId: Int,
+        @Query("language") language: String = "en-US",
+        @Query("page") page: Int,
+        @Query("sort_by") sortBy: String = "popularity.desc"
     ): MoviesResponse
 }
