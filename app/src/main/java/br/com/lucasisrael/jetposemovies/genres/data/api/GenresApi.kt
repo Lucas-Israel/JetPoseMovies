@@ -6,7 +6,8 @@ import retrofit2.http.Query
 
 interface GenresApi {
     @GET("genre/movie/list?")
-    suspend fun getGenres(
-        @Query("language") language: String? = "en-US"
+    suspend fun fetch(
+        @Query("language") language: String? = "en-US",
+        @Query("page") page: Int
     ): GenreResponse
 }
