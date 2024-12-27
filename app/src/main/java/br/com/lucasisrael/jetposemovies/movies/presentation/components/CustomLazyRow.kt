@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
@@ -18,7 +19,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.components.ErrorViewer
-import br.com.lucasisrael.jetposemovies.movies.domain.models.MovieDomain
+import br.com.lucasisrael.jetposemovies.movies.models.domain.MovieDomain
 
 @SuppressWarnings("FunctionNaming")
 @Composable
@@ -42,12 +43,13 @@ fun CustomLazyRow(
         )
         LazyRow(state = listState) {
             items(count = movies.itemCount) { index ->
-                val movie = movies[index]
-                if (movie != null) {
-                    Box(
-                        modifier = Modifier
-                            .padding(4.dp)
-                    ) {
+                Box(
+                    modifier = Modifier
+                        .width(200.dp)
+                        .padding(4.dp)
+                ) {
+                    val movie = movies[index]
+                    if (movie != null) {
                         if (movies.loadState.refresh is LoadState.Loading) {
                             CircularProgressIndicator(
                                 modifier = Modifier
@@ -62,6 +64,8 @@ fun CustomLazyRow(
                                     }
                             )
                         }
+                    } else {
+                        CircularProgressIndicator(modifier = Modifier)
                     }
                 }
             }
