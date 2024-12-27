@@ -60,7 +60,7 @@ fun CustomLazyRow(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .clickable {
-                                        navigationActions.toDetailsScreen(movieId = movie.id.toString())
+                                        movie.id?.let { navigationActions.toDetailsScreen(movieId = it) }
                                     }
                             )
                         }

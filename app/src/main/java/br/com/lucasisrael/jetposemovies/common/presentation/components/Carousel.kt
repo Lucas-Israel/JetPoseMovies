@@ -46,7 +46,7 @@ fun Carousel(
                 modifier = Modifier
                     .fillMaxSize()
                     .clickable {
-                        navigationActions.toDetailsScreen(items[page]?.id.toString())
+                        items[page]?.id?.let { navigationActions.toDetailsScreen(it) }
                     }
             ) {
                 CustomAsyncImageWithGradient(
