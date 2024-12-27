@@ -15,7 +15,6 @@ fun TopRatedMoviesComponent(
     viewModel: TopRatedMoviesViewModel = hiltViewModel(),
 ) {
 
-    viewModel.setFlow()
     val movies = viewModel.pagingFlow.collectAsLazyPagingItems()
 
     val categoryText = stringResource(R.string.top_rated_movies)

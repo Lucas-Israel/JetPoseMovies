@@ -15,7 +15,6 @@ fun PopularMoviesComponent(
     viewModel: PopularMoviesViewModel = hiltViewModel(),
 ) {
 
-    viewModel.setFlow()
     val movies = viewModel.pagingFlow.collectAsLazyPagingItems()
 
     val categoryText = stringResource(R.string.popular_movies)

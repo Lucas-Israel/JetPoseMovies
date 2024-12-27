@@ -14,7 +14,6 @@ fun UpcomingMoviesComponent(
     viewModel: UpcomingMoviesViewModel = hiltViewModel(),
 ) {
 
-    viewModel.setFlow()
     val movies = viewModel.pagingFlow.collectAsLazyPagingItems()
 
     Carousel(

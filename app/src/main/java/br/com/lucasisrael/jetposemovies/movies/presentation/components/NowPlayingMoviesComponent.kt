@@ -14,7 +14,7 @@ fun NowPlayingMoviesComponent(
     navigationActions: NavigationActions,
     viewModel: NowPlayingMoviesViewModel = hiltViewModel(),
 ) {
-    viewModel.setFlow()
+
     val movies = viewModel.pagingFlow.collectAsLazyPagingItems()
 
     val categoryText = stringResource(R.string.now_playing_movies)
