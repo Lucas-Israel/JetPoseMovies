@@ -3,7 +3,7 @@ package br.com.lucasisrael.jetposemovies.movies.presentation.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.lucasisrael.jetposemovies.common.presentation.components.CustomCard
-import br.com.lucasisrael.jetposemovies.movies.domain.models.MovieDomain
+import br.com.lucasisrael.jetposemovies.movies.models.domain.MovieDomain
 
 @SuppressWarnings("FunctionNaming")
 @Composable
@@ -13,7 +13,7 @@ fun MovieItem(
 ) {
     CustomCard(
         title = movie.title,
-        url = movie.backdropPath,
+        url = movie.posterPath,
         modifier = modifier
     )
 }
