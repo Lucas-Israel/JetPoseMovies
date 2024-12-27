@@ -14,18 +14,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import br.com.lucasisrael.jetposemovies.R
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.components.PercentageWheel
-import br.com.lucasisrael.jetposemovies.details.domain.models.Details
+import br.com.lucasisrael.jetposemovies.details.models.domain.DetailsDomain
 import coil.compose.AsyncImage
 
 @SuppressWarnings("FunctionNaming")
 @Composable
-fun DetailCard(
+fun DetailItem(
     navigationActions: NavigationActions,
     modifier: Modifier,
-    details: Details
+    details: DetailsDomain,
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -41,26 +42,33 @@ fun DetailCard(
 
             AsyncImage(
                 model = "https://image.tmdb.org/t/p/w500${details.backdropPath}",
-                contentDescription = stringResource(
-                    R.string.image_for_the_movie,
-                    details.title
-                ),
+                contentDescription = details.title?.let {
+                    stringResource(
+                        R.string.image_for_the_movie,
+                        it
+                    )
+                },
                 placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
                 error = painterResource(id = R.drawable.ic_action_name),
                 modifier = Modifier
                     .fillMaxWidth()
             )
 
+            val title = details.title ?: ""
+            val tagline = details.tagline ?: ""
             TitleColumn(
-                title = details.title,
-                tagline = details.tagline,
+                title = title,
+                tagline = tagline,
                 modifier = Modifier
             )
 
-            GenresRow(
-                navigationActions = navigationActions,
-                genresList = details.genreDomains,
-            )
+
+            details.genres?.let {
+                GenresRow(
+                    navigationActions = navigationActions,
+                    genresList = it,
+                )
+            }
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -74,37 +82,49 @@ fun DetailCard(
                     modifier = Modifier
                         .height(80.dp)
                 ) {
-                    ReleaseRow(
-                        releaseDate = details.releaseDate,
-                        modifier = Modifier
-                    )
+                    details.releaseDate?.let {
+                        ReleaseRow(
+                            releaseDate = it,
+                            modifier = Modifier
+                        )
+                    }
 
-                    RunTimeRow(
-                        runtime = details.runtime,
-                        modifier = Modifier
-                    )
+                    details.runtime?.let {
+                        RunTimeRow(
+                            runtime = it,
+                            modifier = Modifier
+                        )
+                    }
 
                 }
 
-                PercentageWheel(
-                    rating = details.voteAverage
-                )
+                details.voteAverage?.let {
+                    PercentageWheel(
+                        rating = it
+                    )
+                }
 
             }
 
-            OverviewColumn(
-                overview = details.overview,
-                modifier = Modifier
-            )
+            details.overview?.let {
+                OverviewColumn(
+                    overview = it,
+                    modifier = Modifier
+                )
+            }
 
-            ProductionCompanyRow(
-                productionCompanies = details.productionCompanies,
-                modifier = Modifier
-            )
+            details.productionCompanies?.let {
+                ProductionCompanyRow(
+                    productionCompanies = it,
+                    modifier = Modifier
+                )
+            }
 
-            HomepageUrl(
-                homePageUrl = details.homepage
-            )
+            details.homepage?.let {
+                HomepageUrl(
+                    homePageUrl = it
+                )
+            }
         }
     }
 }
