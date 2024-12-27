@@ -1,20 +1,18 @@
 package br.com.lucasisrael.jetposemovies.genres.data.mappers
 
-import br.com.lucasisrael.jetposemovies.common.utils.types.values.nullable.replaceNullable
-import br.com.lucasisrael.jetposemovies.genres.domain.models.GenreWithImgUrl
 import br.com.lucasisrael.jetposemovies.genres.data.models.local.GenreEntity
 import br.com.lucasisrael.jetposemovies.genres.data.models.remote.GenreDto
-import br.com.lucasisrael.jetposemovies.genres.domain.models.Genre
+import br.com.lucasisrael.jetposemovies.genres.domain.models.GenreDomain
 
-fun GenreDto.toGenresEntity() : GenreEntity {
+fun GenreDto.toEntity() : GenreEntity {
     return GenreEntity(
-        id.replaceNullable(),
-        name.replaceNullable()
+        id,
+        name
     )
 }
 
-fun GenreEntity.toGenres() : Genre {
-    return Genre(
+fun GenreEntity.toDomain() : GenreDomain {
+    return GenreDomain(
         id = id,
         name = name
     )
