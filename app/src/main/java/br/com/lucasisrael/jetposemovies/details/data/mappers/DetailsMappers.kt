@@ -5,8 +5,8 @@ import br.com.lucasisrael.jetposemovies.details.domain.models.Details
 import br.com.lucasisrael.jetposemovies.details.data.models.local.DetailsEntity
 import br.com.lucasisrael.jetposemovies.details.data.models.remote.DetailsDto
 import br.com.lucasisrael.jetposemovies.details.data.models.response.DetailsResponse
-import br.com.lucasisrael.jetposemovies.genres.data.mappers.toGenres
-import br.com.lucasisrael.jetposemovies.genres.data.mappers.toGenresEntity
+import br.com.lucasisrael.jetposemovies.genres.data.mappers.toDomain
+import br.com.lucasisrael.jetposemovies.genres.data.mappers.toEntity
 
 
 fun DetailsResponse.toDetailsDto(): DetailsDto {
@@ -47,7 +47,7 @@ fun DetailsDto.toDetailsEntity(): DetailsEntity {
         backdropPath,
         belongsToCollection,
         budget,
-        genres = genres.map { it.toGenresEntity() },
+        genres = genres.map { it.toEntity() },
         homepage,
         id,
         imdbId,
@@ -78,7 +78,7 @@ fun DetailsEntity.toDetails(): Details {
         backdropPath,
         belongsToCollection,
         budget,
-        genres = genres.map { it.toGenres() },
+        genreDomains = genres.map { it.toDomain() },
         homepage,
         id,
         imdbId,
