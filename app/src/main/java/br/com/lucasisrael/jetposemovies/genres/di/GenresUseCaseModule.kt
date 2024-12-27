@@ -1,8 +1,8 @@
 package br.com.lucasisrael.jetposemovies.genres.di
 
+import br.com.lucasisrael.jetposemovies.genres.data.datasource.remote.GenresRemoteMediator
 import br.com.lucasisrael.jetposemovies.genres.data.repository.GenresRepository
-import br.com.lucasisrael.jetposemovies.genres.domain.usecase.LoadGenresUseCase
-import br.com.lucasisrael.jetposemovies.genres.domain.usecase.LoadGenresUseCaseImpl
+import br.com.lucasisrael.jetposemovies.genres.domain.usecase.GenresUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,8 @@ object GenresUseCaseModule {
     @Singleton
     fun providesGenresUseCase(
         genresRepository: GenresRepository,
-    ): LoadGenresUseCase {
-        return LoadGenresUseCaseImpl(genresRepository)
+        remoteMediator: GenresRemoteMediator,
+    ): GenresUseCase {
+        return GenresUseCase(genresRepository, remoteMediator)
     }
 }
