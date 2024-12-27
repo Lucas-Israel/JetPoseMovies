@@ -4,39 +4,35 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
-import br.com.lucasisrael.jetposemovies.common.database.JetPoseDataBase
 import br.com.lucasisrael.jetposemovies.genres.data.api.GenresApi
+import br.com.lucasisrael.jetposemovies.genres.data.datasource.local.GenresDao
 import br.com.lucasisrael.jetposemovies.genres.data.mappers.toEntity
-import br.com.lucasisrael.jetposemovies.genres.data.models.local.GenreEntity
-import br.com.lucasisrael.jetposemovies.genres.data.models.response.GenreResponse
+import br.com.lucasisrael.jetposemovies.genres.models.local.GenreEntity
+import br.com.lucasisrael.jetposemovies.genres.models.response.GenreResponse
 import coil.network.HttpException
 import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class GenresRemoteMediator(
-    private val dataBase: JetPoseDataBase,
+    private val dao: GenresDao,
     private val api: GenresApi,
 ) : RemoteMediator<Int, GenreEntity>() {
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, GenreEntity>,
     ): MediatorResult {
         return try {
 
-            val loadKey = getLoadKey(loadType, state)
+            val loadKey = getLoadKey(loadType = loadType, state = state)
 
             if (loadKey == -1) return MediatorResult.Success(endOfPaginationReached = true)
 
             val response = fetch(page = loadKey)
 
-            dataBaseTransaction(loadType = loadType, response = response)
+            saveToDataBase(loadType = loadType, response = response)
 
-            // Currently the genres API result doesn't demand a pagination, if necessary in the future,
-            // proper fetch pagination should be changed in this
-            // MediatorResult.Success(endOfPaginationReached = bool logic here)
             MediatorResult.Success(endOfPaginationReached = true)
-
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch (e: HttpException) {
@@ -56,8 +52,6 @@ class GenresRemoteMediator(
                 if (lastItem == null) {
                     1
                 } else {
-                    // Currently the genres API result doesn't demand a pagination, if necessary in the future,
-                    // proper logic for finding next page should be done here with an Int
                     1
                 }
             }
@@ -69,19 +63,14 @@ class GenresRemoteMediator(
         return api.fetch(page = page)
     }
 
-    private suspend fun dataBaseTransaction(
+    private fun saveToDataBase(
         loadType: LoadType,
         response: GenreResponse,
     ) {
-        val dao = dataBase.genresDao
-
-        dataBase.withTransaction {
-            if (loadType == LoadType.REFRESH) {
-                dao.clearAll()
-            }
-
-            val entities = response.genres.map { it.toEntity() }
-            dao.upsert(list = entities)
+        if (loadType == LoadType.REFRESH) {
+            dao.clearAll()
         }
+
+        dao.upsert(list = response.genres.map { it.toEntity() })
     }
 }
