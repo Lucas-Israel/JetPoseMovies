@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.movies.data.models.remote
+package br.com.lucasisrael.jetposemovies.movies.models.remote
 
 import com.google.gson.annotations.SerializedName
 
@@ -11,7 +11,7 @@ data class MovieDto(
     val id: Int?,
     @SerializedName("original_language")
     val originalLanguage: String?,
-    @SerializedName("original_Title")
+    @SerializedName("original_title")
     val originalTitle: String?,
     val overview: String?,
     val popularity: Double?,

@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.movies.domain.models
+package br.com.lucasisrael.jetposemovies.movies.models.domain
 
 data class MovieDomain(
     val adult: Boolean?,

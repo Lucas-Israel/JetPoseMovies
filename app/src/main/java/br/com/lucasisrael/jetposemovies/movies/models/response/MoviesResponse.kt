@@ -1,6 +1,6 @@
-package br.com.lucasisrael.jetposemovies.movies.data.models.response
+package br.com.lucasisrael.jetposemovies.movies.models.response
 
-import br.com.lucasisrael.jetposemovies.movies.data.models.remote.MovieDto
+import br.com.lucasisrael.jetposemovies.movies.models.remote.MovieDto
 import com.google.gson.annotations.SerializedName
 
 data class MoviesResponse(

@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.movies.data.models.local
+package br.com.lucasisrael.jetposemovies.movies.models.local
 
 import androidx.room.Entity
 import androidx.room.ForeignKey

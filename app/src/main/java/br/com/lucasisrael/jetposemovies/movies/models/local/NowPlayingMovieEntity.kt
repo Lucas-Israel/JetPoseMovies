@@ -1,4 +1,4 @@
-package br.com.lucasisrael.jetposemovies.movies.data.models.local
+package br.com.lucasisrael.jetposemovies.movies.models.local
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "top_rated",
+    tableName = "now_playing",
     foreignKeys = [
         ForeignKey(
             entity = MovieEntity::class,
@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
     ],
     indices = [Index("movieId")]
 )
-data class TopRatedMoviesEntity(
+data class NowPlayingMovieEntity(
     @PrimaryKey(autoGenerate = true) val tableId: Int,
-    val movieId: Int,
+    val movieId: Int?,
 )
