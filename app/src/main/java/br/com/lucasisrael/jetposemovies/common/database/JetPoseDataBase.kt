@@ -2,6 +2,8 @@ package br.com.lucasisrael.jetposemovies.common.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import br.com.lucasisrael.jetposemovies.common.converters.Converters
 import br.com.lucasisrael.jetposemovies.details.data.datasource.local.DetailsDao
 import br.com.lucasisrael.jetposemovies.details.models.local.DetailsEntity
 import br.com.lucasisrael.jetposemovies.genres.data.datasource.local.GenresDao
@@ -32,6 +34,7 @@ import br.com.lucasisrael.jetposemovies.movies.models.local.UpcomingMoviesEntity
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class JetPoseDataBase : RoomDatabase() {
     abstract val movieDao: MovieDao
     abstract val upcomingDao: UpcomingMoviesDao
