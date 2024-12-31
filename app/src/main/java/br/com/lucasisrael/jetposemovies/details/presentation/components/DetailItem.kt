@@ -113,13 +113,6 @@ fun DetailItem(
                 )
             }
 
-            details.productionCompanies?.let {
-                ProductionCompanyRow(
-                    productionCompanies = it,
-                    modifier = Modifier
-                )
-            }
-
             details.homepage?.let {
                 HomepageUrl(
                     homePageUrl = it
