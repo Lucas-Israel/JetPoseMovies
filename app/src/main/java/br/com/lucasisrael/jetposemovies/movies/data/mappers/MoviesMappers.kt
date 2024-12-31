@@ -11,39 +11,21 @@ import br.com.lucasisrael.jetposemovies.movies.models.remote.MovieDto
 
 fun MovieDto.toEntity(): MovieEntity {
     return MovieEntity(
-        adult = adult,
-        backdropPath = backdropPath,
-        genreIds = genreIds,
         id = id,
-        originalLanguage = originalLanguage,
-        originalTitle = originalTitle,
         overview = overview,
-        popularity = popularity,
-        posterPath = posterPath,
         releaseDate = releaseDate,
         title = title,
-        video = video,
-        voteAverage = voteAverage,
-        voteCount = voteCount
+        posterPath = posterPath
     )
 }
 
 fun MovieEntity.toDomain(): MovieDomain {
     return MovieDomain(
-        adult = adult,
-        backdropPath = backdropPath,
-        genreIds = genreIds,
         id = id,
-        originalLanguage = originalLanguage,
-        originalTitle = originalTitle,
         overview = overview,
-        popularity = popularity,
-        posterPath = posterPath,
         releaseDate = releaseDate,
         title = title,
-        video = video,
-        voteAverage = voteAverage,
-        voteCount = voteCount
+        posterPath = posterPath
     )
 }
 
