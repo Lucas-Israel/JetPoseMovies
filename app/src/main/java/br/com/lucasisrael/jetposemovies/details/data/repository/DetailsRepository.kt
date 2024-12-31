@@ -19,7 +19,7 @@ import javax.inject.Inject
 class DetailsRepository @Inject constructor(
     private val dao: DetailsDao,
     private val api: DetailsApi
-){
+) {
     @OptIn(ExperimentalPagingApi::class)
     fun flow(movieId: Int): Flow<PagingData<DetailsDomain>> {
         val remoteMediator = DetailsRemoteMediator(dao = dao, api = api)
@@ -29,7 +29,7 @@ class DetailsRepository @Inject constructor(
         return Pager(
             config = PagingConfig(pageSize = 20),
             remoteMediator = remoteMediator,
-            pagingSourceFactory = { dao.load(movieId = movieId) }
+            pagingSourceFactory = { dao.load(detailId = movieId) }
         ).flow
             .map { pagingData -> pagingData.map { it.toDomain() } }
             .flowOn(Dispatchers.IO)

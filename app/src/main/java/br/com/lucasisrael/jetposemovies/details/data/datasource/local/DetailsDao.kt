@@ -14,9 +14,9 @@ interface DetailsDao {
     @Transaction
     fun upsert(details: DetailsEntity)
 
-    @Query("SELECT * from details WHERE id = :movieId")
+    @Query("SELECT * from details WHERE id = :detailId")
     @Transaction
-    fun load(movieId: Int): PagingSource<Int, DetailsEntity>
+    fun load(detailId: Int): PagingSource<Int, DetailsEntity>
 
     @Query("DELETE from details")
     @Transaction
