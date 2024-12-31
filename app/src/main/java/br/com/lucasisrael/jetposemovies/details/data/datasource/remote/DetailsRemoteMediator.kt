@@ -7,7 +7,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import br.com.lucasisrael.jetposemovies.details.data.api.DetailsApi
 import br.com.lucasisrael.jetposemovies.details.data.datasource.local.DetailsDao
-import br.com.lucasisrael.jetposemovies.details.data.mappers.toDetailsEntity
+import br.com.lucasisrael.jetposemovies.details.data.mappers.toEntity
 import br.com.lucasisrael.jetposemovies.details.models.local.DetailsEntity
 import br.com.lucasisrael.jetposemovies.details.models.remote.DetailsDto
 import coil.network.HttpException
@@ -59,6 +59,6 @@ class DetailsRemoteMediator(
             dao.clearAll()
         }
 
-        dao.upsert(details = response.toDetailsEntity())
+        dao.upsert(details = response.toEntity())
     }
 }
