@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UpcomingMoviesViewModel @Inject constructor(
-    useCase: UpcomingMoviesRepository,
+    repository: UpcomingMoviesRepository,
 ) : ViewModel() {
-    var pagingFlow: Flow<PagingData<MovieDomain>> = useCase.flow().cachedIn(viewModelScope)
+    var pagingFlow: Flow<PagingData<MovieDomain>> = repository.flow().cachedIn(viewModelScope)
 }
