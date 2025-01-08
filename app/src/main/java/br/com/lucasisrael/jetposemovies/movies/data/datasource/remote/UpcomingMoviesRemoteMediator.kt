@@ -1,6 +1,5 @@
 package br.com.lucasisrael.jetposemovies.movies.data.datasource.remote
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
