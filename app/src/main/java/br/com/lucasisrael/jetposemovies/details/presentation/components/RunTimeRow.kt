@@ -2,7 +2,6 @@ package br.com.lucasisrael.jetposemovies.details.presentation.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -12,7 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import br.com.lucasisrael.jetposemovies.R
-import br.com.lucasisrael.jetposemovies.common.utils.types.values.time.fromMinutesToHours
+import br.com.lucasisrael.jetposemovies.common.utils.time.fromMinutesToHours
 
 @SuppressWarnings("FunctionNaming")
 @Composable
