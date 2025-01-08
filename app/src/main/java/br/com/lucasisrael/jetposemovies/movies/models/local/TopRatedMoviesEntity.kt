@@ -1,5 +1,6 @@
 package br.com.lucasisrael.jetposemovies.movies.models.local
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
@@ -11,13 +12,16 @@ import androidx.room.PrimaryKey
         ForeignKey(
             entity = MovieEntity::class,
             parentColumns = ["id"],
-            childColumns = ["movieId"],
+            childColumns = ["movie_id"],
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index("movieId")]
+    indices = [Index("movie_id")]
 )
 data class TopRatedMoviesEntity(
-    @PrimaryKey(autoGenerate = true) val tableId: Int,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo("table_id")
+    val tableId: Int,
+    @ColumnInfo("movie_id")
     val movieId: Int,
 )

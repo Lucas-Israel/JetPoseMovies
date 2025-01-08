@@ -6,7 +6,7 @@ import androidx.room.Relation
 data class PopularWithMovie(
     @Embedded val popularMovie: PopularMoviesEntity,
     @Relation(
-        parentColumn = "movieId",
+        parentColumn = "movie_id",
         entityColumn = "id"
     )
     val movie: MovieEntity
