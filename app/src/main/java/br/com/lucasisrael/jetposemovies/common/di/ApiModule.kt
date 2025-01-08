@@ -1,7 +1,7 @@
 package br.com.lucasisrael.jetposemovies.common.di
 
-import br.com.lucasisrael.jetposemovies.BuildConfig.BASE_URL
 import br.com.lucasisrael.jetposemovies.common.network.TokenBearerInterceptor
+import br.com.lucasisrael.jetposemovies.common.utils.constants.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
