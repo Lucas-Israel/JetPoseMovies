@@ -22,8 +22,7 @@ fun <T> ScreenStructure(composable: @Composable () -> T) {
         Column(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .padding(top = 50.dp)
+            modifier = Modifier.padding(top = 50.dp, bottom = 20.dp)
         ) {
             composable()
         }
