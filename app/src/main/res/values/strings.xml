@@ -19,4 +19,6 @@
     <string name="top_rated_movies">Top rated movies</string>
     <string name="now_playing_movies">Now playing movies</string>
     <string name="genre_name_movies">%1$s movies</string>
+    <string name="field_not_available">Field not available</string>
+    <string name="visit_website">Visit website</string>
 </resources>
