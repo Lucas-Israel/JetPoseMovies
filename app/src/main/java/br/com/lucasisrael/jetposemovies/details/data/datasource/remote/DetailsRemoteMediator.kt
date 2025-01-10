@@ -1,6 +1,5 @@
 package br.com.lucasisrael.jetposemovies.details.data.datasource.remote
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -13,17 +12,11 @@ import br.com.lucasisrael.jetposemovies.details.models.remote.DetailsDto
 import coil.network.HttpException
 import java.io.IOException
 
-const val LOCATION = "DetailsRemoteMediator ---"
-
 @OptIn(ExperimentalPagingApi::class)
 class DetailsRemoteMediator(
     private val dao: DetailsDao,
     private val api: DetailsApi
 ) : RemoteMediator<Int, DetailsEntity>(){
-
-    init {
-        Log.i(LOCATION, "***** INITIALIZING *****")
-    }
 
     var movieId = 0
 
@@ -32,9 +25,6 @@ class DetailsRemoteMediator(
         state: PagingState<Int, DetailsEntity>,
     ): MediatorResult {
         return try {
-
-            Log.i(LOCATION, "----- Loop start -----")
-
             val response = fetch(movieId = movieId)
 
             saveToDataBase(loadType = loadType, response = response)
