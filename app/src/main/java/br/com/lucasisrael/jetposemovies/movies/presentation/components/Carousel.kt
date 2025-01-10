@@ -61,9 +61,13 @@ fun Carousel(
         20.dp
     }
     val pagerHeight = if (isLandScape) {
-        screenHeight * ORIENTATION_LANDSCAPE_MULTIPLIER
+        remember(screenHeight, ORIENTATION_LANDSCAPE_MULTIPLIER) {
+            screenHeight * ORIENTATION_LANDSCAPE_MULTIPLIER
+        }
     } else {
-        screenHeight * ORIENTATION_PORTRAIT_MULTIPLIER
+        remember(screenHeight, ORIENTATION_PORTRAIT_MULTIPLIER) {
+            screenHeight * ORIENTATION_PORTRAIT_MULTIPLIER
+        }
     }
 
     Column(
