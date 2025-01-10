@@ -18,12 +18,13 @@ fun CustomCard(
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.DarkGray
-        )
+        ),
+        modifier = modifier
     ) {
         CustomAsyncImage(
             url = url,
             title = title,
-            modifier = modifier,
+            modifier = Modifier
         )
     }
 }
