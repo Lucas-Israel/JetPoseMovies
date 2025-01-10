@@ -2,7 +2,7 @@ package br.com.lucasisrael.jetposemovies.details.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,29 +21,33 @@ import br.com.lucasisrael.jetposemovies.genres.models.domain.GenreDomain
 @SuppressWarnings("FunctionNaming")
 @Composable
 fun GenresRow(
+    genres: List<GenreDomain>?,
+    modifier: Modifier,
     navigationActions: NavigationActions,
-    genresList: List<GenreDomain>,
 ) {
-
     FlowRow(
-        horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        genresList.map {
-            Text(
-                text = it.name,
+        genres?.map {
+            Box(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(6.dp))
-                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                     .padding(4.dp)
-                    .clickable {
-                        navigationActions.toMovieGenreScreen(
-                            genreId = it.id,
-                            genreName = it.name
-                        )
-                    }
-            )
+            ) {
+                Text(
+                    text = it.name,
+                    modifier = modifier
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                        .padding(8.dp)
+                        .clickable {
+                            navigationActions.toMovieGenreScreen(
+                                genreId = it.id,
+                                genreName = it.name
+                            )
+                        }
+                )
+            }
         }
     }
 }
