@@ -22,4 +22,5 @@ data class DetailsDto(
     val voteAverage: Double?,
     @SerializedName("vote_count")
     val voteCount: Int?,
+    val videos: VideosResponse
 )

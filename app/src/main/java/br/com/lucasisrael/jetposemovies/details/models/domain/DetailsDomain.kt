@@ -1,5 +1,6 @@
 package br.com.lucasisrael.jetposemovies.details.models.domain
 
+import br.com.lucasisrael.jetposemovies.details.models.remote.VideosItem
 import br.com.lucasisrael.jetposemovies.genres.models.domain.GenreDomain
 
 data class DetailsDomain (
@@ -16,4 +17,5 @@ data class DetailsDomain (
     val title: String?,
     val voteAverage: Double?,
     val voteCount: Int?,
+    val videos: List<VideosItem>
 )

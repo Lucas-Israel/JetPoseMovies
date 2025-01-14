@@ -3,6 +3,7 @@ package br.com.lucasisrael.jetposemovies.details.models.local
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import br.com.lucasisrael.jetposemovies.details.models.remote.VideosItem
 import br.com.lucasisrael.jetposemovies.genres.models.local.GenreEntity
 
 @Entity(tableName = "details")
@@ -26,4 +27,5 @@ data class DetailsEntity(
     val voteAverage: Double?,
     @ColumnInfo(name = "vote_count")
     val voteCount: Int?,
+    val videos: List<VideosItem>
 )
