@@ -1,3 +1,5 @@
+@file:Suppress("FunctionNaming")
+
 package br.com.lucasisrael.jetposemovies.movies.presentation.screen
 
 import android.content.res.Configuration
@@ -40,7 +42,6 @@ data class MovieListFromGenreScreen(
     val genreName: String,
 )
 
-@Suppress("FunctionNaming")
 @Composable
 fun MovieListFromGenreScreen(
     navigationActions: NavigationActions,
@@ -83,7 +84,6 @@ fun MovieListFromGenreScreen(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 private fun MovieByGenreRow(
     movies: LazyPagingItems<MovieDomain>,
@@ -113,7 +113,6 @@ private fun MovieByGenreRow(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 private fun MovieByGenreColumn(
     movies: LazyPagingItems<MovieDomain>,
