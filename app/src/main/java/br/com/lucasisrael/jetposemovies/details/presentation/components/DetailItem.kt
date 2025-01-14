@@ -66,5 +66,8 @@ fun DetailItem(
             homePageUrl = details.homepage,
             modifier = standardPaddingModifier
         )
+        VideosPlayer(
+            videos = details.videos
+        )
     }
 }
