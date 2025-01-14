@@ -21,4 +21,7 @@
     <string name="genre_name_movies">%1$s movies</string>
     <string name="field_not_available">Field not available</string>
     <string name="visit_website">Visit website</string>
+    <string name="video_index">Video %1$s</string>
+    <string name="previous_item_on_the_list">Previous item on the %1$s list</string>
+    <string name="next_item_on_the_list">Next item on the %1$s list</string>
 </resources>
