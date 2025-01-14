@@ -2,6 +2,7 @@
 
 package br.com.lucasisrael.jetposemovies.details.presentation.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,19 +26,26 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import br.com.lucasisrael.jetposemovies.R
+import br.com.lucasisrael.jetposemovies.common.utils.constants.Constants.YOUTUBE_PLAYER_LANDSCAPE_MULTIPLIER
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 
 @Composable
 fun VideosPlayer(
     videos: List<VideosItem>,
 ) {
+    val isLandScape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+    val ytPlayerSize = remember { if (isLandScape) YOUTUBE_PLAYER_LANDSCAPE_MULTIPLIER else 1f }
     if (videos.isNotEmpty()) {
         var videoId by remember { mutableStateOf(videos[0].key) }
-        Column {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             LazyRow(
                 contentPadding = PaddingValues(bottom = 6.dp),
                 horizontalArrangement = Arrangement.Center,
@@ -51,12 +59,13 @@ fun VideosPlayer(
                     )
                 }
             }
+            YouTubePlayer(
+                videoId = videoId,
+                modifier = Modifier
+                    .fillMaxSize(ytPlayerSize)
+                    .clip(shape = RoundedCornerShape(12.dp))
+            )
         }
-        YouTubePlayer(
-            videoId = videoId,
-            modifier = Modifier
-                .clip(shape = RoundedCornerShape(12.dp))
-        )
     }
 }
 
