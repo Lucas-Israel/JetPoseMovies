@@ -104,9 +104,13 @@ dependencies {
 
     // Room
     implementation(libs.androidx.room.ktx)
+
     //noinspection KaptUsageInsteadOfKsp
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.paging)
+
+    // youtube player
+    implementation(libs.core)
 }
 
 // Allow references to generated code
