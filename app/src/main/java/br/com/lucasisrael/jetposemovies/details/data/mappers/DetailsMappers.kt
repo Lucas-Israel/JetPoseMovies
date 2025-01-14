@@ -20,7 +20,8 @@ fun DetailsDto.toEntity(): DetailsEntity {
         tagline = tagline,
         title = title,
         voteAverage = voteAverage,
-        voteCount = voteCount
+        voteCount = voteCount,
+        videos = videos.results
     )
 }
 
@@ -38,6 +39,7 @@ fun DetailsEntity.toDomain(): DetailsDomain {
         tagline = tagline,
         title = title,
         voteAverage = voteAverage,
-        voteCount = voteCount
+        voteCount = voteCount,
+        videos = videos.sortedByDescending { it.type == "Clip" || it.type == "Trailer" }
     )
 }
