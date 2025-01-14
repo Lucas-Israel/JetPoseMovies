@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +23,6 @@ fun TitleAndTagline(
         Text(
             text = title ?: stringResource(R.string.field_not_available),
             fontWeight = FontWeight.Bold,
-            color = Color.White,
             fontSize = 28.sp,
         )
 
@@ -32,7 +30,6 @@ fun TitleAndTagline(
             text = tagLine ?: stringResource(R.string.field_not_available),
             fontWeight = FontWeight.Light,
             fontStyle = FontStyle.Italic,
-            color = Color.White,
             fontSize = 14.sp,
         )
     }
