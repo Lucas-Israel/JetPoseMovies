@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,11 +31,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
+import br.com.lucasisrael.jetposemovies.R
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.components.CustomAsyncImage
 import br.com.lucasisrael.jetposemovies.common.utils.constants.Constants.ORIENTATION_LANDSCAPE_MULTIPLIER
@@ -49,8 +52,6 @@ fun Carousel(
 ) {
     val pagerState =
         rememberPagerState(pageCount = { items.itemCount.coerceAtMost(maximumValue = 5) })
-    val currentPage by remember { derivedStateOf { pagerState.currentPage } }
-    val pageCount by remember { derivedStateOf { pagerState.pageCount } }
 
     val configuration = LocalConfiguration.current
     val isLandScape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
@@ -69,6 +70,8 @@ fun Carousel(
             screenHeight * ORIENTATION_PORTRAIT_MULTIPLIER
         }
     }
+
+    //TODO("find a better way to organize these values")
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -90,8 +93,7 @@ fun Carousel(
         }
 
         HorizontalPagerIndicator(
-            currentPage = currentPage,
-            pageCount = pageCount,
+            pagerState = pagerState,
             modifier = Modifier
                 .padding(start = 16.dp, top = 16.dp, end = 16.dp)
                 .align(Alignment.CenterHorizontally)
@@ -153,12 +155,14 @@ private fun HorizontalPagerCard(
 @SuppressWarnings("FunctionNaming")
 @Composable
 fun HorizontalPagerIndicator(
-    currentPage: Int,
-    pageCount: Int,
+    pagerState: PagerState,
     modifier: Modifier = Modifier,
     selectedColor: Color = MaterialTheme.colorScheme.primary,
     unselectedColor: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
 ) {
+    val currentPage by remember { derivedStateOf { pagerState.currentPage } }
+    val pageCount by remember { derivedStateOf { pagerState.pageCount } }
+
     Row(modifier = modifier) {
         repeat(pageCount) { index ->
             val color = if (index == currentPage) selectedColor else unselectedColor
@@ -177,9 +181,9 @@ fun HorizontalPagerIndicator(
 @Composable
 fun DescriptionTextBox(
     modifier: Modifier,
-    title: String? = "",
-    releaseDate: String? = "",
-    overview: String? = "",
+    title: String?,
+    releaseDate: String?,
+    overview: String?,
 ) {
     Column(
         verticalArrangement = Arrangement.SpaceEvenly,
@@ -187,7 +191,7 @@ fun DescriptionTextBox(
             .padding(16.dp, bottom = 0.dp)
     ) {
         Text(
-            text = title ?: "",
+            text = title ?: stringResource(id = R.string.field_not_available),
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
             maxLines = 2,
@@ -197,13 +201,13 @@ fun DescriptionTextBox(
         )
 
         Text(
-            text = releaseDate ?: "",
+            text = releaseDate ?: stringResource(id = R.string.field_not_available),
             modifier = Modifier
                 .padding(bottom = 12.dp)
         )
 
         Text(
-            text = overview ?: "",
+            text = overview ?: stringResource(id = R.string.field_not_available),
             maxLines = 3,
             overflow = TextOverflow.Ellipsis
         )
