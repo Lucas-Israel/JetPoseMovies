@@ -62,24 +62,11 @@ private fun LandscapeDetail(
             .padding(start = 100.dp, bottom = 50.dp, end = 100.dp)
             .fillMaxSize()
     ) {
-        Row(
+        ImageRow(
+            details = details,
             modifier = Modifier
                 .fillMaxSize()
-        ) {
-            CustomAsyncImage(
-                url = details.posterPath,
-                title = details.title,
-                gradientOrientation = GradientOrientation.GradientEnd(color = MaterialTheme.colorScheme.background),
-                modifier = Modifier
-            )
-            CustomAsyncImage(
-                url = details.backdropPath,
-                title = details.title,
-                gradientOrientation = GradientOrientation.GradientStart(color = MaterialTheme.colorScheme.background),
-                modifier = Modifier
-                    .fillMaxSize()
-            )
-        }
+        )
         TitleAndTagline(
             title = details.title,
             tagLine = details.tagline,
@@ -108,6 +95,30 @@ private fun LandscapeDetail(
         )
         VideosPlayer(
             videos = details.videos
+        )
+    }
+}
+
+@Composable
+private fun ImageRow(
+    details: DetailsDomain,
+    modifier: Modifier
+) {
+    Row(
+        modifier = modifier
+    ) {
+        CustomAsyncImage(
+            url = details.posterPath,
+            title = details.title,
+            gradientOrientation = GradientOrientation.GradientEnd(color = MaterialTheme.colorScheme.background),
+            modifier = Modifier
+        )
+        CustomAsyncImage(
+            url = details.backdropPath,
+            title = details.title,
+            gradientOrientation = GradientOrientation.GradientStart(color = MaterialTheme.colorScheme.background),
+            modifier = Modifier
+                .fillMaxSize()
         )
     }
 }
