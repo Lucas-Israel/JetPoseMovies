@@ -2,6 +2,7 @@
 
 package br.com.lucasisrael.jetposemovies.common.presentation.components
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -47,6 +48,7 @@ fun CustomAsyncImage(
 
 sealed class GradientOrientation {
     abstract fun getBrush(): Brush
+
     data class GradientBottom(val color: Color) : GradientOrientation() {
         override fun getBrush(): Brush {
             return customBrush(
@@ -90,6 +92,8 @@ sealed class GradientOrientation {
     }
 }
 
+@SuppressLint("ModifierFactoryExtensionFunction")
+// this lint doesn't make sense, this return does have access to Modifier methods.
 private fun isGradientModifier(
     gradientOrientation: GradientOrientation?,
     modifier: Modifier,
