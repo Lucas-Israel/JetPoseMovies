@@ -24,7 +24,7 @@ fun CustomAsyncImage(
     gradientOrientation: GradientOrientation? = null,
 ) {
     val modified = remember {
-        isGradientModifier(
+        gradientOrientationModifier(
             gradientOrientation = gradientOrientation,
             modifier = modifier,
         )
@@ -94,7 +94,7 @@ sealed class GradientOrientation {
 
 @SuppressLint("ModifierFactoryExtensionFunction")
 // this lint doesn't make sense, this return does have access to Modifier methods.
-private fun isGradientModifier(
+private fun gradientOrientationModifier(
     gradientOrientation: GradientOrientation?,
     modifier: Modifier,
 ): Modifier {
@@ -104,25 +104,12 @@ private fun isGradientModifier(
                 onDrawWithContent {
                     drawContent()
                     drawRect(
-                        brushSelector(
-                            gradientOrientation = gradientOrientation,
-                        )
+                        gradientOrientation.getBrush()
                     )
                 }
             }
     } else {
         modifier
-    }
-}
-
-private fun brushSelector(
-    gradientOrientation: GradientOrientation,
-): Brush {
-    return when (gradientOrientation) {
-        is GradientOrientation.GradientBottom -> gradientOrientation.getBrush()
-        is GradientOrientation.GradientEnd -> gradientOrientation.getBrush()
-        is GradientOrientation.GradientStart -> gradientOrientation.getBrush()
-        is GradientOrientation.GradientTop -> gradientOrientation.getBrush()
     }
 }
 
