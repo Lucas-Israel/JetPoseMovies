@@ -19,17 +19,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import br.com.lucasisrael.jetposemovies.R
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
 import br.com.lucasisrael.jetposemovies.common.presentation.components.CustomCard
+import br.com.lucasisrael.jetposemovies.common.presentation.screens.LoadingScreen
 import br.com.lucasisrael.jetposemovies.common.presentation.screens.ScreenStructure
 import br.com.lucasisrael.jetposemovies.movies.models.domain.MovieDomain
 import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel.MovieListViewModel
@@ -49,38 +49,52 @@ fun MovieListFromGenreScreen(
     genreId: Int,
     genreName: String,
 ) {
-    val rememberGenreId = remember {
-        genreId
-    }
-
-    LaunchedEffect(rememberGenreId) {
-        viewModel.setFlow(rememberGenreId)
-    }
-
+    val rememberGenreId = remember { genreId }
+    LaunchedEffect(key1 = rememberGenreId) { viewModel.setFlow(rememberGenreId) }
     val movies = viewModel.pagingFlow.collectAsLazyPagingItems()
-    val isLandScape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
-    val listState = rememberLazyListState()
+    val isLoading = remember(key1 = movies.loadState.refresh) { movies.loadState.refresh == LoadState.Loading }
 
     ScreenStructure {
-        Text(
-            text = stringResource(R.string.genre_name_movies, genreName),
-            fontStyle = FontStyle.Italic,
-            fontWeight = FontWeight.Bold,
-            fontSize = 24.sp
-        )
-        if (isLandScape) {
-            MovieByGenreRow(
-                movies = movies,
-                navigationActions = navigationActions,
-                listState = listState
-            )
+        if (isLoading) {
+            LoadingScreen()
         } else {
-            MovieByGenreColumn(
+            MoviesByGenreOrientation(
+                genreName = genreName,
                 movies = movies,
                 navigationActions = navigationActions,
-                listState = listState
             )
         }
+    }
+}
+
+@Composable
+private fun MoviesByGenreOrientation(
+    genreName: String,
+    movies: LazyPagingItems<MovieDomain>,
+    navigationActions: NavigationActions,
+) {
+    val orientation = LocalConfiguration.current.orientation
+    val isLandScape = remember { orientation == Configuration.ORIENTATION_LANDSCAPE }
+    val listState = rememberLazyListState()
+
+    Text(
+        text = genreName,
+        fontStyle = FontStyle.Italic,
+        fontWeight = FontWeight.Bold,
+        fontSize = 24.sp
+    )
+    if (isLandScape) {
+        MovieByGenreRow(
+            movies = movies,
+            navigationActions = navigationActions,
+            listState = listState
+        )
+    } else {
+        MovieByGenreColumn(
+            movies = movies,
+            navigationActions = navigationActions,
+            listState = listState
+        )
     }
 }
 
