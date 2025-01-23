@@ -2,20 +2,17 @@ package br.com.lucasisrael.jetposemovies.movies.presentation.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.LazyPagingItems
 import br.com.lucasisrael.jetposemovies.R
 import br.com.lucasisrael.jetposemovies.common.navigation.NavigationActions
-import br.com.lucasisrael.jetposemovies.movies.presentation.viewmodel.PopularMoviesViewModel
+import br.com.lucasisrael.jetposemovies.movies.models.domain.MovieDomain
 
 @SuppressWarnings("FunctionNaming")
 @Composable
 fun PopularMoviesComponent(
     navigationActions: NavigationActions,
-    viewModel: PopularMoviesViewModel = hiltViewModel(),
+    movies: LazyPagingItems<MovieDomain>
 ) {
-
-    val movies = viewModel.pagingFlow.collectAsLazyPagingItems()
 
     val categoryText = stringResource(R.string.popular_movies)
 
