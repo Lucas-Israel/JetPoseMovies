@@ -10,9 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +29,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import br.com.lucasisrael.jetposemovies.R
+import br.com.lucasisrael.jetposemovies.common.presentation.components.CustomButton
 import br.com.lucasisrael.jetposemovies.common.utils.constants.Constants.YOUTUBE_PLAYER_LANDSCAPE_MULTIPLIER
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 
@@ -55,7 +53,9 @@ fun VideosPlayer(
                 items(count = videos.size.coerceAtMost(maximumValue = 3)) { index ->
                     VideoKeySelector(
                         index = index,
-                        onClick = { videoId = videos[index].key }
+                        onClick = { videoId = videos[index].key },
+                        modifier = Modifier
+                            .padding(start = 4.dp, end = 4.dp)
                     )
                 }
             }
@@ -73,18 +73,11 @@ fun VideosPlayer(
 private fun VideoKeySelector(
     onClick: () -> Unit,
     index: Int,
+    modifier: Modifier
 ) {
-    Button(
-        colors = ButtonColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            disabledContentColor = MaterialTheme.colorScheme.secondary
-        ),
-        shape = RoundedCornerShape(6.dp),
+    CustomButton(
         onClick = onClick,
-        modifier = Modifier
-            .padding(6.dp)
+        modifier = modifier
     ) {
         Text(
             text = stringResource(R.string.video_index, index + 1),
