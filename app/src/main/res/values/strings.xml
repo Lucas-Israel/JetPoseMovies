@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">JetPoseMovies</string>
+    <string name="loading">Loading</string>
+    <string name="search">Search&#8230;</string>
+    <string name="movie_genres">Movie genres</string>
+    <string name="movies">%1$s movies</string>
+    <string name="rating">Rating: %1$s</string>
+    <string name="movie_image_from_the_genre">Movie image from the %1$s genre</string>
+    <string name="image_base_url">https://image.tmdb.org/t/p/w500%1$s</string>
+    <string name="status">Status: %1$s</string>
+    <string name="release_date">Release date: %1$s</string>
+    <string name="production_companies">Production companies: </string>
+    <string name="clock_icon">Clock icon</string>
+    <string name="overview">"Overview: "</string>
+    <string name="image_for_the_movie">Image for the movie%1$s</string>
+    <string name="movie_poster_image">%1$s Movie poster image</string>
+    <string name="upcoming_movies">Upcoming Movies</string>
+    <string name="popular_movies">Popular movies</string>
+    <string name="top_rated_movies">Top rated movies</string>
+    <string name="now_playing_movies">Now playing movies</string>
+    <string name="field_not_available">Field not available</string>
+    <string name="visit_website">Visit website</string>
+    <string name="video_index">Video %1$s</string>
+    <string name="previous_item_on_the_list">Previous item on the %1$s list</string>
+    <string name="next_item_on_the_list">Next item on the %1$s list</string>
 </resources>

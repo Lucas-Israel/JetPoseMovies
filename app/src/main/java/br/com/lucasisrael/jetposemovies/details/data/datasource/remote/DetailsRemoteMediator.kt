@@ -1,0 +1,54 @@
+package br.com.lucasisrael.jetposemovies.details.data.datasource.remote
+
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadType
+import androidx.paging.PagingState
+import androidx.paging.RemoteMediator
+import br.com.lucasisrael.jetposemovies.details.data.api.DetailsApi
+import br.com.lucasisrael.jetposemovies.details.data.datasource.local.DetailsDao
+import br.com.lucasisrael.jetposemovies.details.data.mappers.toEntity
+import br.com.lucasisrael.jetposemovies.details.models.local.DetailsEntity
+import br.com.lucasisrael.jetposemovies.details.models.remote.DetailsDto
+import coil.network.HttpException
+import java.io.IOException
+
+@OptIn(ExperimentalPagingApi::class)
+class DetailsRemoteMediator(
+    private val dao: DetailsDao,
+    private val api: DetailsApi
+) : RemoteMediator<Int, DetailsEntity>(){
+
+    var movieId = 0
+
+    override suspend fun load(
+        loadType: LoadType,
+        state: PagingState<Int, DetailsEntity>,
+    ): MediatorResult {
+        return try {
+            val response = fetch(movieId = movieId)
+
+            saveToDataBase(loadType = loadType, response = response)
+
+            MediatorResult.Success(endOfPaginationReached = true)
+        } catch (e: IOException) {
+            MediatorResult.Error(e)
+        } catch (e: HttpException) {
+            MediatorResult.Error(e)
+        }
+    }
+
+    private suspend fun fetch(movieId: Int): DetailsDto {
+        return api.fetch(movieId = movieId)
+    }
+
+    private fun saveToDataBase(
+        loadType: LoadType,
+        response: DetailsDto,
+    ) {
+        if (loadType == LoadType.REFRESH) {
+            dao.clearAll()
+        }
+
+        dao.upsert(details = response.toEntity())
+    }
+}
