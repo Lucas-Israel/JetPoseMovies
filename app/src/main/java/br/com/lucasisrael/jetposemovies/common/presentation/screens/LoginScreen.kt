@@ -31,7 +31,7 @@ fun LoginScreen(
     val context = LocalContext.current
     val isApi = remember { apiKeyChecker(context = context) }
 
-    if (false) {
+    if (true) {
         navigationActions.toInitialScreen()
     } else {
         val apiKey = remember { mutableStateOf("") }
@@ -55,6 +55,7 @@ fun LoginScreen(
                         modifier = Modifier
                             .width(300.dp)
                     )
+
                 }
             }
         }
